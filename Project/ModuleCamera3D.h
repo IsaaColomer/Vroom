@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
+#include "PhysBody3D.h"
 
 class ModuleCamera3D : public Module
 {
@@ -22,6 +23,7 @@ private:
 
 	void CalculateViewMatrix();
 
+
 public:
 	
 	vec3 X, Y, Z, Position, Reference;
@@ -29,4 +31,5 @@ public:
 private:
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+	PhysBody3D* FocusedBody = nullptr;
 };
