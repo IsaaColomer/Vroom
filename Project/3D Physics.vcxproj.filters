@@ -16,6 +16,9 @@
     <Filter Include="Sources\Modules\Game">
       <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\GUI">
+      <UniqueIdentifier>{efdf6d35-9290-47e5-b4cc-2190e8f5264f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -65,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuExample.h">
+      <Filter>Sources\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
