@@ -2,6 +2,7 @@
 
 Application::Application()
 {
+	const char* glsl_version = "#version 100";
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
@@ -10,6 +11,21 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	physics = new ModulePhysics3D(this);
 	scene_intro = new ModuleSceneIntro(this);
+
+
+	SDL_GL_SetSwapInterval(1); // Enable vsync
+	IMGUI_CHECKVERSION();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.IniFilename = NULL;
+	ImGuiContext* context = ImGui::CreateContext();
+	ImGui::SetCurrentContext(context);
+	ImGui::StyleColorsDark();
+	ImGui_ImplSDL2_InitForOpenGL(window->window, renderer3D->context);
+	ImGui_ImplOpenGL3_Init(glsl_version);
+
+
+
+
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order

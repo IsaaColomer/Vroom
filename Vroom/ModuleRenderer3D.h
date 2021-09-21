@@ -1,4 +1,5 @@
 #pragma once
+#include "Application.h"
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
@@ -22,7 +23,7 @@ public:
 public:
 
 	Light lights[MAX_LIGHTS];
-	SDL_GLContext context;
+	SDL_GLContext context = SDL_GL_CreateContext(App->window->window);
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 };
