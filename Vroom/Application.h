@@ -34,7 +34,6 @@ public:
 	Application();
 	~Application();
 
-
 	bool Init();
 	update_status Update();
 	bool CleanUp();
