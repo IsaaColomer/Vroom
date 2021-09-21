@@ -34,8 +34,6 @@ public:
 	Application();
 	~Application();
 
-	ImGuiContext* context;
-	ImGuiIO& io = ImGui::GetIO();
 
 	bool Init();
 	update_status Update();
