@@ -84,12 +84,12 @@ update_status ModuleSceneIntro::Update(float dt)
 		ImGui::End();
 	}
 	{
-		static float f = 0.0f;
-		static int counter = 0;
-
+		ImGui::Begin("Test Window!");
 		ImGui::Checkbox("Demo Window", &show_demo_window);
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
+
+		ImGui::End();
 	}
 
 	//if (show_another_window)
