@@ -41,12 +41,6 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
-
-
-	/*Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();*/
-
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
