@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "shellapi.h"
 
 Application::Application()
 {
@@ -9,6 +10,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	scene_intro = new ModuleSceneIntro(this);
+	editor = new Editor(this);
 
 
 	// The order of calls is very important!
@@ -25,6 +27,7 @@ Application::Application()
 
 	// Renderer last!
 	AddModule(renderer3D);
+	AddModule(editor);
 }
 
 Application::~Application()
@@ -114,4 +117,10 @@ bool Application::CleanUp()
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
+}
+
+bool Application::RequestBrowser(const char* path)
+{
+	ShellExecuteA(NULL, "open", path, NULL, NULL, SW_SHOWNORMAL);
+	return true;
 }
