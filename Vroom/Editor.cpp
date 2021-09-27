@@ -28,6 +28,8 @@ bool Editor::Start()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
 
+
+    columns = 64;
     fps_log.push_back(0.f);
     return true;
 }
@@ -38,17 +40,29 @@ update_status Editor::Update(float dt)
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("Close me to close the App!");                          // Create a window called "Hello, world!" and append into it.
-
-    if (ImGui::Button("Exit"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        return UPDATE_STOP;
-
-    ImGui::End();
-
+    // ------------------- TOP MENU -------------------
     if (showDemoWindow)
         ImGui::ShowDemoWindow(&showDemoWindow);
 
     ImGui::BeginMainMenuBar();
+
+    if (ImGui::BeginMenu("Exit"))
+    {
+        if (ImGui::MenuItem("Close"))
+        {
+            return UPDATE_STOP;
+        }
+        ImGui::EndMenu();
+    }
+    if (ImGui::BeginMenu("Options"))
+    {
+    // ------------------- PRINT  FPS -------------------
+        ImGui::Begin("Frames Per Second", &showFps);
+        sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
+        ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+        ImGui::End();
+        ImGui::EndMenu();
+    }
 
     if (ImGui::BeginMenu("Help"))
     {
@@ -58,20 +72,34 @@ update_status Editor::Update(float dt)
         }
         if (ImGui::MenuItem("Documentation"))
         {
-
+            App->RequestBrowser("https://google.com");
         }
-        if (ImGui::MenuItem("GUI Demo"))
+        if (ImGui::MenuItem("Download latest"))
         {
-
+            App->RequestBrowser("https://google.com");
         }
-        if (ImGui::MenuItem("GUI Demo"))
+        if (ImGui::MenuItem("Report a bug"))
         {
-
+            App->RequestBrowser("https://google.com");
+        }
+        if (ImGui::MenuItem("About"))
+        {
+            App->RequestBrowser("https://google.com");
         }
 
         ImGui::EndMenu();
     }
     ImGui::EndMainMenuBar();
+
+    // ------------------- CALCULATE  FPS -------------------
+    if (fps_log.size() <= columns)
+        fps_log.push_back(1 / dt);
+    else
+    {
+        fps_log.erase(fps_log.begin());
+        fps_log.push_back(1 / dt);
+    }
+
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImGui::Render();
