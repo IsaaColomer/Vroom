@@ -11,18 +11,19 @@ public:
     bool Start();
     update_status Update(float dt);
     bool CleanUp();
-
+    void CalculateFrames(std::vector<float>* fps_log, float dt, int columns);
+    void CalculateMilliseconds(std::vector<float>* ms_log, float dt, int columns);
 
 
 private:
     char title[25];
-    void RecolVector(std::vector<float>* vec);
 
     bool showDemoWindow = false;
     bool showFps = false;
     bool showSmallExample = true;
     bool closeWindow = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
 
     int columns;
     std::vector<float> fps_log;

@@ -31,6 +31,8 @@ bool Editor::Start()
 
     columns = 64;
     fps_log.push_back(0.f);
+    ms_log.push_back(0.f);
+
     return true;
 }
 
@@ -59,8 +61,12 @@ update_status Editor::Update(float dt)
     if (showFps)
     {
         ImGui::Begin("Frame rate Options", &showFps);
+
         sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
         ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+        sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
+        ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+
         ImGui::End();
 
     }
@@ -99,18 +105,13 @@ update_status Editor::Update(float dt)
         }
         ImGui::EndMenu();
     }
+    // ------------------- CALLING THE FPS FUNCTION -------------------
+    CalculateFrames(&fps_log, dt, columns);
+
+    // ------------------- CALLING THE MS FUNCTION -------------------
+    CalculateMilliseconds(&ms_log, dt, columns);
 
     ImGui::EndMainMenuBar();
-
-    // ------------------- CALCULATE  FPS -------------------
-    if (fps_log.size() <= columns)
-        fps_log.push_back(1 / dt);
-    else
-    {
-        fps_log.erase(fps_log.begin());
-        fps_log.push_back(1 / dt);
-    }
-
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImGui::Render();
@@ -126,7 +127,25 @@ bool Editor::CleanUp()
     return true;
 }
 
-void Editor::RecolVector(std::vector<float>* vec)
+void  Editor::CalculateFrames(std::vector<float>* fps_log, float dt, int columns)
 {
-    vec->erase(vec->begin());
+    // ------------------- CALCULATE  FPS -------------------
+    if (fps_log->size() <= columns)
+        fps_log->push_back(1 / dt);
+    else
+    {
+        fps_log->erase(fps_log->begin());
+        fps_log->push_back(1 / dt);
+    }
+}
+void  Editor::CalculateMilliseconds(std::vector<float>* ms_log, float dt, int columns)
+{
+    // ------------------- MILLISECONDS  FPS -------------------
+    if (ms_log->size() <= columns)
+        ms_log->push_back(dt*1000);
+    else
+    {
+        ms_log->erase(ms_log->begin());
+        ms_log->push_back(dt * 1000);
+    }
 }
