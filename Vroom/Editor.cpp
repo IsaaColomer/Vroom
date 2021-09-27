@@ -46,22 +46,23 @@ update_status Editor::Update(float dt)
 
     ImGui::BeginMainMenuBar();
 
-    if (ImGui::BeginMenu("Exit"))
+
+    if (ImGui::BeginMenu("Options"))
     {
-        if (ImGui::MenuItem("Close"))
+        if (ImGui::MenuItem("Frames Per Second"))
         {
-            return UPDATE_STOP;
+            showFps = !showFps;
         }
         ImGui::EndMenu();
     }
-    if (ImGui::BeginMenu("Options"))
-    {
     // ------------------- PRINT  FPS -------------------
-        ImGui::Begin("Frames Per Second", &showFps);
+    if (showFps)
+    {
+        ImGui::Begin("Frame rate Options");
         sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
         ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
         ImGui::End();
-        ImGui::EndMenu();
+
     }
 
     if (ImGui::BeginMenu("Help"))
@@ -72,15 +73,15 @@ update_status Editor::Update(float dt)
         }
         if (ImGui::MenuItem("Documentation"))
         {
-            App->RequestBrowser("https://google.com");
+            App->RequestBrowser("https://github.com/IsaaColomer/Vroom/wiki");
         }
         if (ImGui::MenuItem("Download latest"))
         {
-            App->RequestBrowser("https://google.com");
+            App->RequestBrowser("https://github.com/IsaaColomer/Vroom");
         }
         if (ImGui::MenuItem("Report a bug"))
         {
-            App->RequestBrowser("https://google.com");
+            App->RequestBrowser("https://github.com/IsaaColomer/Vroom/issues");
         }
         if (ImGui::MenuItem("About"))
         {
@@ -89,6 +90,16 @@ update_status Editor::Update(float dt)
 
         ImGui::EndMenu();
     }
+
+    if (ImGui::BeginMenu("Exit"))
+    {
+        if (ImGui::MenuItem("Close"))
+        {
+            return UPDATE_STOP;
+        }
+        ImGui::EndMenu();
+    }
+
     ImGui::EndMainMenuBar();
 
     // ------------------- CALCULATE  FPS -------------------
