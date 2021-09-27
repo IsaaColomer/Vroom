@@ -17,12 +17,18 @@ public:
 
 private:
     char title[25];
+    char configName[25];
 
     bool showDemoWindow = false;
     bool showFps = false;
     bool showSmallExample = true;
     bool closeWindow = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+    //CONFIG
+    bool fullscreen = false;
+    bool resizable = false;
+    bool settings = false;
 
 
     int columns;

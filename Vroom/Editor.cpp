@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Editor.h"
 
+#include <stdlib.h>
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
@@ -51,24 +52,52 @@ update_status Editor::Update(float dt)
 
     if (ImGui::BeginMenu("Options"))
     {
-        if (ImGui::MenuItem("Frames Per Second"))
+        //if (ImGui::MenuItem("Frames Per Second"))
+        //{
+        //    showFps = !showFps;
+        //}
+        if (ImGui::MenuItem("Settings"))
         {
-            showFps = !showFps;
+            settings = !settings;
         }
         ImGui::EndMenu();
     }
     // ------------------- PRINT  FPS -------------------
-    if (showFps)
-    {
-        ImGui::Begin("Frame rate Options", &showFps);
 
-        sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
-        ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-        sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
-        ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+    if (settings)
+    {
+        ImGui::Begin("General Options", &settings);
+        if (ImGui::CollapsingHeader("Application Settings"))
+        {
+            sprintf_s(configName, 25, ENGINENAME);
+            ImGui::InputText("App Name", configName, 25);
+
+            sprintf_s(configName, 25, UNIVERSITY);
+            ImGui::InputText("University Name", configName, 25);
+
+            if (ImGui::CollapsingHeader("Performace Information"))
+            {
+                sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
+                ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+                sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
+                ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+            }
+
+
+        }
+        if (ImGui::CollapsingHeader("Screen Settings"))
+        {
+            if (ImGui::Checkbox("\tToggle Fullscreen", &fullscreen))
+            {
+                App->window->SetFullscreen(fullscreen);
+            }
+            if (ImGui::Checkbox("\tToggle Resizable", &resizable))
+            {
+                App->window->SetResizable(resizable);
+            }
+        }
 
         ImGui::End();
-
     }
 
     if (ImGui::BeginMenu("Help"))
