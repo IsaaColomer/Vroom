@@ -26,8 +26,8 @@ Application::Application()
 	AddModule(scene_intro);
 
 	// Renderer last!
-	AddModule(renderer3D);
 	AddModule(editor);
+	AddModule(renderer3D);
 }
 
 Application::~Application()
