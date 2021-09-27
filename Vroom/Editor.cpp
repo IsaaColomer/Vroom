@@ -58,7 +58,7 @@ update_status Editor::Update(float dt)
     // ------------------- PRINT  FPS -------------------
     if (showFps)
     {
-        ImGui::Begin("Frame rate Options");
+        ImGui::Begin("Frame rate Options", &showFps);
         sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
         ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
         ImGui::End();
