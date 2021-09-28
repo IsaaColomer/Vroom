@@ -26,6 +26,7 @@ private:
 
     //CONFIG
     bool fullscreen = false;
+    bool fullscreenDesktop = false;
     bool resizable = false;
     bool borderless = false;
     bool settings = false;

@@ -29,6 +29,7 @@ public:
 	void SetWindowSize();
 	void SetWindowBrightness();
 	void SetFullscreen(bool fullscreen);
+	void SetFullscreenDesktop(bool fullscreenDesktop);
 	void SetResizable(bool resizable);
 	void SetBorderless(bool resizable);
 

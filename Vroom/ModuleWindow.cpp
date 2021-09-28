@@ -95,7 +95,13 @@ void ModuleWindow::SetTitle(const char* title)
 }
 void ModuleWindow::SetFullscreen(bool fullscreen)
 {
-	Uint32 flags = (fullscreen) ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
+	Uint32 flags = (fullscreen) ? SDL_WINDOW_FULLSCREEN : 0;
+	SDL_SetWindowFullscreen(App->window->window, flags);
+
+}
+void ModuleWindow::SetFullscreenDesktop(bool fullscreenDesktop)
+{
+	Uint32 flags = (fullscreenDesktop) ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0;
 	SDL_SetWindowFullscreen(App->window->window, flags);
 
 }

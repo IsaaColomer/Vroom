@@ -91,6 +91,11 @@ update_status Editor::Update(float dt)
             {
 
             }
+            ImGui::SameLine();
+            if (ImGui::Checkbox("\tToggle FullscreenDesktop", &fullscreenDesktop))
+            {
+                App->window->SetFullscreenDesktop(fullscreenDesktop);
+            }
             if (resizable)
             {
 
