@@ -33,7 +33,6 @@ public:
 
 	float winWidth;
 	float winHeight;
-
 };
 
 #endif // __ModuleWindow_H__
