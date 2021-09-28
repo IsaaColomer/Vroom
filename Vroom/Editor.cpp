@@ -73,6 +73,9 @@ update_status Editor::Update(float dt)
 
             if (ImGui::CollapsingHeader("Performace Information"))
             {
+                if (ImGui::SliderFloat("Frame Rate Limit", &App->maxFps, 1.0f, 144.0f))
+                {
+                }
                 sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
                 ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
                 sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
