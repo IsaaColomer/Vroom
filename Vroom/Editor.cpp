@@ -73,7 +73,7 @@ update_status Editor::Update(float dt)
 
             if (ImGui::CollapsingHeader("Performace Information"))
             {
-                if (ImGui::SliderFloat("Frame Rate Limit", &App->maxFps, 1.0f, 144.0f))
+                if (ImGui::SliderInt("Frame Rate Limit", &App->maxFps, 1.0f, 144.0f))
                 {
                 }
                 sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);

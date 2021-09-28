@@ -38,7 +38,7 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-	maxFps = 60.0f;
+	maxFps = 60;
 	// Call Init() in all modules
 	for (auto& i : list_modules)
 	{
@@ -64,7 +64,7 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
-	float k = (1000.0f / maxFps) - dt;
+	float k = (1000 / maxFps) - dt;
 	if (k>0)
 	{
 		SDL_Delay((Uint32)k);
