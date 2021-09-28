@@ -104,11 +104,11 @@ update_status Editor::Update(float dt)
 
                 if (ImGui::SliderFloat("Width", &App->window->winWidth, 500, 1920))
                 {
-                    App->window->SetWindowSize();
+
                 }
                 if (ImGui::SliderFloat("Height", &App->window->winHeight, 500, 1080))
                 {
-                    App->window->SetWindowSize();
+
                 }
             }
             if (ImGui::Checkbox("\tToggle Borderless", &borderless))
@@ -119,9 +119,14 @@ update_status Editor::Update(float dt)
             {
                 App->window->SetWindowBrightness();
             }
-
         }
-
+        if (ImGui::Button("Save", { 50, 50 }))
+        {
+            App->SaveEditorConfiguration();
+            App->LoadEditorConfiguration();
+            App->window->SetWindowSize();
+            App->window->SetWindowSize();
+        }
         ImGui::End();
     }
 

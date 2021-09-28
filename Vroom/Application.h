@@ -10,6 +10,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "Editor.h"
+#include "parson/parson.h"
 
 class Application
 {
@@ -36,6 +37,10 @@ public:
 	update_status Update();
 	bool CleanUp();
 	bool RequestBrowser(const char* path);
+
+	void LoadEditorConfiguration();
+	void SaveEditorConfiguration();
+
 	int maxFps;
 private:
 

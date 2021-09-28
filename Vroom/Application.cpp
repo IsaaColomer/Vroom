@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "shellapi.h"
-
+#include <string>
+#include <charconv>
 Application::Application()
 {
 	const char* glsl_version = "#version 100";
@@ -38,7 +39,7 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-	maxFps = 60;
+	LoadEditorConfiguration();
 	// Call Init() in all modules
 	for (auto& i : list_modules)
 	{
@@ -128,4 +129,47 @@ bool Application::RequestBrowser(const char* path)
 {
 	ShellExecuteA(NULL, "open", path, NULL, NULL, SW_SHOWNORMAL);
 	return true;
+}
+
+void Application::SaveEditorConfiguration()
+{
+	// ------------------- CREATE FILE -------------------
+	JSON_Value *config = json_parse_file("editor_config.json");
+	config = json_value_init_object();
+
+	// ------------------- SAVE INFORMATION -------------------
+	json_object_set_number(json_object(config), "max_fps", maxFps);
+	json_object_dotset_number(json_object(config), "window.width", window->winWidth);
+	json_object_dotset_number(json_object(config), "window.height", window->winHeight);
+
+	// ------------------- CLOSE FILE -------------------
+	json_serialize_to_file(config, "editor_config.json");
+	json_value_free(config);
+}
+void Application::LoadEditorConfiguration()
+{
+	// ------------------- LOAD FILE -------------------
+	JSON_Value* root_value = json_parse_file("editor_config.json");
+	
+	if (root_value == nullptr)
+	{
+		LOG("FILE editor_config.json couldn't be loaded\n");
+	}
+	else
+	{
+		JSON_Object* root_object = json_value_get_object(root_value);
+		LOG("LODAING...\n");
+
+		maxFps = (int)json_object_get_number(root_object, "max_fps");
+
+		window->winWidth = (float)json_object_dotget_number(json_object(root_value), "window.width");
+		window->winHeight = (float)json_object_dotget_number(root_object, "window.height");
+
+		LOG("%f", window->winWidth);
+		char* serialized_string = json_serialize_to_string_pretty(root_value);
+		LOG("%s\n", serialized_string);
+		json_free_serialized_string(serialized_string);
+	}
+
+	json_value_free(root_value);
 }
