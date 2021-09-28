@@ -107,6 +107,10 @@ update_status Editor::Update(float dt)
             {
                 App->window->SetResizable(borderless);
             }
+            if (ImGui::SliderFloat("Brightness", &App->window->brightness, 0.0f, 1.0f))
+            {
+                App->window->SetWindowBrightness();
+            }
 
         }
 

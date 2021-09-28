@@ -27,12 +27,14 @@ public:
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
 	void SetWindowSize();
+	void SetWindowBrightness();
 	void SetFullscreen(bool fullscreen);
 	void SetResizable(bool resizable);
 	void SetBorderless(bool resizable);
 
 	float winWidth;
 	float winHeight;
+	float brightness;
 };
 
 #endif // __ModuleWindow_H__

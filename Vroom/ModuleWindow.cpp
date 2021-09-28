@@ -28,6 +28,7 @@ bool ModuleWindow::Init()
 	{
 		winWidth = 1280;
 		winHeight = 720;
+		brightness = 1.0f;
 		//Create window
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
@@ -101,7 +102,7 @@ void ModuleWindow::SetFullscreen(bool fullscreen)
 void ModuleWindow::SetResizable(bool resizable)
 {
 	//Uint32 flags = (resizable) ? SDL_WINDOW_RESIZABLE : 0;
-	//SDL_SetWindow
+	//SDL_SetWindowRes
 }
 void ModuleWindow::SetBorderless(bool borderless)
 {
@@ -110,4 +111,9 @@ void ModuleWindow::SetBorderless(bool borderless)
 void ModuleWindow::SetWindowSize()
 {
 	SDL_SetWindowSize(window, (int)winWidth, (int)winHeight);
+}
+
+void ModuleWindow::SetWindowBrightness()
+{
+	SDL_SetWindowBrightness(App->window->window, (float)brightness);
 }
