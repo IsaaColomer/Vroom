@@ -3,6 +3,8 @@
 #include "Editor.h"
 
 #include <stdlib.h>
+#include <fstream>
+
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
@@ -29,10 +31,19 @@ bool Editor::Start()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
     ImGui_ImplOpenGL3_Init();
 
-
     columns = 64;
     fps_log.push_back(0.f);
     ms_log.push_back(0.f);
+
+    // ------------------- READ THE ABOUT SECTION FROMT TXT FILE -------------------
+    std::ifstream aboutFile;
+    aboutFile.open("About.txt");
+    std::string str;
+    while (std::getline(aboutFile, str))
+    {
+        aboutText += str += "\n";
+    }
+    aboutFile.close();
 
     return true;
 }
@@ -148,12 +159,18 @@ update_status Editor::Update(float dt)
         }
         if (ImGui::MenuItem("About"))
         {
-            App->RequestBrowser("https://google.com");
+            showAboutWindow = !showAboutWindow;
         }
 
         ImGui::EndMenu();
     }
 
+    if (showAboutWindow)
+    {
+        ImGui::Begin("About", &showAboutWindow);
+        ImGui::Text("%s", aboutText.c_str());
+        ImGui::End();
+    }
     if (ImGui::BeginMenu("Exit"))
     {
         if (ImGui::MenuItem("Close"))

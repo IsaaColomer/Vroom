@@ -1,9 +1,8 @@
 #pragma once
 #include "Module.h"
 #include <vector>
-
-class Editor : public Module
-{
+#include <string>
+class Editor : public Module{
 public:
     Editor(Application* app, bool start_enabled = true);
     ~Editor();
@@ -17,8 +16,10 @@ public:
 private:
     char title[25];
     char configName[25];
+    std::string aboutText;
 
     bool showDemoWindow = false;
+    bool showAboutWindow = false;
     bool showFps = false;
     bool showSmallExample = true;
     bool closeWindow = false;

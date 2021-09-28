@@ -52,6 +52,7 @@ bool Application::Init()
 		i->Start();
 	}
 	ms_timer.Start();
+	
 	return ret;
 }
 
@@ -172,7 +173,6 @@ void Application::LoadEditorConfiguration()
 		char* serialized_string = json_serialize_to_string_pretty(root_value);
 		LOG("%s\n", serialized_string);
 		json_free_serialized_string(serialized_string);
-
 
 		window->SetWindowSize();
 		window->SetWindowBrightness();
