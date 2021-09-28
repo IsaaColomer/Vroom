@@ -156,6 +156,12 @@ void Application::LoadEditorConfiguration()
 	if (root_value == nullptr)
 	{
 		LOG("FILE editor_config.json couldn't be loaded\n");
+		maxFps = 60;
+
+		window->winWidth = 1280;
+		window->winHeight = 720;
+
+		window->brightness = 1;
 	}
 	else
 	{

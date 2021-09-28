@@ -78,15 +78,6 @@
     <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\src\MathBuildConfig.h">
-      <Filter>Sources\MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\src\MathGeoLib.h">
-      <Filter>Sources\MathGeoLib</Filter>
-    </ClInclude>
-    <ClInclude Include="MathGeoLib\src\MathGeoLibFwd.h">
-      <Filter>Sources\MathGeoLib</Filter>
-    </ClInclude>
     <ClInclude Include="Editor.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
