@@ -52,10 +52,6 @@ update_status Editor::Update(float dt)
 
     if (ImGui::BeginMenu("Options"))
     {
-        //if (ImGui::MenuItem("Frames Per Second"))
-        //{
-        //    showFps = !showFps;
-        //}
         if (ImGui::MenuItem("Settings"))
         {
             settings = !settings;
@@ -94,6 +90,19 @@ update_status Editor::Update(float dt)
             if (ImGui::Checkbox("\tToggle Resizable", &resizable))
             {
                 App->window->SetResizable(resizable);
+            }
+            if (ImGui::Checkbox("\tToggle Borderless", &borderless))
+            {
+                App->window->SetResizable(borderless);
+            }
+
+            if (ImGui::SliderFloat("Width", &App->window->winWidth, 500, 1920))
+            {
+                App->window->SetWindowSize();
+            }
+            if (ImGui::SliderFloat("Height", &App->window->winHeight, 500, 1080))
+            {
+                App->window->SetWindowSize();
             }
         }
 

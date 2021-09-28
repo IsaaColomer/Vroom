@@ -14,7 +14,6 @@ public:
     void CalculateFrames(std::vector<float>* fps_log, float dt, int columns);
     void CalculateMilliseconds(std::vector<float>* ms_log, float dt, int columns);
 
-
 private:
     char title[25];
     char configName[25];
@@ -28,7 +27,9 @@ private:
     //CONFIG
     bool fullscreen = false;
     bool resizable = false;
+    bool borderless = false;
     bool settings = false;
+
 
 
     int columns;

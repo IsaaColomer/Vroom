@@ -26,9 +26,9 @@ bool ModuleWindow::Init()
 	}
 	else
 	{
+		winWidth = 1280;
+		winHeight = 720;
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
@@ -55,7 +55,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, winWidth, winHeight, flags);
 
 		if(window == NULL)
 		{
@@ -102,5 +102,12 @@ void ModuleWindow::SetResizable(bool resizable)
 {
 	Uint32 flags = (resizable) ? SDL_WINDOW_RESIZABLE : 0;
 	SDL_SetWindowFullscreen(App->window->window, flags);
-
+}
+void ModuleWindow::SetBorderless(bool borderless)
+{
+	SDL_SetWindowBordered(App->window->window, (SDL_bool)borderless);
+}
+void ModuleWindow::SetWindowSize()
+{
+	SDL_SetWindowSize(window, (int)winWidth, (int)winHeight);
 }
