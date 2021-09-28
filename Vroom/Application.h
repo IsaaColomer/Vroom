@@ -36,7 +36,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	bool RequestBrowser(const char* path);
-
+	float maxFps;
 private:
 
 	void AddModule(Module* mod);
