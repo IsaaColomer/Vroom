@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "shellapi.h"
-#include <string>
-#include <charconv>
+#include "parson/parson.h"
+
 Application::Application()
 {
 	const char* glsl_version = "#version 100";
@@ -141,6 +141,7 @@ void Application::SaveEditorConfiguration()
 	json_object_set_number(json_object(config), "max_fps", maxFps);
 	json_object_dotset_number(json_object(config), "window.width", window->winWidth);
 	json_object_dotset_number(json_object(config), "window.height", window->winHeight);
+	json_object_dotset_number(json_object(config), "window.brightness", window->brightness);
 
 	// ------------------- CLOSE FILE -------------------
 	json_serialize_to_file(config, "editor_config.json");
@@ -165,10 +166,16 @@ void Application::LoadEditorConfiguration()
 		window->winWidth = (float)json_object_dotget_number(json_object(root_value), "window.width");
 		window->winHeight = (float)json_object_dotget_number(root_object, "window.height");
 
+		window->brightness = (float)json_object_dotget_number(root_object, "window.brightness");
+
 		LOG("%f", window->winWidth);
 		char* serialized_string = json_serialize_to_string_pretty(root_value);
 		LOG("%s\n", serialized_string);
 		json_free_serialized_string(serialized_string);
+
+
+		window->SetWindowSize();
+		window->SetWindowBrightness();
 	}
 
 	json_value_free(root_value);

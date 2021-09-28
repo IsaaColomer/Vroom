@@ -26,9 +26,6 @@ bool ModuleWindow::Init()
 	}
 	else
 	{
-		winWidth = 1280;
-		winHeight = 720;
-		brightness = 1.0f;
 		//Create window
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 

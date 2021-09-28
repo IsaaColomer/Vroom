@@ -10,7 +10,6 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "Editor.h"
-#include "parson/parson.h"
 
 class Application
 {
@@ -21,6 +20,8 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	Editor* editor;
+
+	int maxFps;
 
 private:
 
@@ -41,7 +42,6 @@ public:
 	void LoadEditorConfiguration();
 	void SaveEditorConfiguration();
 
-	int maxFps;
 private:
 
 	void AddModule(Module* mod);
