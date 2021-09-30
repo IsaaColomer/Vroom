@@ -130,10 +130,15 @@ update_status Editor::Update(float dt)
         }
         if (ImGui::CollapsingHeader("System Information"))
         {
-            ImGui::Text("Ram memory of the System: %d Gb",SDL_GetSystemRAM()/1024);
-            ImGui::Text("CPU threats count: %d",SDL_GetCPUCount());
-            ImGui::Text("GPU: %s", glGetString(GL_RENDERER));
-
+            ImGui::Text("Ram memory of the System: ");
+            ImGui::SameLine();
+            ImGui::TextColored({255,255,0,1},"%d Gb", SDL_GetSystemRAM() / 1024);
+            ImGui::Text("CPU threats count:");
+            ImGui::SameLine();
+            ImGui::TextColored({255,255,0,1},"%d", SDL_GetCPUCount());
+            ImGui::Text("GPU: ");
+            ImGui::SameLine();
+            ImGui::TextColored({ 255,255,0,1 }, "%s", glGetString(GL_RENDERER));
         }
         if (ImGui::Button("Save", { 50, 50 }))
         {
