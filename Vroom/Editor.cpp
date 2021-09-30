@@ -1,15 +1,14 @@
-#include "Globals.h"
+﻿#include "Globals.h"
 #include "Application.h"
 #include "Editor.h"
 
 #include <stdlib.h>
 #include <fstream>
-
+#include <string>
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "SDL\include\SDL_opengl.h"
-
 
 
 Editor::Editor(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -92,8 +91,6 @@ update_status Editor::Update(float dt)
                 sprintf_s(title, 25, "Milliseconds %.1f", ms_log[ms_log.size() - 1]);
                 ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
             }
-
-
         }
         if (ImGui::CollapsingHeader("Screen Settings"))
         {
@@ -130,6 +127,13 @@ update_status Editor::Update(float dt)
             {
                 App->window->SetWindowBrightness();
             }
+        }
+        if (ImGui::CollapsingHeader("System Information"))
+        {
+            ImGui::Text("Ram memory of the System: %d Gb",SDL_GetSystemRAM()/1024);
+            ImGui::Text("CPU threats count: %d",SDL_GetCPUCount());
+            ImGui::Text("GPU: %s", glGetString(GL_RENDERER));
+
         }
         if (ImGui::Button("Save", { 50, 50 }))
         {

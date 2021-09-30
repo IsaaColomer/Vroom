@@ -2,6 +2,7 @@
 #include "Module.h"
 #include <vector>
 #include <string>
+
 class Editor : public Module{
 public:
     Editor(Application* app, bool start_enabled = true);
