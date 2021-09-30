@@ -139,6 +139,11 @@ update_status Editor::Update(float dt)
             ImGui::Text("GPU: ");
             ImGui::SameLine();
             ImGui::TextColored({ 255,255,0,1 }, "%s", glGetString(GL_RENDERER));
+            SDL_version version;
+            SDL_GetVersion(&version);
+            ImGui::Text("SDL Version:");
+            ImGui::SameLine();
+            ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d.%d.%d", version.major, version.minor, version.patch);
         }
         if (ImGui::Button("Save", { 50, 50 }))
         {
