@@ -10,6 +10,127 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="External\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="External\imgui\backends\imgui_impl_sdl.cpp" />
+    <ClCompile Include="External\imgui\imgui.cpp" />
+    <ClCompile Include="External\imgui\imgui_demo.cpp" />
+    <ClCompile Include="External\imgui\imgui_draw.cpp" />
+    <ClCompile Include="External\imgui\imgui_tables.cpp" />
+    <ClCompile Include="External\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="External\parson\parson.c" />
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Containers\Color.cpp" />
+    <ClCompile Include="src\Containers\glmath.cpp" />
+    <ClCompile Include="src\Helpers\Light.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Modules\Editor.cpp" />
+    <ClCompile Include="src\Modules\Gameplay\ModuleSceneIntro.cpp" />
+    <ClCompile Include="src\Modules\ModuleCamera3D.cpp" />
+    <ClCompile Include="src\Modules\ModuleInput.cpp" />
+    <ClCompile Include="src\Modules\ModuleRenderer3D.cpp" />
+    <ClCompile Include="src\Modules\ModuleWindow.cpp" />
+    <ClCompile Include="src\Tools\log.cpp" />
+    <ClCompile Include="src\Tools\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="External\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="External\imgui\backends\imgui_impl_sdl.h" />
+    <ClInclude Include="External\imgui\imconfig.h" />
+    <ClInclude Include="External\imgui\imgui.h" />
+    <ClInclude Include="External\imgui\imgui_internal.h" />
+    <ClInclude Include="External\imgui\imstb_rectpack.h" />
+    <ClInclude Include="External\imgui\imstb_textedit.h" />
+    <ClInclude Include="External\imgui\imstb_truetype.h" />
+    <ClInclude Include="External\parson\parson.h" />
+    <ClInclude Include="External\pcg\include\pcg_extras.hpp" />
+    <ClInclude Include="External\pcg\include\pcg_random.hpp" />
+    <ClInclude Include="External\pcg\include\pcg_uint128.hpp" />
+    <ClInclude Include="External\SDL\include\begin_code.h" />
+    <ClInclude Include="External\SDL\include\close_code.h" />
+    <ClInclude Include="External\SDL\include\SDL.h" />
+    <ClInclude Include="External\SDL\include\SDL_assert.h" />
+    <ClInclude Include="External\SDL\include\SDL_atomic.h" />
+    <ClInclude Include="External\SDL\include\SDL_audio.h" />
+    <ClInclude Include="External\SDL\include\SDL_bits.h" />
+    <ClInclude Include="External\SDL\include\SDL_blendmode.h" />
+    <ClInclude Include="External\SDL\include\SDL_clipboard.h" />
+    <ClInclude Include="External\SDL\include\SDL_config.h" />
+    <ClInclude Include="External\SDL\include\SDL_cpuinfo.h" />
+    <ClInclude Include="External\SDL\include\SDL_egl.h" />
+    <ClInclude Include="External\SDL\include\SDL_endian.h" />
+    <ClInclude Include="External\SDL\include\SDL_error.h" />
+    <ClInclude Include="External\SDL\include\SDL_events.h" />
+    <ClInclude Include="External\SDL\include\SDL_filesystem.h" />
+    <ClInclude Include="External\SDL\include\SDL_gamecontroller.h" />
+    <ClInclude Include="External\SDL\include\SDL_gesture.h" />
+    <ClInclude Include="External\SDL\include\SDL_haptic.h" />
+    <ClInclude Include="External\SDL\include\SDL_hints.h" />
+    <ClInclude Include="External\SDL\include\SDL_joystick.h" />
+    <ClInclude Include="External\SDL\include\SDL_keyboard.h" />
+    <ClInclude Include="External\SDL\include\SDL_keycode.h" />
+    <ClInclude Include="External\SDL\include\SDL_loadso.h" />
+    <ClInclude Include="External\SDL\include\SDL_log.h" />
+    <ClInclude Include="External\SDL\include\SDL_main.h" />
+    <ClInclude Include="External\SDL\include\SDL_messagebox.h" />
+    <ClInclude Include="External\SDL\include\SDL_mouse.h" />
+    <ClInclude Include="External\SDL\include\SDL_mutex.h" />
+    <ClInclude Include="External\SDL\include\SDL_name.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengl.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengles.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengles2.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengles2_gl2.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengles2_gl2ext.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengles2_gl2platform.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengles2_khrplatform.h" />
+    <ClInclude Include="External\SDL\include\SDL_opengl_glext.h" />
+    <ClInclude Include="External\SDL\include\SDL_pixels.h" />
+    <ClInclude Include="External\SDL\include\SDL_platform.h" />
+    <ClInclude Include="External\SDL\include\SDL_power.h" />
+    <ClInclude Include="External\SDL\include\SDL_quit.h" />
+    <ClInclude Include="External\SDL\include\SDL_rect.h" />
+    <ClInclude Include="External\SDL\include\SDL_render.h" />
+    <ClInclude Include="External\SDL\include\SDL_revision.h" />
+    <ClInclude Include="External\SDL\include\SDL_rwops.h" />
+    <ClInclude Include="External\SDL\include\SDL_scancode.h" />
+    <ClInclude Include="External\SDL\include\SDL_shape.h" />
+    <ClInclude Include="External\SDL\include\SDL_stdinc.h" />
+    <ClInclude Include="External\SDL\include\SDL_surface.h" />
+    <ClInclude Include="External\SDL\include\SDL_system.h" />
+    <ClInclude Include="External\SDL\include\SDL_syswm.h" />
+    <ClInclude Include="External\SDL\include\SDL_test.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_assert.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_common.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_compare.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_crc32.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_font.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_fuzzer.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_harness.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_images.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_log.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_md5.h" />
+    <ClInclude Include="External\SDL\include\SDL_test_random.h" />
+    <ClInclude Include="External\SDL\include\SDL_thread.h" />
+    <ClInclude Include="External\SDL\include\SDL_timer.h" />
+    <ClInclude Include="External\SDL\include\SDL_touch.h" />
+    <ClInclude Include="External\SDL\include\SDL_types.h" />
+    <ClInclude Include="External\SDL\include\SDL_version.h" />
+    <ClInclude Include="External\SDL\include\SDL_video.h" />
+    <ClInclude Include="External\SDL_mixer\include\SDL_mixer.h" />
+    <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Containers\Color.h" />
+    <ClInclude Include="src\Containers\glmath.h" />
+    <ClInclude Include="src\Globals.h" />
+    <ClInclude Include="src\Helpers\Light.h" />
+    <ClInclude Include="src\Modules\Editor.h" />
+    <ClInclude Include="src\Modules\Gameplay\ModuleSceneIntro.h" />
+    <ClInclude Include="src\Modules\Module.h" />
+    <ClInclude Include="src\Modules\ModuleCamera3D.h" />
+    <ClInclude Include="src\Modules\ModuleInput.h" />
+    <ClInclude Include="src\Modules\ModuleRenderer3D.h" />
+    <ClInclude Include="src\Modules\ModuleWindow.h" />
+    <ClInclude Include="src\Tools\Timer.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
@@ -48,13 +169,14 @@
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalLibraryDirectories>$(ProjectDir)External/SDL/libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -66,7 +188,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir)\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,53 +196,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalLibraryDirectories>$(ProjectDir)External/SDL/libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Editor.h" />
-    <ClInclude Include="glmath.h" />
-    <ClInclude Include="Globals.h" />
-    <ClInclude Include="imgui\imconfig.h" />
-    <ClInclude Include="imgui\imgui.h" />
-    <ClInclude Include="imgui\imgui_internal.h" />
-    <ClInclude Include="imgui\imstb_rectpack.h" />
-    <ClInclude Include="imgui\imstb_textedit.h" />
-    <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="ModuleCamera3D.h" />
-    <ClInclude Include="ModuleRenderer3D.h" />
-    <ClInclude Include="Module.h" />
-    <ClInclude Include="ModuleInput.h" />
-    <ClInclude Include="ModuleSceneIntro.h" />
-    <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="parson\parson.h" />
-    <ClInclude Include="Timer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Color.cpp" />
-    <ClCompile Include="Editor.cpp" />
-    <ClCompile Include="glmath.cpp" />
-    <ClCompile Include="imgui\backends\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="imgui\backends\imgui_impl_sdl.cpp" />
-    <ClCompile Include="imgui\imgui.cpp" />
-    <ClCompile Include="imgui\imgui_demo.cpp" />
-    <ClCompile Include="imgui\imgui_draw.cpp" />
-    <ClCompile Include="imgui\imgui_tables.cpp" />
-    <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="log.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="ModuleCamera3D.cpp" />
-    <ClCompile Include="ModuleInput.cpp" />
-    <ClCompile Include="ModuleRenderer3D.cpp" />
-    <ClCompile Include="ModuleSceneIntro.cpp" />
-    <ClCompile Include="ModuleWindow.cpp" />
-    <ClCompile Include="parson\parson.c" />
-    <ClCompile Include="Timer.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
