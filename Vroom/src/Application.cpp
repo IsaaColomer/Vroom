@@ -46,7 +46,7 @@ bool Application::Init()
 		i->Init();
 	}
 	// After all Init calls we call Start() in all modules
-	LOG("Application Start --------------");
+	OUR_LOG("Application Start --------------");
 	for (auto& i : list_modules)
 	{
 		i->Start();
@@ -155,7 +155,7 @@ void Application::LoadEditorConfiguration()
 	
 	if (root_value == nullptr)
 	{
-		LOG("FILE editor_config.json couldn't be loaded\n");
+		OUR_LOG("FILE editor_config.json couldn't be loaded\n");
 		maxFps = 60;
 
 		window->winWidth = 1280;
@@ -166,7 +166,7 @@ void Application::LoadEditorConfiguration()
 	else
 	{
 		JSON_Object* root_object = json_value_get_object(root_value);
-		LOG("LODAING...\n");
+		OUR_LOG("LODAING...\n");
 
 		maxFps = (int)json_object_get_number(root_object, "max_fps");
 
@@ -175,9 +175,9 @@ void Application::LoadEditorConfiguration()
 
 		window->brightness = (float)json_object_dotget_number(root_object, "window.brightness");
 
-		LOG("%f", window->winWidth);
+		OUR_LOG("%f", window->winWidth);
 		char* serialized_string = json_serialize_to_string_pretty(root_value);
-		LOG("%s\n", serialized_string);
+		OUR_LOG("%s\n", serialized_string);
 		json_free_serialized_string(serialized_string);
 
 		window->SetWindowSize();
