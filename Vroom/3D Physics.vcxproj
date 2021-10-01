@@ -264,7 +264,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/MathGeoLib/src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -285,6 +285,7 @@
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/MathGeoLib/src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
