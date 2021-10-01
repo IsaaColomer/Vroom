@@ -144,6 +144,9 @@ update_status Editor::Update(float dt)
             ImGui::Text("SDL Version:");
             ImGui::SameLine();
             ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d.%d.%d", version.major, version.minor, version.patch);
+            ImGui::Text("OpenGL Version:");
+            ImGui::SameLine();
+            ImGui::TextColored(ImVec4(1, 1, 0, 1), "%s", glGetString(GL_VERSION));
         }
         if (ImGui::Button("Save", { 50, 50 }))
         {
