@@ -52,6 +52,7 @@
     <ClCompile Include="External\MathGeoLib\src\Math\SSEMath.cpp" />
     <ClCompile Include="External\MathGeoLib\src\Math\TransformOps.cpp" />
     <ClCompile Include="External\MathGeoLib\src\Time\Clock.cpp" />
+    <ClCompile Include="src\Tools\Primitive.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Containers\Color.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="External\MathGeoLib\src\MathBuildConfig.h" />
     <ClInclude Include="External\MathGeoLib\src\MathGeoLib.h" />
     <ClInclude Include="External\MathGeoLib\src\MathGeoLibFwd.h" />
+    <ClInclude Include="src\Tools\Primitive.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\src\Geometry\KDTree.inl" />

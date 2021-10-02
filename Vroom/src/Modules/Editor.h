@@ -32,11 +32,11 @@ private:
     bool resizable = false;
     bool borderless = false;
     bool settings = false;
+    bool showConsole = false;
 
 
 
     int columns;
     std::vector<float> fps_log;
     std::vector<float> ms_log;
-
 };

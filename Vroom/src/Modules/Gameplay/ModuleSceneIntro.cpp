@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
-
+#include "Primitive.h"
 //#include "Primitive.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -17,6 +17,12 @@ bool ModuleSceneIntro::Start()
 
 	//LOG("Loading Intro assets");
 	bool ret = true;
+	math::Sphere s;
+	s.pos = { 0,0,0 };
+	s.r = 1.0f;
+
+
+	Primitive::Sphere l = (1,1,1);
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
@@ -35,7 +41,8 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 
-
-
+	Primitive::Plane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
 	return UPDATE_CONTINUE;
 }

@@ -1,7 +1,7 @@
 ﻿#include "Globals.h"
 #include "Application.h"
 #include "Editor.h"
-
+#include "ModuleInput.h"
 #include <stdlib.h>
 #include <fstream>
 #include <string>
