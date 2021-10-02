@@ -12,6 +12,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	scene_intro = new ModuleSceneIntro(this);
 	editor = new Editor(this);
+	draw = new ModuleDraw(this);
 
 
 	// The order of calls is very important!
@@ -25,6 +26,7 @@ Application::Application()
 	
 	// Scenes
 	AddModule(scene_intro);
+	AddModule(draw);
 
 	// Renderer last!
 	AddModule(editor);

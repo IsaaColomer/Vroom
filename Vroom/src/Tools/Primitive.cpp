@@ -1,8 +1,8 @@
-
 #include "Globals.h"
+#include "Primitive.h"
+#include "glew.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "Primitive.h"
 
 // ------------------------------------------------------------
 namespace Primitive
@@ -169,7 +169,7 @@ namespace Primitive
 
 	void Sphere::InnerRender() const
 	{
-		//glutSolidSphere(radius, 25, 25);
+
 	}
 
 

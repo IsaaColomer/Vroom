@@ -53,6 +53,7 @@
     <ClCompile Include="External\MathGeoLib\src\Math\TransformOps.cpp" />
     <ClCompile Include="External\MathGeoLib\src\Time\Clock.cpp" />
     <ClCompile Include="src\Tools\Primitive.cpp" />
+    <ClCompile Include="src\Modules\ModuleDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Containers\Color.h" />
@@ -210,6 +211,15 @@
     <ClInclude Include="External\MathGeoLib\src\MathGeoLib.h" />
     <ClInclude Include="External\MathGeoLib\src\MathGeoLibFwd.h" />
     <ClInclude Include="src\Tools\Primitive.h" />
+    <ClInclude Include="src\Tools\glew.h" />
+    <ClInclude Include="src\Modules\ModuleDraw.h" />
+    <ClInclude Include="External\Glew\include\GL\eglew.h" />
+    <ClInclude Include="External\Glew\include\GL\glxew.h" />
+    <ClInclude Include="External\Glew\include\GL\wglew.h" />
+    <ClInclude Include="External\Glew\include\GL\glew.h" />
+    <ClInclude Include="src\Tools\glxew.h" />
+    <ClInclude Include="src\Tools\eglew.h" />
+    <ClInclude Include="src\Tools\wglew.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\src\Geometry\KDTree.inl" />

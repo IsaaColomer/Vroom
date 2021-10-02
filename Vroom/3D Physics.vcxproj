@@ -57,6 +57,7 @@
     <ClCompile Include="src\Modules\Editor.cpp" />
     <ClCompile Include="src\Modules\Gameplay\ModuleSceneIntro.cpp" />
     <ClCompile Include="src\Modules\ModuleCamera3D.cpp" />
+    <ClCompile Include="src\Modules\ModuleDraw.cpp" />
     <ClCompile Include="src\Modules\ModuleInput.cpp" />
     <ClCompile Include="src\Modules\ModuleRenderer3D.cpp" />
     <ClCompile Include="src\Modules\ModuleWindow.cpp" />
@@ -65,6 +66,10 @@
     <ClCompile Include="src\Tools\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="External\Glew\include\GL\eglew.h" />
+    <ClInclude Include="External\Glew\include\GL\glew.h" />
+    <ClInclude Include="External\Glew\include\GL\glxew.h" />
+    <ClInclude Include="External\Glew\include\GL\wglew.h" />
     <ClInclude Include="External\imgui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="External\imgui\backends\imgui_impl_sdl.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -215,11 +220,16 @@
     <ClInclude Include="src\Modules\Gameplay\ModuleSceneIntro.h" />
     <ClInclude Include="src\Modules\Module.h" />
     <ClInclude Include="src\Modules\ModuleCamera3D.h" />
+    <ClInclude Include="src\Modules\ModuleDraw.h" />
     <ClInclude Include="src\Modules\ModuleInput.h" />
     <ClInclude Include="src\Modules\ModuleRenderer3D.h" />
     <ClInclude Include="src\Modules\ModuleWindow.h" />
+    <ClInclude Include="src\Tools\eglew.h" />
+    <ClInclude Include="src\Tools\glew.h" />
+    <ClInclude Include="src\Tools\glxew.h" />
     <ClInclude Include="src\Tools\Primitive.h" />
     <ClInclude Include="src\Tools\Timer.h" />
+    <ClInclude Include="src\Tools\wglew.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\src\Geometry\KDTree.inl" />
@@ -267,14 +277,14 @@
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/MathGeoLib/src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/Glew/;$(ProjectDir)External/MathGeoLib/src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(ProjectDir)External/SDL/libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)External/Glew/lib/Release/Win32;$(ProjectDir)External/SDL/libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
