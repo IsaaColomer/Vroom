@@ -56,6 +56,16 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
 
+		glGenBuffers(1, (GLuint*)&(my_id));
+		glBindBuffer(GL_ARRAY_BUFFER, my_id);
+		vertices = { 0.0f,0.0f,0.0f,
+					1.0f, 0.0f, 0.0f,
+					0.0f,1.0f,0.0f,
+					1.0f, 0.0f, 0.0f,
+					1.0f,1.0f,0.0f,
+					0.0f,1.0f,0.0f };
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+
 		//Use Vsync
 		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			OUR_LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
@@ -147,6 +157,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	// ... bind and use other buffers
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+	glDisableClientState(GL_VERTEX_ARRAY);
+
 	App->scene_intro->PostUpdate(dt);
 	SDL_GL_SwapWindow(App->window->window);
 

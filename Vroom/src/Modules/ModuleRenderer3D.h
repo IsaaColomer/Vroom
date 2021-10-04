@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "Light.h"
-
+#include <vector>
 #define MAX_LIGHTS 8
 
 class ModuleRenderer3D : public Module
@@ -21,7 +21,8 @@ public:
 	void OnResize(int width, int height);
 
 public:
-
+	uint my_id = 0;
+	std::vector<float> vertices;
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
