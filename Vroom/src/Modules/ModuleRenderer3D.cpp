@@ -31,7 +31,7 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 	
-	if(ret == true)
+	if (ret == true)
 	{
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -58,25 +58,37 @@ bool ModuleRenderer3D::Init()
 
 		glGenBuffers(1, (GLuint*)&(my_id));
 		glBindBuffer(GL_ARRAY_BUFFER, my_id);
-		vertices = {0.0f,0.0f,0.0f,
-					1.0f,0.0f,0.0f,
-					0.0f,1.0f,0.0f,
-					1.0f,1.0f,0.0f,
-					0.0f,0.0f,1.0f,
-					1.0f,0.0f,1.0f,
-					0.0f,1.0f,1.0f,
-					1.0f,1.0f,1.0f};
-
-
+		vertices =
+		{
+			0.0f,0.0f,0.0f,
+			1.0f,0.0f,0.0f,
+			0.0f,1.0f,0.0f,
+			1.0f,1.0f,0.0f,
+			0.0f,0.0f,1.0f,
+			1.0f,0.0f,1.0f,
+			0.0f,1.0f,1.0f,
+			1.0f,1.0f,1.0f,
+		};
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
 
 		glGenBuffers(1, (GLuint*)&(myIndex));
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndex);
-		indexs = {2,1,0,
-				  2,3,1,
-				  4,5,6,
-				  5,7,6};
+		indexs =
+		{
+			2,1,0,
+			2,3,1,
+			4,5,6,
+			5,7,6,
+			6,3,2,
+			6,7,3,
+			0,5,4,
+			0,1,5,
+			3,5,1,
+			3,7,5,
+			6,0,4,
+			6,2,0,
+		};
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indexs.size() * 3, &indexs[0], GL_STATIC_DRAW);
 
 
@@ -175,10 +187,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	//// ... bind and use other buffers
+	// ... bind and use other buffers
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndex);
 	glDrawElements(GL_TRIANGLES, indexs.size(), GL_UNSIGNED_INT, NULL);
-	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 	App->scene_intro->PostUpdate(dt);
