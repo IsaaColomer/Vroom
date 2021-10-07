@@ -1,5 +1,5 @@
 #pragma once
-#include "glmath.h"
+#include "MathGeoLib.h"
 #include "Color.h"
 
 namespace Primitive 
@@ -12,7 +12,6 @@ namespace Primitive
 		Primitive_Cube,
 		Primitive_Sphere,
 		Primitive_Cylinder,
-		Primitive_Curva
 	};
 
 	class Primitive
@@ -24,15 +23,17 @@ namespace Primitive
 		virtual void	Render() const;
 		virtual void	InnerRender() const;
 		void			SetPos(float x, float y, float z);
-		void			SetRotation(float angle, const vec3& u);
+		void			SetRotation(float angle, const float3& u);
 		void			Scale(float x, float y, float z);
 		PrimitiveTypes	GetType() const;
 
 	public:
 
 		Color color;
-		mat4x4 transform;
+		float4x4 transform;
 		bool axis, wire;
+		uint id;
+		uint index;
 
 	protected:
 		PrimitiveTypes type;
@@ -46,7 +47,7 @@ namespace Primitive
 		Cube(float sizeX, float sizeY, float sizeZ);
 		void InnerRender() const;
 	public:
-		vec3 size;
+		float3 size;
 	};
 
 	// ============================================
@@ -80,8 +81,8 @@ namespace Primitive
 		Line(float x, float y, float z);
 		void InnerRender() const;
 	public:
-		vec3 origin;
-		vec3 destination;
+		float3 origin;
+		float3 destination;
 	};
 
 	// ============================================
@@ -92,21 +93,7 @@ namespace Primitive
 		Plane(float x, float y, float z, float d);
 		void InnerRender() const;
 	public:
-		vec3 normal;
+		float3 normal;
 		float constant;
-	};
-
-	// ============================================
-	class myCurva :public Primitive
-	{
-	public:
-		myCurva();
-		myCurva(float x, float y, float z, float s, float r, float a);
-		void InnerRender() const;
-	public:
-		vec3 center;
-		float size;
-		float radius;
-		float angle;
 	};
 }

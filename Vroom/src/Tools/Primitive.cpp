@@ -3,11 +3,12 @@
 #include "glew.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include <vector>
 
 // ------------------------------------------------------------
 namespace Primitive
 {
-	Primitive::Primitive() : transform(IdentityMatrix), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point)
+	Primitive::Primitive() : transform(float4x4::identity), color(White), wire(false), axis(false), type(PrimitiveTypes::Primitive_Point), id(0), index(0)
 	{}
 
 	// ------------------------------------------------------------
@@ -20,7 +21,7 @@ namespace Primitive
 	void Primitive::Render() const
 	{
 		glPushMatrix();
-		glMultMatrixf(transform.M);
+		glMultMatrixf(*transform.v);
 
 		if (axis == true)
 		{
@@ -83,19 +84,19 @@ namespace Primitive
 	// ------------------------------------------------------------
 	void Primitive::SetPos(float x, float y, float z)
 	{
-		transform.translate(x, y, z);
+		transform.Translate(x, y, z);
 	}
 
 	// ------------------------------------------------------------
-	void Primitive::SetRotation(float angle, const vec3& u)
+	void Primitive::SetRotation(float angle, const float3& u)
 	{
-		transform.rotate(angle, u);
+		transform.RotateAxisAngle(u, angle);
 	}
 
 	// ------------------------------------------------------------
 	void Primitive::Scale(float x, float y, float z)
 	{
-		transform.scale(x, y, z);
+		transform.Scale(x, y, z);
 	}
 
 	// ============================================
@@ -111,6 +112,65 @@ namespace Primitive
 
 	void Cube::InnerRender() const
 	{
+		glGenBuffers(1, (GLuint*)&(id));
+		glBindBuffer(GL_ARRAY_BUFFER, id);
+
+		float sx = size.x * 0.5f;
+		float sy = size.y * 0.5f;
+		float sz = size.z * 0.5f;
+
+		/*std::vector<float> vertices =
+		{
+			0.0f,0.0f,0.0f,
+			1.0f,0.0f,0.0f,
+			0.0f,1.0f,0.0f,
+			1.0f,1.0f,0.0f,
+			0.0f,0.0f,1.0f,
+			1.0f,0.0f,1.0f,
+			0.0f,1.0f,1.0f,
+			1.0f,1.0f,1.0f,
+		};*/
+		std::vector<float> vertices =
+		{
+			sx,sy,sz,
+			sx,sy,-sz,
+			sx,-sy,sz,
+			sx,-sy,-sz,
+			-sx,sy,sz,
+			-sx,sy,-sz,
+			-sx,-sy,sz,
+			-sx,-sy,-sz,
+		};
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, (GLuint*)&(index));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+		std::vector<uint> indices =
+		{
+			2,1,0,
+			2,3,1,
+			4,5,6,
+			5,7,6,
+			6,3,2,
+			6,7,3,
+			0,5,4,
+			0,1,5,
+			3,5,1,
+			3,7,5,
+			6,0,4,
+			6,2,0,
+		};
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indices.size() * 3, &indices[0], GL_STATIC_DRAW);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, id);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		// ... bind and use other buffers
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, NULL);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		/*
 		float sx = size.x * 0.5f;
 		float sy = size.y * 0.5f;
 		float sz = size.z * 0.5f;
@@ -153,7 +213,7 @@ namespace Primitive
 		glVertex3f(sx, -sy, sz);
 		glVertex3f(-sx, -sy, sz);
 
-		glEnd();
+		glEnd();*/
 	}
 
 	// SPHERE ============================================
@@ -186,6 +246,7 @@ namespace Primitive
 
 	void Cylinder::InnerRender() const
 	{
+		int M_PI = 0;//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		int n = 30;
 
 		// Cylinder Bottom
@@ -275,55 +336,4 @@ namespace Primitive
 		glEnd();
 	}
 
-
-	// MYCURVA ============================================
-	myCurva::myCurva() : Primitive()
-	{
-		type = PrimitiveTypes::Primitive_Curva;
-	}
-
-	myCurva::myCurva(float x, float y, float z, float _radius, float _size, float _angle) : Primitive()
-	{
-		type = PrimitiveTypes::Primitive_Curva;
-		center = { x,y,z };
-		radius = _radius;
-		angle = _angle;
-		size = _size;
-	}
-
-	void myCurva::InnerRender() const
-	{
-		int n = 30;
-
-		// Cylinder Bottom
-		glBegin(GL_POLYGON);
-
-		for (int i = 360; i >= 0; i -= (360 / n))
-		{
-			float a = i * M_PI / 180; // degrees to radians
-			glVertex3f(-size * 0.5f, radius * cos(a), radius * sin(a));
-		}
-		glEnd();
-
-		// Cylinder Top
-		glBegin(GL_POLYGON);
-		glNormal3f(0.0f, 0.0f, 1.0f);
-		for (int i = 0; i <= 360; i += (360 / n))
-		{
-			float a = i * M_PI / 180; // degrees to radians
-			glVertex3f(size * 0.5f, radius * cos(a), radius * sin(a));
-		}
-		glEnd();
-
-		// Cylinder "Cover"
-		glBegin(GL_QUAD_STRIP);
-		for (int i = 0; i < 480; i += (360 / n))
-		{
-			float a = i * M_PI / 180; // degrees to radians
-
-			glVertex3f(size * 0.5f, radius * cos(a), radius * sin(a));
-			glVertex3f(-size * 0.5f, radius * cos(a), radius * sin(a));
-		}
-		glEnd();
-	}
 }

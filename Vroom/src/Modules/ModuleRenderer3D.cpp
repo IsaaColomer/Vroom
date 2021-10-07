@@ -5,6 +5,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "Primitive.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -55,42 +56,6 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
-
-		glGenBuffers(1, (GLuint*)&(my_id));
-		glBindBuffer(GL_ARRAY_BUFFER, my_id);
-		vertices =
-		{
-			0.0f,0.0f,0.0f,
-			1.0f,0.0f,0.0f,
-			0.0f,1.0f,0.0f,
-			1.0f,1.0f,0.0f,
-			0.0f,0.0f,1.0f,
-			1.0f,0.0f,1.0f,
-			0.0f,1.0f,1.0f,
-			1.0f,1.0f,1.0f,
-		};
-
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
-
-		glGenBuffers(1, (GLuint*)&(myIndex));
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndex);
-		indexs =
-		{
-			2,1,0,
-			2,3,1,
-			4,5,6,
-			5,7,6,
-			6,3,2,
-			6,7,3,
-			0,5,4,
-			0,1,5,
-			3,5,1,
-			3,7,5,
-			6,0,4,
-			6,2,0,
-		};
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indexs.size() * 3, &indexs[0], GL_STATIC_DRAW);
-
 
 
 		//Use Vsync
@@ -184,13 +149,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	// ... bind and use other buffers
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndex);
-	glDrawElements(GL_TRIANGLES, indexs.size(), GL_UNSIGNED_INT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);
+	
+	Primitive::Cube c(1, 1, 1);
+	c.SetPos(10, 10, 10); //NO FUCNIONA
+	//c.axis = true;
+	//c.wire = true;
+	c.Render();
 
 	App->scene_intro->PostUpdate(dt);
 	SDL_GL_SwapWindow(App->window->window);
