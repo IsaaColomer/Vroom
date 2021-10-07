@@ -58,13 +58,28 @@ bool ModuleRenderer3D::Init()
 
 		glGenBuffers(1, (GLuint*)&(my_id));
 		glBindBuffer(GL_ARRAY_BUFFER, my_id);
-		vertices = { 0.0f,0.0f,0.0f,
-					1.0f, 0.0f, 0.0f,
+		vertices = {0.0f,0.0f,0.0f,
+					1.0f,0.0f,0.0f,
 					0.0f,1.0f,0.0f,
-					1.0f, 0.0f, 0.0f,
 					1.0f,1.0f,0.0f,
-					0.0f,1.0f,0.0f };
+					0.0f,0.0f,1.0f,
+					1.0f,0.0f,1.0f,
+					0.0f,1.0f,1.0f,
+					1.0f,1.0f,1.0f};
+
+
+
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, (GLuint*)&(myIndex));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndex);
+		indexs = {2,1,0,
+				  2,3,1,
+				  4,5,6,
+				  5,7,6};
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indexs.size() * 3, &indexs[0], GL_STATIC_DRAW);
+
+
 
 		//Use Vsync
 		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
@@ -157,11 +172,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, my_id);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	// ... bind and use other buffers
+	//// ... bind and use other buffers
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndex);
+	glDrawElements(GL_TRIANGLES, indexs.size(), GL_UNSIGNED_INT, NULL);
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 	glDisableClientState(GL_VERTEX_ARRAY);
 

@@ -22,7 +22,11 @@ public:
 
 public:
 	uint my_id = 0;
+	uint myIndex = 0;
+
 	std::vector<float> vertices;
+	std::vector<uint> indexs;
+
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
