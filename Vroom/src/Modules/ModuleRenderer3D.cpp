@@ -150,11 +150,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	
-	Primitive::Cube c(1, 1, 1);
-	c.SetPos(10, 10, 10); //NO FUCNIONA
-	//c.axis = true;
-	//c.wire = true;
-	c.Render();
+
 
 	App->scene_intro->PostUpdate(dt);
 	SDL_GL_SwapWindow(App->window->window);

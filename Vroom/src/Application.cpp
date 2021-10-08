@@ -29,8 +29,8 @@ Application::Application()
 	AddModule(draw);
 
 	// Renderer last!
-	AddModule(editor);
 	AddModule(renderer3D);
+	AddModule(editor);
 }
 
 Application::~Application()

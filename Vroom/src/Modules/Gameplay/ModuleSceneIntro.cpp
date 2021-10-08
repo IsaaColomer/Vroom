@@ -20,8 +20,6 @@ bool ModuleSceneIntro::Start()
 	math::Sphere s;
 	s.pos = { 0,0,0 };
 	s.r = 1.0f;
-
-
 	Primitive::Sphere l = (1,1,1);
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
@@ -40,9 +38,13 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
-
 	Primitive::Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
+	Primitive::Cube c(1, 1, 1);
+	c.SetPos(10, 10, 10); //NO FUCNIONA
+	//c.axis = true;
+	//c.wire = true;
+	c.Render();
 	return UPDATE_CONTINUE;
 }

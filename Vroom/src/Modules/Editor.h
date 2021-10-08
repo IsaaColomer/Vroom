@@ -32,6 +32,7 @@ private:
     bool resizable = false;
     bool borderless = false;
     bool settings = false;
+    bool console = false;
     bool showConsole = false;
 
 

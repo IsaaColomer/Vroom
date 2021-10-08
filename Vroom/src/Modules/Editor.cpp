@@ -10,6 +10,7 @@
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "SDL_opengl.h"
 
+extern std::list<std::string> logH;
 
 Editor::Editor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -109,7 +110,6 @@ update_status Editor::Update(float dt)
             }
             if (resizable)
             {
-
                 if (ImGui::SliderFloat("Width", &App->window->winWidth, 500, 1920))
                 {
                     App->window->SetWindowSize();
@@ -152,6 +152,20 @@ update_status Editor::Update(float dt)
         {
             App->SaveEditorConfiguration();
             App->LoadEditorConfiguration();
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Console", { 50,50 }))
+        {
+            console = !console;
+        }
+        if (console)
+        {
+            ImGui::Begin("Console", &console);
+            for (auto& a : logH)
+            {
+                ImGui::TextWrapped(a.c_str());
+            }
+            ImGui::End();
         }
         ImGui::End();
     }
