@@ -55,10 +55,12 @@ namespace Primitive
 	{
 	public:
 		Sphere();
-		Sphere(float radius);
+		Sphere(float radius, unsigned int rings, unsigned int sectors);
 		void InnerRender() const;
 	public:
 		float radius;
+		unsigned int rings;
+		unsigned int sectors;
 	};
 
 	// ============================================
@@ -71,6 +73,18 @@ namespace Primitive
 	public:
 		float radius;
 		float height;
+	};
+
+	// ============================================
+	class Pyramid : public Primitive
+	{
+	public:
+		Pyramid();
+		Pyramid(float height, float base);
+		void InnerRender() const;
+	public:
+		float height;
+		float base;
 	};
 
 	// ============================================

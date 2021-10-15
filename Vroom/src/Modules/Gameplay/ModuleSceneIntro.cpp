@@ -17,10 +17,6 @@ bool ModuleSceneIntro::Start()
 
 	//LOG("Loading Intro assets");
 	bool ret = true;
-	math::Sphere s;
-	s.pos = { 0,0,0 };
-	s.r = 1.0f;
-	Primitive::Sphere l = (1,1,1);
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
@@ -45,6 +41,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	c.SetPos(10, 10, 10); //NO FUCNIONA
 	//c.axis = true;
 	//c.wire = true;
-	c.Render();
+	//c.Render();
+	Primitive::Pyramid py(2, 2);
+	py.Render();
 	return UPDATE_CONTINUE;
 }

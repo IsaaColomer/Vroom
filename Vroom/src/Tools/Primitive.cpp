@@ -222,14 +222,68 @@ namespace Primitive
 		type = PrimitiveTypes::Primitive_Sphere;
 	}
 
-	Sphere::Sphere(float radius) : Primitive(), radius(radius)
+	Sphere::Sphere(float radius, unsigned int rings, unsigned int sectors) : Primitive(), radius(radius), rings(rings), sectors(sectors)
 	{
 		type = PrimitiveTypes::Primitive_Sphere;
 	}
-
+	constexpr const float M_PI = 3.14f;
+	constexpr const float M_PI_2 = 6.28f;
 	void Sphere::InnerRender() const
 	{
+		std::vector<float> vertices;
+		std::vector<float> normals;
+		std::vector<float> texcoords;
+		std::vector<unsigned short> indices;
 
+		float const R = 1. / (float)(rings - 1);
+		float const S = 1. / (float)(sectors - 1);
+		int r, s;
+
+		vertices.resize(rings * sectors * 3);
+		normals.resize(rings * sectors * 3);
+		texcoords.resize(rings * sectors * 2);
+		std::vector<GLfloat>::iterator v = vertices.begin();
+		std::vector<GLfloat>::iterator n = normals.begin();
+		std::vector<GLfloat>::iterator t = texcoords.begin();
+		for (r = 0; r < rings; r++) for (s = 0; s < sectors; s++) {
+			float const y = sin(-M_PI_2 + M_PI * r * R);
+			float const x = cos(2 * M_PI * s * S) * sin(M_PI * r * R);
+			float const z = sin(2 * M_PI * s * S) * sin(M_PI * r * R);
+
+			*t++ = s * S;
+			*t++ = r * R;
+
+			*v++ = x * radius;
+			*v++ = y * radius;
+			*v++ = z * radius;
+
+			*n++ = x;
+			*n++ = y;
+			*n++ = z;
+		}
+
+		indices.resize(rings * sectors * 4);
+		std::vector<GLushort>::iterator i = indices.begin();
+		for (r = 0; r < rings; r++) for (s = 0; s < sectors; s++) {
+			*i++ = r * sectors + s;
+			*i++ = r * sectors + (s + 1);
+			*i++ = (r + 1) * sectors + (s + 1);
+			*i++ = (r + 1) * sectors + s;
+		}
+
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		//glTranslatef(0,0,0);
+		
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+		glNormalPointer(GL_FLOAT, 0, &normals[0]);
+		glTexCoordPointer(2, GL_FLOAT, 0, &texcoords[0]);
+		glDrawElements(GL_QUADS, indices.size(), GL_UNSIGNED_SHORT, &indices[0]);
+		glPopMatrix();
 	}
 
 
@@ -279,6 +333,57 @@ namespace Primitive
 			glVertex3f(-height * 0.5f, radius * cos(a), radius * sin(a));
 		}
 		glEnd();
+	}
+
+	// PYRAMID ==================================================
+	Pyramid::Pyramid() : Primitive(), height(1), base(1)
+	{
+		type = PrimitiveTypes::Primitive_Line;
+	}
+
+	Pyramid::Pyramid(float height, float base) : Primitive(), height(height), base(base)
+	{
+		type = PrimitiveTypes::Primitive_Line;
+	}
+
+	void Pyramid::InnerRender() const
+	{
+		glGenBuffers(1, (GLuint*)&(id));
+		glBindBuffer(GL_ARRAY_BUFFER, id);
+
+		float half = base / 2;
+
+		std::vector<float> vertices =
+		{
+			-half,0,-half,
+			half,0,-half,
+			half,0,half,
+			-half,0,half,
+			0,height,0,
+		};
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, &vertices[0], GL_STATIC_DRAW);
+
+		glGenBuffers(1, (GLuint*)&(index));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+		std::vector<uint> indices =
+		{
+			0,1,2,
+			2,3,0,
+			4,1,0,
+			4,2,1,
+			4,3,2,
+			4,0,3,
+		};
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indices.size() * 3, &indices[0], GL_STATIC_DRAW);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, id);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		// ... bind and use other buffers
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, NULL);
+		glDisableClientState(GL_VERTEX_ARRAY);
 	}
 
 	// LINE ==================================================
