@@ -277,14 +277,14 @@
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/Glew/;$(ProjectDir)External/MathGeoLib/src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/Glew/;$(ProjectDir)External/MathGeoLib/src;$(ProjectDir)External/DevIL/include/IL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(ProjectDir)External/Glew/libx86;$(ProjectDir)External/SDL/libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)External/Glew/libx86;$(ProjectDir)External/SDL/libx86;$(ProjectDir)External/DevIL/lib/x86/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;DevIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
