@@ -43,6 +43,10 @@ update_status ModuleSceneIntro::Update(float dt)
 	//c.wire = true;
 	//c.Render();
 	Primitive::Pyramid py(2, 2);
-	py.Render();
+	//py.Render();
+	Primitive::Sphere s(1.0f, 10, 20, true);
+	//s.Render();
+	Primitive::Cylinder cc;
+	//cc.Render();
 	return UPDATE_CONTINUE;
 }
