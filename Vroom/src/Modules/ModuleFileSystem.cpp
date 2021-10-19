@@ -146,7 +146,9 @@ void Mesh::Render()
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)20);
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Entries[i].IB);   
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Entries[i].IB);
+
+        const unsigned int MaterialIndex = m_Entries[i].MaterialIndex;
 
         glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
     }
