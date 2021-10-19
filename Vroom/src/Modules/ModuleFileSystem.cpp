@@ -1,7 +1,7 @@
 #include "ModuleFileSystem.h"
 
 /*
-        Copyright 2011 Etay Meiri
+    Copyright 2011 Etay Meiri
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
