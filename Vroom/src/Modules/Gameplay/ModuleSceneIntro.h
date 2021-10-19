@@ -4,9 +4,7 @@
 #include "imgui.h"
 #include "imgui/backends/imgui_impl_sdl.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
-#include <gl/GL.h>
-
-
+#include "ModuleFileSystem.h"
 class ModuleSceneIntro : public Module
 {
 public:
@@ -15,8 +13,8 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+	Mesh warrior;
 	bool CleanUp();
-
 public:
 
 };

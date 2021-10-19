@@ -1,10 +1,10 @@
 #include "Globals.h"
 #include "Primitive.h"
 #include "glew.h"
+
+#include <vector>
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include <vector>
-
 // ------------------------------------------------------------
 namespace Primitive
 {

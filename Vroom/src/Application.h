@@ -11,6 +11,7 @@
 #include "ModuleCamera3D.h"
 #include "Editor.h"
 #include "ModuleDraw.h"
+#include "ModuleFileSystem.h"
 
 class Application
 {

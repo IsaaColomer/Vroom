@@ -58,6 +58,7 @@
     <ClCompile Include="src\Modules\Gameplay\ModuleSceneIntro.cpp" />
     <ClCompile Include="src\Modules\ModuleCamera3D.cpp" />
     <ClCompile Include="src\Modules\ModuleDraw.cpp" />
+    <ClCompile Include="src\Modules\ModuleFileSystem.cpp" />
     <ClCompile Include="src\Modules\ModuleInput.cpp" />
     <ClCompile Include="src\Modules\ModuleRenderer3D.cpp" />
     <ClCompile Include="src\Modules\ModuleWindow.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="src\Modules\Module.h" />
     <ClInclude Include="src\Modules\ModuleCamera3D.h" />
     <ClInclude Include="src\Modules\ModuleDraw.h" />
+    <ClInclude Include="src\Modules\ModuleFileSystem.h" />
     <ClInclude Include="src\Modules\ModuleInput.h" />
     <ClInclude Include="src\Modules\ModuleRenderer3D.h" />
     <ClInclude Include="src\Modules\ModuleWindow.h" />
@@ -277,7 +279,7 @@
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/Glew/;$(ProjectDir)External/MathGeoLib/src;$(ProjectDir)External/DevIL/include/IL</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/Glew/;$(ProjectDir)External/MathGeoLib/src;$(ProjectDir)External/DevIL/include/IL;$(ProjectDir)External/Assimp/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

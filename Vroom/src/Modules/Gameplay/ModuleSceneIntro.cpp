@@ -20,6 +20,7 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
+	warrior.LoadMesh("Assets/warrior.fbx");
 	return ret;
 }
 
@@ -48,5 +49,6 @@ update_status ModuleSceneIntro::Update(float dt)
 	//s.Render();
 	Primitive::Cylinder cc;
 	//cc.Render();
+	warrior.Render();
 	return UPDATE_CONTINUE;
 }

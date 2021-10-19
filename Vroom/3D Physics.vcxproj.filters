@@ -8,7 +8,6 @@
     <ClCompile Include="src\Modules\Editor.cpp" />
     <ClCompile Include="src\Modules\ModuleCamera3D.cpp" />
     <ClCompile Include="src\Modules\ModuleInput.cpp" />
-    <ClCompile Include="src\Modules\ModuleRenderer3D.cpp" />
     <ClCompile Include="src\Modules\ModuleWindow.cpp" />
     <ClCompile Include="src\Tools\log.cpp" />
     <ClCompile Include="src\Tools\Timer.cpp" />
@@ -54,6 +53,8 @@
     <ClCompile Include="External\MathGeoLib\src\Time\Clock.cpp" />
     <ClCompile Include="src\Tools\Primitive.cpp" />
     <ClCompile Include="src\Modules\ModuleDraw.cpp" />
+    <ClCompile Include="src\Modules\ModuleRenderer3D.cpp" />
+    <ClCompile Include="src\Modules\ModuleFileSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Containers\Color.h" />
@@ -64,7 +65,6 @@
     <ClInclude Include="src\Modules\Module.h" />
     <ClInclude Include="src\Modules\ModuleCamera3D.h" />
     <ClInclude Include="src\Modules\ModuleInput.h" />
-    <ClInclude Include="src\Modules\ModuleRenderer3D.h" />
     <ClInclude Include="src\Modules\ModuleWindow.h" />
     <ClInclude Include="src\Tools\Timer.h" />
     <ClInclude Include="src\Application.h" />
@@ -220,6 +220,8 @@
     <ClInclude Include="src\Tools\glxew.h" />
     <ClInclude Include="src\Tools\eglew.h" />
     <ClInclude Include="src\Tools\wglew.h" />
+    <ClInclude Include="src\Modules\ModuleRenderer3D.h" />
+    <ClInclude Include="src\Modules\ModuleFileSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\src\Geometry\KDTree.inl" />
