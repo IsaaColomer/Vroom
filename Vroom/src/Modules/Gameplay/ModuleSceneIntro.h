@@ -13,7 +13,8 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
-	Mesh warrior;
+	char* path = nullptr;
+	Mesh mesh;
 	bool CleanUp();
 public:
 

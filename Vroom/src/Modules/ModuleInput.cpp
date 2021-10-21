@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-
+#include "ModuleSceneIntro.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -100,10 +100,26 @@ update_status ModuleInput::PreUpdate(float dt)
 			mouse_x_motion = e.motion.xrel / SCREEN_SIZE;
 			mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
 			break;
-
 			case SDL_QUIT:
-			quit = true;
-			break;
+				quit = true;
+				break;
+
+			case SDL_DROPFILE:
+				dropped_filedir = e.drop.file;
+				SDL_free(dropped_filedir);
+				SDL_ShowSimpleMessageBox(
+					SDL_MESSAGEBOX_INFORMATION,
+					"File dropped on window",
+					dropped_filedir,
+					App->window->window
+				);
+
+				App->scene_intro->path = dropped_filedir;
+				if (App->scene_intro->path != nullptr)
+				{
+					App->scene_intro->mesh.LoadMesh(App->scene_intro->path);
+				}
+				break;
 
 			case SDL_WINDOWEVENT:
 			{
