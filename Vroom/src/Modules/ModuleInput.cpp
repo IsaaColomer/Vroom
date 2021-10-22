@@ -106,19 +106,19 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 				dropped_filedir = e.drop.file;
-				SDL_free(dropped_filedir);
 				SDL_ShowSimpleMessageBox(
 					SDL_MESSAGEBOX_INFORMATION,
 					"File dropped on window",
 					dropped_filedir,
 					App->window->window
 				);
-
-				App->scene_intro->path = dropped_filedir;
-				if (App->scene_intro->path != nullptr)
+				if (dropped_filedir != nullptr)
 				{
-					App->scene_intro->mesh.LoadMesh(App->scene_intro->path);
+
+					App->scene_intro->mesh.LoadMesh(dropped_filedir);
 				}
+
+				SDL_free(dropped_filedir);
 				break;
 
 			case SDL_WINDOWEVENT:

@@ -1,5 +1,6 @@
 #include "ModuleFileSystem.h"
-
+#include "Globals.h"
+#include "Application.h"
 /*
     Copyright 2011 Etay Meiri
     This program is free software: you can redistribute it and/or modify
@@ -83,7 +84,7 @@ bool Mesh::LoadMesh(const std::string& Filename)
         Ret = InitFromScene(pScene, Filename);
     }
     else {
-        printf("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
+        OUR_LOG("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
     }
 
     return Ret;
