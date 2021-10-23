@@ -35,6 +35,15 @@ struct Vertex
         m_normal = float3(0.0f, 0.0f, 0.0f);
     }
 };
+class Texture
+{
+public:
+    bool LoadTexture(const std::string& Filename);
+    GLuint textureID;
+private:
+    GLubyte checkerImage[64][64][4];
+};
+
 
 class Mesh
 {
@@ -46,6 +55,9 @@ public:
     bool LoadMesh(const std::string& Filename);
 
     void Render();
+    Texture texture;
+    bool LoadTexture(const std::string& Filename);
+    void DrawWithTexture();
 
 private:
     bool InitFromScene(const aiScene* pScene, const std::string& Filename);
@@ -70,5 +82,6 @@ private:
     };
 
     std::vector<MeshEntry> m_Entries;
+
    //std::vector<Texture*> m_Textures;
 };
