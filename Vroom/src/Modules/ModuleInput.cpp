@@ -115,7 +115,8 @@ update_status ModuleInput::PreUpdate(float dt)
 				if (dropped_filedir != nullptr)
 				{
 					App->scene_intro->mesh.LoadMesh(dropped_filedir);
-					App->scene_intro->mesh.LoadTexture(dropped_filedir);					
+					OUR_LOG("lol");
+				//	App->scene_intro->mesh.LoadTexture(dropped_filedir);					
 				}
 
 				SDL_free(dropped_filedir);

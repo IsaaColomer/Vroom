@@ -50,6 +50,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	//s.Render();
 	Primitive::Cylinder cc;
 	//cc.Render();
+	mesh.Render();
 	mesh.DrawWithTexture();
 	return UPDATE_CONTINUE;
 }

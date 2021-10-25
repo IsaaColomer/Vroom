@@ -58,30 +58,24 @@ public:
     Texture texture;
     bool LoadTexture(const std::string& Filename);
     void DrawWithTexture();
+    void Init(const std::vector<float3>& Vertices,const std::vector<float2>& textCord,
+        const std::vector<unsigned int>& Indices);
 
 private:
     bool InitFromScene(const aiScene* pScene, const std::string& Filename);
     void InitMesh(unsigned int Index, const aiMesh* paiMesh);
+    GLuint VB;
+    GLuint TB;
+    GLuint IB;
+    std::vector<Mesh> mEntries;
+    unsigned int numIndices;
+    unsigned int materialIndex;
     //bool InitMaterials(const aiScene* pScene, const std::string& Filename);
     void Clear();
 
 #define INVALID_MATERIAL 0xFFFFFFFF
 
-    struct MeshEntry {
-        MeshEntry();
 
-        ~MeshEntry();
-
-        void Init(const std::vector<Vertex>& Vertices,
-            const std::vector<unsigned int>& Indices);
-
-        GLuint VB;
-        GLuint IB;
-        unsigned int NumIndices;
-        unsigned int MaterialIndex;
-    };
-
-    std::vector<MeshEntry> m_Entries;
 
    //std::vector<Texture*> m_Textures;
 };
