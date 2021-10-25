@@ -35,6 +35,10 @@ Mesh::~Mesh()
     {
         glDeleteBuffers(1, &IB);
     }
+    if (TB != 0)
+    {
+        glDeleteBuffers(1, &TB);
+    }
 }
 
 void Mesh::Init(const std::vector<float3>& Vertices, const std::vector<float2>& textCord,
@@ -72,23 +76,23 @@ void Mesh::Init(const std::vector<float3>& Vertices, const std::vector<float2>& 
 
 void Mesh::Clear()
 {
-    /*for (unsigned int i = 0; i < m_Textures.size(); i++) {
-        SAFE_DELETE(m_Textures[i]);
-    }*/
+    //for (unsigned int i = 0; i < mTextures.size(); i++) {
+    //    SAFE_DELETE(mTextures[i]);
+    //}
 }
 
-bool Texture::LoadTexture(const std::string& Filename)
+bool Mesh::LoadTexture(const std::string& Filename)
 {
-    for (int i = 0; i < 64; i++) {
-        for (int j = 0; j < 64; j++) {
-            int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-            checkerImage[i][j][0] = (GLubyte)c;
-            checkerImage[i][j][1] = (GLubyte)c;
-            checkerImage[i][j][2] = (GLubyte)c;
-            checkerImage[i][j][3] = (GLubyte)255;
-        }
-    }
 
+        for (int i = 0; i < 64; i++) {
+            for (int j = 0; j < 64; j++) {
+                int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+                checkerImage[i][j][0] = (GLubyte)c;
+                checkerImage[i][j][1] = (GLubyte)c;
+                checkerImage[i][j][2] = (GLubyte)c;
+                checkerImage[i][j][3] = (GLubyte)255;
+            }
+        }
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
@@ -112,10 +116,11 @@ bool Mesh::LoadMesh(const std::string& Filename)
     bool Ret = false;
     Assimp::Importer Importer;
 
-    const aiScene* pScene = Importer.ReadFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+    const aiScene* pScene = aiImportFile(Filename.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 
-    if (pScene) {
+    if (pScene != nullptr) {
         Ret = InitFromScene(pScene, Filename);
+        aiReleaseImport(pScene);
     }
     else {
         OUR_LOG("Error parsing '%s': '%s'\n", Filename.c_str(), Importer.GetErrorString());
@@ -166,42 +171,61 @@ void Mesh::InitMesh(unsigned int Index, const aiMesh* paiMesh)
 
     mEntries[Index].Init(Vertices,texCord, Indices);
 }
-bool Mesh::LoadTexture(const std::string& Filename)
-{
-    texture.LoadTexture(Filename);
 
-    return true;
-}
-void Mesh::DrawWithTexture()
-{
-   // glBindTexture(GL_TEXTURE_2D, texture.textureID);
-    Render();
-   // glBindTexture(GL_TEXTURE_2D, 0);
-
-}
 void Mesh::Render()
 {
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    //glEnableClientState(GL_VERTEX_ARRAY);
+    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    //-- Buffers--//
-    glBindBuffer(GL_ARRAY_BUFFER, VB);
-    glVertexPointer(3, GL_FLOAT, 0, NULL);
+    ////-- Buffers--//
+    //glBindBuffer(GL_ARRAY_BUFFER, VB);
+    //glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-    glBindBuffer(GL_ARRAY_BUFFER, TB);
-    glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+    //glBindBuffer(GL_ARRAY_BUFFER, TB);
+    //glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-    glBindTexture(GL_TEXTURE_2D, texture.textureID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, NULL);
+    //glBindTexture(GL_TEXTURE_2D, texture.textureID);
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
 
-    //-- UnBind Buffers--//
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
+    ////-- Draw --//
+    //glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, NULL);
+
+    ////-- UnBind Buffers--//
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
+    //glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
+    //glBindTexture(GL_TEXTURE_2D, 0);
+
+    ////--Disables States--//
+    //glDisableClientState(GL_VERTEX_ARRAY);
+    //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
+    for (unsigned int i = 0; i < mEntries.size(); i++) {
+        glBindBuffer(GL_ARRAY_BUFFER,mEntries[i].VB);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float3), 0);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)12);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)20);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].TB);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].VB);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].IB);
+
+        const unsigned int MaterialIndex = mEntries[i].materialIndex;
+
+        glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_INT, 0);
+    }
+
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
+
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    //--Disables States--//
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    
 }

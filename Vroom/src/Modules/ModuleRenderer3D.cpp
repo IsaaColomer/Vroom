@@ -56,6 +56,8 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 		glEnable(GL_TEXTURE_2D);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 
 		//Use Vsync
@@ -150,10 +152,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	
-
-
-	App->scene_intro->PostUpdate(dt);
 	SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;

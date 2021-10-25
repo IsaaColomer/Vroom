@@ -4,6 +4,7 @@
 #include "assimp/cimport.h"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+#include "il.h"
 #pragma comment (lib, "External/Assimp/x86-Release/assimp-vc142-mt.lib")
 
 #include "glew.h"
@@ -35,15 +36,6 @@ struct Vertex
         m_normal = float3(0.0f, 0.0f, 0.0f);
     }
 };
-class Texture
-{
-public:
-    bool LoadTexture(const std::string& Filename);
-    GLuint textureID;
-private:
-    GLubyte checkerImage[64][64][4];
-};
-
 
 class Mesh
 {
@@ -55,11 +47,13 @@ public:
     bool LoadMesh(const std::string& Filename);
 
     void Render();
-    Texture texture;
+    GLuint texture;
     bool LoadTexture(const std::string& Filename);
-    void DrawWithTexture();
+    GLuint meshTextureID;
     void Init(const std::vector<float3>& Vertices,const std::vector<float2>& textCord,
         const std::vector<unsigned int>& Indices);
+    GLuint textureID;
+    GLubyte checkerImage[640][426][4];
 
 private:
     bool InitFromScene(const aiScene* pScene, const std::string& Filename);

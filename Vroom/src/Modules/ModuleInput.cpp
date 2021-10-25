@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleFileSystem.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -116,7 +117,6 @@ update_status ModuleInput::PreUpdate(float dt)
 				{
 					App->scene_intro->mesh.LoadMesh(dropped_filedir);
 					OUR_LOG("lol");
-				//	App->scene_intro->mesh.LoadTexture(dropped_filedir);					
 				}
 
 				SDL_free(dropped_filedir);

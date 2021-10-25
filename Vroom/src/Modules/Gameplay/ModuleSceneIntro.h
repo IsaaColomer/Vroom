@@ -15,6 +15,7 @@ public:
 	update_status Update(float dt);
 	char* path = nullptr;
 	Mesh mesh;
+	//Texture tex;
 	bool CleanUp();
 public:
 

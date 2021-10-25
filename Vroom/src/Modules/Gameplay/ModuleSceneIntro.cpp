@@ -21,7 +21,10 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-
+	mesh.LoadMesh("Assets/BakerHouse.fbx");
+	mesh.LoadTexture("Assets/ddd.dds");
+	mesh.LoadTexture("Assets/abc.png");
+	//tex.LoadTexture("Assets/abc.png");
 	return ret;
 }
 
@@ -51,6 +54,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	Primitive::Cylinder cc;
 	//cc.Render();
 	mesh.Render();
-	mesh.DrawWithTexture();
+
+	//mesh.DrawWithTexture();
 	return UPDATE_CONTINUE;
 }
