@@ -22,9 +22,12 @@ bool ModuleSceneIntro::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	mesh.LoadMesh("Assets/BakerHouse.fbx");
-	mesh.LoadTexture("Assets/ddd.dds");
-	mesh.LoadTexture("Assets/abc.png");
+	//mesh.LoadTexture("Assets/ddd.dds");
+	//mesh.LoadTexture("Assets/abc.png");
 	//tex.LoadTexture("Assets/abc.png");
+	GameObjects = new GameObject("root");
+	
+	GameObjects->gameObjects.push_back(new GameObject("node1"));
 	return ret;
 }
 

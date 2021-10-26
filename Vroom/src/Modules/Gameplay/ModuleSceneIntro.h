@@ -5,6 +5,7 @@
 #include "imgui/backends/imgui_impl_sdl.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "ModuleFileSystem.h"
+#include "GameObject.h"
 class ModuleSceneIntro : public Module
 {
 public:
@@ -15,8 +16,9 @@ public:
 	update_status Update(float dt);
 	char* path = nullptr;
 	Mesh mesh;
+	GameObject* GameObjects = nullptr;
 	//Texture tex;
 	bool CleanUp();
-public:
 
+	GameObject* CreateGameObject();
 };

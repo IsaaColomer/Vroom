@@ -226,6 +226,4 @@ void Mesh::Render()
     glDisableVertexAttribArray(2);
 
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    
 }

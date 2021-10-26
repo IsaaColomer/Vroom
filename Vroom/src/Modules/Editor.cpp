@@ -47,7 +47,21 @@ bool Editor::Start()
 
     return true;
 }
+void Editor::RecursiveTree(GameObject& go)
+{
+    ImGuiTreeNodeFlags flags = 0;
+    bool node_open = ImGui::TreeNodeEx(&go, flags, go.name.c_str());
+    if (node_open)
+    {
+        for (unsigned int i = 0; i < go.gameObjects.size(); i++)
+        {
+            RecursiveTree(*go.gameObjects[i]);
+        }
+        ImGui::TreePop();
+    }
 
+
+}
 update_status Editor::Update(float dt)
 {
     ImGui_ImplOpenGL3_NewFrame();
@@ -210,6 +224,30 @@ update_status Editor::Update(float dt)
         }
         ImGui::EndMenu();
     }
+    if (ImGui::BeginMenu("Pito"))
+    {
+        if (ImGui::MenuItem("Inspector"))
+        {
+            
+        }
+
+        if (ImGui::MenuItem("Hierarchy"))
+        {
+            hier = !hier;
+        }
+        
+        ImGui::EndMenu();
+    }
+    if (hier)
+    {
+        ImGui::Begin("Hierarchy", &hier);
+            if (App->scene_intro->GameObjects != nullptr)
+            {
+                RecursiveTree(*App->scene_intro->GameObjects);
+            }
+            ImGui::End();
+    }
+
     // ------------------- CALLING THE FPS FUNCTION -------------------
     CalculateFrames(&fps_log, dt, columns);
 

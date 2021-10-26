@@ -9,6 +9,7 @@ public:
     ~Editor();
 
     bool Start();
+    void RecursiveTree(GameObject& go);
     update_status Update(float dt);
     bool CleanUp();
     void CalculateFrames(std::vector<float>* fps_log, float dt, int columns);
@@ -21,6 +22,7 @@ private:
 
     bool showDemoWindow = false;
     bool showAboutWindow = false;
+    bool hier = false;
     bool showFps = false;
     bool showSmallExample = true;
     bool closeWindow = false;
