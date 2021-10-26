@@ -115,7 +115,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				);
 				if (dropped_filedir != nullptr)
 				{
-					App->scene_intro->mesh.LoadMesh(dropped_filedir);
+					//App->scene_intro->mesh.LoadMesh(dropped_filedir);
 					OUR_LOG("lol");
 				}
 

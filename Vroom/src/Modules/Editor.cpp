@@ -241,11 +241,11 @@ update_status Editor::Update(float dt)
     if (hier)
     {
         ImGui::Begin("Hierarchy", &hier);
-            if (App->scene_intro->GameObjects != nullptr)
-            {
-                RecursiveTree(*App->scene_intro->GameObjects);
-            }
-            ImGui::End();
+        if (App->scene_intro->root != nullptr)
+        {
+                RecursiveTree(*App->scene_intro->root);
+        }
+        ImGui::End();
     }
 
     // ------------------- CALLING THE FPS FUNCTION -------------------
@@ -259,7 +259,7 @@ update_status Editor::Update(float dt)
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImGui::Render();
     glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-    //glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+   //glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     return UPDATE_CONTINUE;

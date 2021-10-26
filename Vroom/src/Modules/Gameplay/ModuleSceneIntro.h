@@ -4,8 +4,8 @@
 #include "imgui.h"
 #include "imgui/backends/imgui_impl_sdl.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
-#include "ModuleFileSystem.h"
 #include "GameObject.h"
+class GameObject;
 class ModuleSceneIntro : public Module
 {
 public:
@@ -15,8 +15,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	char* path = nullptr;
-	Mesh mesh;
-	GameObject* GameObjects = nullptr;
+	GameObject* root = nullptr;
 	//Texture tex;
 	bool CleanUp();
 
