@@ -16,6 +16,7 @@ public:
 	update_status Update(float dt);
 	char* path = nullptr;
 	GameObject* root = nullptr;
+	GameObject* asd = nullptr;
 	//Texture tex;
 	bool CleanUp();
 

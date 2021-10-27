@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "MeshComponent.h"
 #include "Primitive.h"
 //#include "Primitive.h"
 
@@ -54,10 +55,20 @@ update_status ModuleSceneIntro::Update(float dt)
 	//s.Render();
 	Primitive::Cylinder cc;
 	//cc.Render();
+	root->Update();
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		root->gameObjects.push_back(new GameObject("node1",root));
+		asd = new GameObject("Node1", root);
+		root->gameObjects.push_back(asd);
+		asd->CreateComponent(Component::Type::MESH);
 		root->gameObjects.back()->components.push_back(new Meshs("Assets/default_cube.fbx"));
+	}
+	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
+	{
+		asd = new GameObject("Node2", root);
+		root->gameObjects.push_back(asd);
+		asd->CreateComponent(Component::Type::MESH);
+		root->gameObjects.back()->components.push_back(new Meshs("Assets/BakerHouse.fbx"));
 	}
 	//mesh.DrawWithTexture();
 	return UPDATE_CONTINUE;

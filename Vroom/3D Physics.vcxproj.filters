@@ -56,6 +56,7 @@
     <ClCompile Include="src\Modules\ModuleRenderer3D.cpp" />
     <ClCompile Include="src\Modules\ModuleFileSystem.cpp" />
     <ClCompile Include="src\Tools\GameObject.cpp" />
+    <ClCompile Include="src\Tools\MeshComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Containers\Color.h" />
@@ -224,6 +225,7 @@
     <ClInclude Include="src\Modules\ModuleRenderer3D.h" />
     <ClInclude Include="src\Modules\ModuleFileSystem.h" />
     <ClInclude Include="src\Tools\GameObject.h" />
+    <ClInclude Include="src\Tools\MeshComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\MathGeoLib\src\Geometry\KDTree.inl" />

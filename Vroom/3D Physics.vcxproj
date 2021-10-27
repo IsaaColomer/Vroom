@@ -64,6 +64,7 @@
     <ClCompile Include="src\Modules\ModuleWindow.cpp" />
     <ClCompile Include="src\Tools\GameObject.cpp" />
     <ClCompile Include="src\Tools\log.cpp" />
+    <ClCompile Include="src\Tools\MeshComponent.cpp" />
     <ClCompile Include="src\Tools\Primitive.cpp" />
     <ClCompile Include="src\Tools\Timer.cpp" />
   </ItemGroup>
@@ -231,6 +232,7 @@
     <ClInclude Include="src\Tools\GameObject.h" />
     <ClInclude Include="src\Tools\glew.h" />
     <ClInclude Include="src\Tools\glxew.h" />
+    <ClInclude Include="src\Tools\MeshComponent.h" />
     <ClInclude Include="src\Tools\Primitive.h" />
     <ClInclude Include="src\Tools\Timer.h" />
     <ClInclude Include="src\Tools\wglew.h" />
