@@ -25,21 +25,34 @@ enum ComponentType
 	TRANSFORM,
 	MESH,
 	MATERIAL,
+	NONE,
 };
 
 class GameObject;
 class Component : public GameObject
 {
 public:
-	Component() {}
-		~Component() {}
+	Component(GameObject* letsgo) : active(true), parent(letsgo), type(ComponentType::NONE) {}
+	virtual ~Component() {}
 	//virtual void Update();
 	//virtual void Enable();
 	//virtual void Disable();
 
-public:
+	virtual void Enable() { active = true; }
+	virtual void Disable() { active = false; }
+	virtual bool IsEnabled() { return active; }
+	GameObject* GetOwner() { return parent; }
+
+	enum class Type
+	{
+		NONE,
+		TRANSFORM,
+	};
 
 	ComponentType type;
+
+protected:
+
 	bool active;
 	GameObject* parent;
 
@@ -98,24 +111,36 @@ public:
 class GameObject
 {
 public:
-	GameObject(std::string name) : name(name)
-	{
-		active = true;
-		parent = nullptr;
-	}
+	GameObject(const char*, GameObject* parent, int uid = -1);
+
 	~GameObject();
 
-	void Update()
-	{
-
-	}
+	void Update();
+	
 	Component* CreateComponent(ComponentType type);
+	Component* GetComponent(ComponentType xdtype)
+	{
+		for (size_t i = 0; i < components.size(); i++)
+		{
+			if (components.at(i)->type == xdtype)
+			{
+				return components.at(i);
+			}
+		}
+
+		return nullptr;
+	}
+
+	void Enable() { active = true; }
+	void Disable() { active = false; }
+	bool IsEnabled() { return active; }
 
 public:
 	bool active;
 	std::string name;
 	std::vector<Component*> components;
 	std::vector<GameObject*> gameObjects;
+	int uid;
 	GameObject* parent;
 #define INVALID_MATERIAL 0xFFFFFFFF
 };
