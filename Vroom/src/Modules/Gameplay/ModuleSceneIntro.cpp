@@ -24,7 +24,7 @@ bool ModuleSceneIntro::Start()
 	//mesh.LoadTexture("Assets/ddd.dds");
 	//mesh.LoadTexture("Assets/abc.png");
 	//tex.LoadTexture("Assets/abc.png");
-	root = new GameObject("root");
+	root = new GameObject("root",nullptr);
 
 	return ret;
 }
@@ -56,7 +56,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	//cc.Render();
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		root->gameObjects.push_back(new GameObject("node1"));
+		root->gameObjects.push_back(new GameObject("node1",root));
 		root->gameObjects.back()->components.push_back(new Meshs("Assets/default_cube.fbx"));
 	}
 	//mesh.DrawWithTexture();

@@ -29,9 +29,10 @@ enum ComponentType
 };
 
 class GameObject;
-class Component : public GameObject
+class Component
 {
 public:
+	Component() : active(true), parent(nullptr), type(ComponentType::NONE) {}
 	Component(GameObject* letsgo) : active(true), parent(letsgo), type(ComponentType::NONE) {}
 	virtual ~Component() {}
 	//virtual void Update();
@@ -111,7 +112,8 @@ public:
 class GameObject
 {
 public:
-	GameObject(const char*, GameObject* parent, int uid = -1);
+	GameObject() {}
+	GameObject(const char* Name, GameObject* Parent, int uid = -1) :name(Name), parent(Parent), uid(uid) {}
 
 	~GameObject();
 
