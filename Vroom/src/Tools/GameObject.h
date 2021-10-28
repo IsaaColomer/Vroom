@@ -9,6 +9,7 @@
 #include "assimp/postprocess.h"
 #include "il.h"
 #include "ModuleFileSystem.h"
+#include "glmath.h"
 #pragma comment (lib, "External/Assimp/x86-Release/assimp-vc142-mt.lib")
 
 #include "glew.h"
@@ -58,18 +59,36 @@ protected:
 	bool active;
 	GameObject* parent;
 
+
 };
 
 class Transform : public Component
 {
 public:
 	Transform();
-	~Transform();
+	Transform(GameObject* gm);
+	virtual ~Transform();
+
+	void Update() override;
+	//void InspectorDraw() override;
+
+	void UpdateTransform();
+
+	static inline Type GetType() { return Type::TRANSFORM; };
+
+	void SetPos(float x, float y, float z);
+	void SetRotation(float angle, const vec3& u);
+	void Scale(float x, float y, float z);
+
+
+	mat4x4 GetTransform();
 
 public:
-	aiVector3D  position;
-	aiVector3D  scale;
-	aiQuaternion rotation;
+	bool updateTransform;
+
+	mat4x4 transform;
+
+	vec3 position, scale, rotation;
 };
 
 
@@ -102,7 +121,6 @@ public:
 				return components.at(i);
 			}
 		}
-
 		return nullptr;
 	}
 

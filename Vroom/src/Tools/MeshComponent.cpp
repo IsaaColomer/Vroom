@@ -1,17 +1,15 @@
 #include "MeshComponent.h"
-Meshs::Meshs(const char* Filename)
+#include"Globals.h"
+#include <assert.h>
+#include "Primitive.h"
+Meshs::Meshs() : Component(nullptr) {}
+Meshs::Meshs(GameObject* _m) : Component(_m)
 {
     VB = 0;
     IB = 0;
     TB = 0;
     numIndices = 0;
     materialIndex = INVALID_MATERIAL;
-
-    if (Filename != nullptr)
-    {
-        LoadMesh(Filename);
-    }
-
 };
 
 Meshs::~Meshs()
@@ -150,31 +148,10 @@ void Meshs::InitMesh(unsigned int Index, const aiMesh* paiMeshs)
 
 void Meshs::Render()
 {
-    //glEnableClientState(GL_VERTEX_ARRAY);
-    //glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-    ////-- Buffers--//
-    //glBindBuffer(GL_ARRAY_BUFFER, VB);
-    //glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-    //glBindBuffer(GL_ARRAY_BUFFER, TB);
-    //glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-
-    //glBindTexture(GL_TEXTURE_2D, texture.textureID);
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-
-    ////-- Draw --//
-    //glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, NULL);
-
-    ////-- UnBind Buffers--//
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-    //glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
-    //glBindTexture(GL_TEXTURE_2D, 0);
-
-    ////--Disables States--//
-    //glDisableClientState(GL_VERTEX_ARRAY);
-    //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    Transform* t = new Transform(nullptr);    
+    t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
+    glPushMatrix();
+    glMultMatrixf(t->transform.M);
 
     glBindTexture(GL_TEXTURE_2D, textureID);
 
@@ -196,6 +173,11 @@ void Meshs::Render()
 
         glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_INT, 0);
     }
+    glPopMatrix();
+
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
@@ -207,5 +189,4 @@ void Meshs::Render()
 void Meshs::Update()
 {
     Render();
-    OUR_LOG("a");
 }

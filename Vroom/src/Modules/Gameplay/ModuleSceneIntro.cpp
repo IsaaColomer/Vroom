@@ -55,21 +55,20 @@ update_status ModuleSceneIntro::Update(float dt)
 	//s.Render();
 	Primitive::Cylinder cc;
 	//cc.Render();
-	root->Update();
+
+
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		asd = new GameObject("Node1", root);
 		root->gameObjects.push_back(asd);
 		asd->CreateComponent(Component::Type::MESH);
-		root->gameObjects.back()->components.push_back(new Meshs("Assets/default_cube.fbx"));
+		asd->CreateComponent(Component::Type::TRANSFORM);
+		dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_cube.fbx");
+
+		//"Assets/default_cube.fbx"
 	}
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN)
-	{
-		asd = new GameObject("Node2", root);
-		root->gameObjects.push_back(asd);
-		asd->CreateComponent(Component::Type::MESH);
-		root->gameObjects.back()->components.push_back(new Meshs("Assets/BakerHouse.fbx"));
-	}
+
+	root->Update();
 	//mesh.DrawWithTexture();
 	return UPDATE_CONTINUE;
 }

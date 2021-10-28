@@ -1,11 +1,14 @@
 #pragma once
 #include "GameObject.h"
+#include "glmath.h"
+#include <vector>
 class Component;
+class Transform;
 class Meshs : public Component
 {
 public:
-	Meshs() {}
-	Meshs(const char* Filename);
+	Meshs();
+	Meshs(GameObject* _m);
 	~Meshs();
 
 	void Update() override;
