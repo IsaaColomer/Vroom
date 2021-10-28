@@ -17,6 +17,10 @@ public:
 	char* path = nullptr;
 	GameObject* root = nullptr;
 	GameObject* asd = nullptr;
+
+	void LoadCube();
+	void LoadSphere();
+	void LoadPyramid();
 	//Texture tex;
 	bool CleanUp();
 

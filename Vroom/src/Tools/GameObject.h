@@ -28,6 +28,7 @@ enum ComponentType
 };
 
 class GameObject;
+class Meshs;
 class Component
 {
 public:
@@ -42,7 +43,6 @@ public:
 	virtual void Disable() { active = false; }
 	virtual bool IsEnabled() { return active; }
 	GameObject* GetOwner() { return parent; }
-
 
 
 	enum class Type
@@ -136,5 +136,6 @@ public:
 	std::vector<GameObject*> gameObjects;
 	int uid;
 	GameObject* parent;
+	Meshs* mesh;
 #define INVALID_MATERIAL 0xFFFFFFFF
 };

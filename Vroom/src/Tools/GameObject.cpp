@@ -26,6 +26,7 @@ Component* GameObject::CreateComponent(Component::Type _type)
 			ret = new Meshs(this);
 			ret->type = _type;
 			components.push_back(ret);
+			mesh = dynamic_cast<Meshs*>(ret);
 			OUR_LOG("Mesh Created!!!");
 		}
 		break;

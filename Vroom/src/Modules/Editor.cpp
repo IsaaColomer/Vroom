@@ -243,6 +243,23 @@ update_status Editor::Update(float dt)
         
         ImGui::EndMenu();
     }
+    if (ImGui::BeginMenu("Create"))
+    {
+        if (ImGui::MenuItem("Cube"))
+        {
+            App->scene_intro->LoadCube();
+        }
+        if (ImGui::MenuItem("Sphere"))
+        {
+            App->scene_intro->LoadSphere();
+        }
+        if (ImGui::MenuItem("Pyramid"))
+        {
+            App->scene_intro->LoadPyramid();
+        }
+
+        ImGui::EndMenu();
+    }
     if (hier)
     {
         ImGui::Begin("Hierarchy", &hier);

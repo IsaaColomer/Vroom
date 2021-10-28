@@ -59,16 +59,45 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-		asd = new GameObject("Node1", root);
-		root->gameObjects.push_back(asd);
-		asd->CreateComponent(Component::Type::MESH);
-		asd->CreateComponent(Component::Type::TRANSFORM);
-		dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_cube.fbx");
-
-		//"Assets/default_cube.fbx"
+		LoadCube();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		LoadSphere();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		LoadPyramid();
 	}
 
 	root->Update();
 	//mesh.DrawWithTexture();
 	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneIntro::LoadCube()
+{
+	asd = new GameObject("Cube", root);
+	root->gameObjects.push_back(asd);
+	asd->CreateComponent(Component::Type::MESH);
+	asd->CreateComponent(Component::Type::TRANSFORM);
+	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_cube.fbx");
+}
+
+void ModuleSceneIntro::LoadSphere()
+{
+	asd = new GameObject("Sphere", root);
+	root->gameObjects.push_back(asd);
+	asd->CreateComponent(Component::Type::MESH);
+	asd->CreateComponent(Component::Type::TRANSFORM);
+	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_sphere.fbx");
+}
+
+void ModuleSceneIntro::LoadPyramid()
+{
+	asd = new GameObject("Pyramid", root);
+	root->gameObjects.push_back(asd);
+	asd->CreateComponent(Component::Type::MESH);
+	asd->CreateComponent(Component::Type::TRANSFORM);
+	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_pyramid.fbx");
 }
