@@ -103,3 +103,15 @@ void GameObject::Update()
 		i->Update();
 	}
 }
+
+void Transform::Draw()
+{
+			if (ImGui::CollapsingHeader("Local Transformation"))
+			{
+				if (ImGui::SliderFloat3("Position", &position, -50, 50)) updateTransform = true;
+				if (ImGui::SliderFloat3("Rotation", &rotation, -180, 180)) updateTransform = true;
+				if (ImGui::SliderFloat3("Scale", &scale, 0, 50)) updateTransform = true;
+				ImGui::Text("Bounding Box: -not generated-");
+				ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
+			}
+}

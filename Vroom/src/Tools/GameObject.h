@@ -1,6 +1,5 @@
 #pragma once
 #include "MathGeoLib.h"
-#include "Application.h"
 #include "Globals.h"
 #include <vector>
 #include <string>
@@ -10,6 +9,9 @@
 #include "il.h"
 #include "ModuleFileSystem.h"
 #include "glmath.h"
+#include "imgui.h"
+#include "imgui/backends/imgui_impl_sdl.h"
+#include "imgui/backends/imgui_impl_opengl3.h"
 #pragma comment (lib, "External/Assimp/x86-Release/assimp-vc142-mt.lib")
 
 #include "glew.h"
@@ -38,6 +40,8 @@ public:
 	virtual void Update() {}
 	//virtual void Enable();
 	//virtual void Disable();
+
+	virtual void Draw() {}
 
 	virtual void Enable() { active = true; }
 	virtual void Disable() { active = false; }
@@ -69,6 +73,7 @@ public:
 	Transform(GameObject* gm);
 	virtual ~Transform();
 
+	void Draw() override;
 	void Update() override;
 	//void InspectorDraw() override;
 

@@ -47,16 +47,24 @@ bool Editor::Start()
 
     return true;
 }
-void Editor::RecursiveTree(GameObject& go)
+void Editor::RecursiveTree(GameObject* go)
 {
-    ImGuiTreeNodeFlags flags = 0;
-    bool node_open = ImGui::TreeNodeEx(&go, flags, go.name.c_str());
-    if (node_open)
+    ImGuiTreeNodeFlags parentFlags = ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen | (go->gameObjects.empty() ? ImGuiTreeNodeFlags_Leaf : 0);
+    if (go == selectedNode)
     {
-        for (unsigned int i = 0; i < go.gameObjects.size(); i++)
+        parentFlags |= ImGuiTreeNodeFlags_Selected;
+    }
+    bool open = ImGui::TreeNodeEx(go->name.c_str(), parentFlags);
+    if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_::ImGuiMouseButton_Left))
+    {
+        selectedNode = go;
+    }
+    if (open) {
+        // Recursive call...
+        for (size_t i = 0; i < go->gameObjects.size(); i++)
         {
-            RecursiveTree(*go.gameObjects[i]);
-        }
+            RecursiveTree(go->gameObjects.at(i));
+        };
         ImGui::TreePop();
     }
 }
@@ -265,7 +273,7 @@ update_status Editor::Update(float dt)
         ImGui::Begin("Hierarchy", &hier);
         if (App->scene_intro->root != nullptr)
         {
-                RecursiveTree(*App->scene_intro->root);
+                RecursiveTree(App->scene_intro->root);
         }
         ImGui::End();
     }
@@ -319,19 +327,23 @@ void Editor::InspectorDraw()
 {
     if (ImGui::Begin("Inspector"), &inspector)
     {
-        ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
         if (App->scene_intro->root != nullptr)
         {
             Transform* t = dynamic_cast<Transform*>(App->scene_intro->asd->GetComponent(Component::Type::TRANSFORM));
             if (t != nullptr)
             {
-                if (ImGui::CollapsingHeader("Local Transformation"))
+                if (App->scene_intro->root != nullptr)
                 {
-                    if (ImGui::SliderFloat3("Position", &t->position, -50,50)) t->updateTransform = true;
-                    if (ImGui::SliderFloat3("Rotation", &t->rotation, -180, 180)) t->updateTransform = true;
-                    if (ImGui::SliderFloat3("Scale", &t->scale, 0,50)) t->updateTransform = true;
-                    ImGui::Text("Bounding Box: -not generated-");
-                    ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
+                    for (int i = 0; i < App->scene_intro->root->gameObjects.size(); ++i)
+                    {
+                        if (App->scene_intro->root->gameObjects.at(i) == selectedNode)
+                        {
+                            for (int j = 0; j < App->scene_intro->root->gameObjects.at(i)->components.size(); ++j)
+                            {
+                                App->scene_intro->root->gameObjects.at(i)->components.at(j)->Draw();
+                            }
+                        }
+                    }
                 }
             }
         }
