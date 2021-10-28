@@ -2,6 +2,7 @@
 #include "Module.h"
 #include <vector>
 #include <string>
+#include "ModuleSceneIntro.h"
 
 class Editor : public Module{
 public:
@@ -14,6 +15,7 @@ public:
     bool CleanUp();
     void CalculateFrames(std::vector<float>* fps_log, float dt, int columns);
     void CalculateMilliseconds(std::vector<float>* ms_log, float dt, int columns);
+    void InspectorDraw();
 
 private:
     char title[25];
@@ -23,6 +25,7 @@ private:
     bool showDemoWindow = false;
     bool showAboutWindow = false;
     bool hier = false;
+    bool inspector = false;
     bool showFps = false;
     bool showSmallExample = true;
     bool closeWindow = false;

@@ -59,8 +59,6 @@ void Editor::RecursiveTree(GameObject& go)
         }
         ImGui::TreePop();
     }
-
-
 }
 update_status Editor::Update(float dt)
 {
@@ -183,6 +181,13 @@ update_status Editor::Update(float dt)
         }
         ImGui::End();
     }
+    if (ImGui::BeginMenu("Inspector"))
+    {
+        inspector = !inspector;
+        ImGui::EndMenu();
+    }
+    if (inspector)
+        InspectorDraw();
 
     if (ImGui::BeginMenu("Help"))
     {
@@ -290,5 +295,30 @@ void  Editor::CalculateMilliseconds(std::vector<float>* ms_log, float dt, int co
     {
         ms_log->erase(ms_log->begin());
         ms_log->push_back(dt * 1000);
+    }
+}
+
+void Editor::InspectorDraw()
+{
+    if (ImGui::Begin("Inspector"), &inspector)
+    {
+        ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
+        if (App->scene_intro->root != nullptr)
+        {
+            Transform* t = dynamic_cast<Transform*>(App->scene_intro->asd->GetComponent(Component::Type::TRANSFORM));
+            if (t != nullptr)
+            {
+                if (ImGui::CollapsingHeader("Local Transformation"))
+                {
+                    if (ImGui::SliderFloat3("Position", &t->position, -50,50)) t->updateTransform = true;
+                    if (ImGui::SliderFloat3("Rotation", &t->rotation, -180, 180)) t->updateTransform = true;
+                    if (ImGui::SliderFloat3("Scale", &t->scale, 0,50)) t->updateTransform = true;
+                    ImGui::Text("Bounding Box: -not generated-");
+                    ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
+                }
+            }
+        }
+
+        ImGui::End();
     }
 }
