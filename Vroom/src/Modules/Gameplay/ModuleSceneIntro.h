@@ -17,10 +17,10 @@ public:
 	char* path = nullptr;
 	GameObject* root = nullptr;
 	GameObject* asd = nullptr;
-
+	bool open = true;
 	void LoadCube();
 	void LoadSphere();
-	void LoadPyramid();
+	void LoadCylinder();
 	//Texture tex;
 	bool CleanUp();
 

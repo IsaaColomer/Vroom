@@ -40,39 +40,38 @@ bool ModuleSceneIntro::CleanUp()
 
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
-{
-	Primitive::Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
-	Primitive::Cube c(1, 1, 1);
-	c.SetPos(10, 10, 10); //NO FUCNIONA
-	//c.axis = true;
-	//c.wire = true;
-	//c.Render();
-	Primitive::Pyramid py(2, 2);
-	//py.Render();
-	Primitive::Sphere s(1.0f, 10, 20, true);
-	//s.Render();
-	Primitive::Cylinder cc;
-	//cc.Render();
+{		Primitive::Plane p(0, 1, 0, 0);
+		p.axis = true;
+		p.Render();
+		Primitive::Cube c(1, 1, 1);
+		c.SetPos(10, 10, 10); //NO FUCNIONA
+		//c.axis = true;
+		//c.wire = true;
+		//c.Render();
+		Primitive::Pyramid py(2, 2);
+		//py.Render();
+		Primitive::Sphere s(1.0f, 10, 20, true);
+		//s.Render();
+		Primitive::Cylinder cc;
+		//cc.Render();
 
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		LoadCube();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-	{
-		LoadSphere();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		LoadPyramid();
-	}
+		if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		{
+			LoadCube();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		{
+			LoadSphere();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		{
+			LoadCylinder();
+		}
 
-	root->Update();
-	//mesh.DrawWithTexture();
-	return UPDATE_CONTINUE;
+		root->Update();
+		//mesh.DrawWithTexture();
+		return UPDATE_CONTINUE;
 }
 
 void ModuleSceneIntro::LoadCube()
@@ -93,11 +92,11 @@ void ModuleSceneIntro::LoadSphere()
 	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_sphere.fbx");
 }
 
-void ModuleSceneIntro::LoadPyramid()
+void ModuleSceneIntro::LoadCylinder()
 {
-	asd = new GameObject("Pyramid", root);
+	asd = new GameObject("Cylinder", root);
 	root->gameObjects.push_back(asd);
 	asd->CreateComponent(Component::Type::MESH);
 	asd->CreateComponent(Component::Type::TRANSFORM);
-	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_pyramid.fbx");
+	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_cylinder.fbx");
 }

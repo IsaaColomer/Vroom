@@ -45,6 +45,8 @@ bool Editor::Start()
     }
     aboutFile.close();
 
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
     return true;
 }
 void Editor::RecursiveTree(GameObject* go)
@@ -189,13 +191,6 @@ update_status Editor::Update(float dt)
         }
         ImGui::End();
     }
-    if (ImGui::BeginMenu("Inspector"))
-    {
-        inspector = !inspector;
-        ImGui::EndMenu();
-    }
-    if (inspector)
-        InspectorDraw();
 
     if (ImGui::BeginMenu("Help"))
     {
@@ -241,7 +236,7 @@ update_status Editor::Update(float dt)
     {
         if (ImGui::MenuItem("Inspector"))
         {
-            
+            inspector = !inspector;
         }
 
         if (ImGui::MenuItem("Hierarchy"))
@@ -251,6 +246,8 @@ update_status Editor::Update(float dt)
         
         ImGui::EndMenu();
     }
+    if (inspector)
+        InspectorDraw();
     if (ImGui::BeginMenu("Create"))
     {
         if (ImGui::MenuItem("Cube"))
@@ -261,9 +258,9 @@ update_status Editor::Update(float dt)
         {
             App->scene_intro->LoadSphere();
         }
-        if (ImGui::MenuItem("Pyramid"))
+        if (ImGui::MenuItem("Cylinder"))
         {
-            App->scene_intro->LoadPyramid();
+            App->scene_intro->LoadCylinder();
         }
 
         ImGui::EndMenu();
@@ -327,7 +324,7 @@ void Editor::InspectorDraw()
 {
     if (ImGui::Begin("Inspector"), &inspector)
     {
-        if (App->scene_intro->root != nullptr)
+        if (App->scene_intro->asd != nullptr)
         {
             Transform* t = dynamic_cast<Transform*>(App->scene_intro->asd->GetComponent(Component::Type::TRANSFORM));
             if (t != nullptr)
