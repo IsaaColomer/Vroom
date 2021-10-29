@@ -47,6 +47,8 @@ bool Editor::Start()
 
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
+
+
     return true;
 }
 void Editor::RecursiveTree(GameObject* go)
@@ -175,23 +177,20 @@ update_status Editor::Update(float dt)
             App->SaveEditorConfiguration();
             App->LoadEditorConfiguration();
         }
-        ImGui::SameLine();
-        if (ImGui::Button("Console", { 50,50 }))
+
+        ImGui::End();
+    }
+    if (console)
+    {
+        ImGui::SetNextWindowPos(ImVec2(0, App->window->winHeight-ch));
+        ImGui::SetNextWindowSize(ImVec2(ImGui::GetWindowWidth(), 200));
+        ImGui::Begin("Console", &console);
+        for (auto& a : logH)
         {
-            console = !console;
-        }
-        if (console)
-        {
-            ImGui::Begin("Console", &console);
-            for (auto& a : logH)
-            {
-                ImGui::TextWrapped(a.c_str());
-            }
-            ImGui::End();
+            ImGui::TextWrapped(a.c_str());
         }
         ImGui::End();
     }
-
     if (ImGui::BeginMenu("Help"))
     {
         if (ImGui::MenuItem("GUI Demo"))
@@ -232,20 +231,7 @@ update_status Editor::Update(float dt)
         }
         ImGui::EndMenu();
     }
-    if (ImGui::BeginMenu("Pito"))
-    {
-        if (ImGui::MenuItem("Inspector"))
-        {
-            inspector = !inspector;
-        }
 
-        if (ImGui::MenuItem("Hierarchy"))
-        {
-            hier = !hier;
-        }
-        
-        ImGui::EndMenu();
-    }
     if (inspector)
         InspectorDraw();
     if (ImGui::BeginMenu("Create"))
@@ -267,6 +253,8 @@ update_status Editor::Update(float dt)
     }
     if (hier)
     {
+        ImGui::SetNextWindowPos(ImVec2(0, ImGui::GetWindowHeight()));
+        ImGui::SetNextWindowSize(ImVec2(300,h));
         ImGui::Begin("Hierarchy", &hier);
         if (App->scene_intro->root != nullptr)
         {
@@ -274,7 +262,16 @@ update_status Editor::Update(float dt)
         }
         ImGui::End();
     }
-
+    if (fullscreenDesktop)
+    {
+        h = 1000;
+        ch = -280;
+    }
+    else
+    {
+        h = 500;
+        ch = 200;
+    }
     // ------------------- CALLING THE FPS FUNCTION -------------------
     CalculateFrames(&fps_log, dt, columns);
 
@@ -322,6 +319,9 @@ void  Editor::CalculateMilliseconds(std::vector<float>* ms_log, float dt, int co
 
 void Editor::InspectorDraw()
 {
+
+    ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth()-w, ImGui::GetWindowHeight()));
+    ImGui::SetNextWindowSize(ImVec2(w, h));
     if (ImGui::Begin("Inspector"), &inspector)
     {
         if (App->scene_intro->asd != nullptr)

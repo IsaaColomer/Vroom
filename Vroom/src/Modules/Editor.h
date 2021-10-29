@@ -16,16 +16,20 @@ public:
     void CalculateFrames(std::vector<float>* fps_log, float dt, int columns);
     void CalculateMilliseconds(std::vector<float>* ms_log, float dt, int columns);
     void InspectorDraw();
-
+    int w = 300;
+    int h = 500;
+    int cw = 300;
+    int ch = 200;
 private:
     char title[25];
     char configName[25];
     std::string aboutText;
 
+
     bool showDemoWindow = false;
     bool showAboutWindow = false;
-    bool hier = false;
-    bool inspector = false;
+    bool hier = true;
+    bool inspector = true;
     bool showFps = false;
     bool showSmallExample = true;
     bool closeWindow = false;
@@ -37,7 +41,7 @@ private:
     bool resizable = false;
     bool borderless = false;
     bool settings = false;
-    bool console = false;
+    bool console = true;
     bool showConsole = false;
 
 
