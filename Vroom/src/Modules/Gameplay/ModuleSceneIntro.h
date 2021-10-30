@@ -23,5 +23,5 @@ public:
 	//Texture tex;
 	bool CleanUp();
 
-	GameObject* CreateGameObject(const char* name, GameObject* Parent, const char* Filename);
+	GameObject* CreateGameObject(const char* name, GameObject* Parent, const char* Filename, const char* Textname);
 };

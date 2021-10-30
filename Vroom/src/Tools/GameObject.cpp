@@ -1,7 +1,9 @@
 #include "GameObject.h"
 #include "MeshComponent.h"
 #include "Editor.h"
-
+#pragma comment (lib, "devIL.lib")  
+#pragma comment (lib, "ILU.lib") 
+#pragma comment (lib, "ILUT.lib")
 Component* GameObject::CreateComponent(Component::Type _type)
 {
 	Component* ret = nullptr;
@@ -30,6 +32,16 @@ Component* GameObject::CreateComponent(Component::Type _type)
 			OUR_LOG("Mesh Created!!!");
 		}
 		break;
+	case Component::Type::MATERIAL:
+		if (ret == nullptr)
+		{
+			ret = new Materialss(this);
+			ret->type = _type;
+			components.push_back(ret);
+			mat = dynamic_cast<Materialss*>(ret);
+			OUR_LOG("Material Created!!!");
+		}
+		break;
 	default:
 		break;
 	}
@@ -51,7 +63,16 @@ Transform::Transform(GameObject* _gm) : Component(_gm)
 Transform::~Transform()
 {
 }
+Materialss::Materialss() :Component(nullptr)
+{
 
+}
+Materialss::Materialss(GameObject* a) : Component(a)
+{
+	ilInit();
+	iluInit();
+	ilutInit();
+}
 void Transform::Update()
 {
 	UpdateTransform();
@@ -166,37 +187,43 @@ void Transform::Draw()
 //	//scale = (1, 1, 1);
 //}
 
-//void Material::LoadTextures(const char* Filename)
-//{
-//	Material mat;
-//	ILuint id;
-//	ilGenImages(1, &id);
-//	ilBindImage(id);
-//
-//	if (ilLoadImage(Filename))
-//	{
-//		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-//		glGenTextures(1, &tId);
-//		glBindTexture(GL_TEXTURE_2D, tId);
-//
-//		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-//		glGenTextures(1, &bt);
-//		glBindTexture(GL_TEXTURE_2D, bt);
-//
-//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
-//
-//		//tId = ilutGLBindTexImage();
-//
-//		glBindTexture(GL_TEXTURE_2D, 0);
-//	}
-//	else
-//	{
-//		OUR_LOG("No image found in this path");
-//	}
-//
-//	ilDeleteImages(1, &id);
-//}
+
+
+void Materialss::LoadTextures(const char* Filename)
+{
+	Materialss mat;
+	ILuint id;
+	bool loadTexture = ilLoadImage(Filename);
+	ilGenImages(1, &id);
+	ilBindImage(id);
+
+	if (loadTexture)
+	{
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glGenTextures(1, &tId);
+		glBindTexture(GL_TEXTURE_2D, tId);
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glGenTextures(1, &bt);
+		glBindTexture(GL_TEXTURE_2D, bt);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
+
+		glGenerateMipmap(GL_TEXTURE_2D);
+		ilBindImage(id);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		OUR_LOG("IMAGE LOADED");
+	}
+	else
+	{
+		OUR_LOG("No image found in this path");
+	}
+
+	ilDeleteImages(1, &id);
+}

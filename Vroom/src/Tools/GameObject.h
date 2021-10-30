@@ -6,7 +6,7 @@
 #include "assimp/cimport.h"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
-#include "il.h"
+
 #include "ModuleFileSystem.h"
 #include "glmath.h"
 #include "imgui.h"
@@ -20,7 +20,8 @@
 #include "MathGeoLib.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-
+#include "il.h"
+#include "ilut.h"
 enum ComponentType
 {
 	TRANSFORM,
@@ -31,6 +32,7 @@ enum ComponentType
 
 class GameObject;
 class Meshs;
+class Materialss;
 class Component
 {
 public:
@@ -54,6 +56,7 @@ public:
 		NONE,
 		TRANSFORM,
 		MESH,
+		MATERIAL,
 	};
 
 	Type type;
@@ -139,23 +142,23 @@ public:
 	int uid;
 	GameObject* parent;
 	Meshs* mesh;
+	Materialss* mat;
 #define INVALID_MATERIAL 0xFFFFFFFF
 };
 
-class Material : public Component
+class Materialss : public Component
 {
-	Material();
-	Material(GameObject* gm);
+public:
+	Materialss();
+	Materialss(GameObject* a);
 
-	virtual ~Material();
-
-public: 
-	bool Init();
+	~Materialss() {}
 
 	void LoadTextures(const char* Filename);
 
+private:
 	GLuint tId;
 	GLuint bt;
-
+	GLubyte checkerImage[64][64][4];
 public:
 };

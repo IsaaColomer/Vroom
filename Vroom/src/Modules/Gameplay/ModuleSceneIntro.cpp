@@ -74,28 +74,30 @@ update_status ModuleSceneIntro::Update(float dt)
 		return UPDATE_CONTINUE;
 }
 
-GameObject* ModuleSceneIntro::CreateGameObject(const char* name, GameObject* parent, const char* Filename)
+GameObject* ModuleSceneIntro::CreateGameObject(const char* name, GameObject* parent, const char* Filename, const char* Textname)
 {
 	GameObject* n = new GameObject(name, parent);
 	parent->gameObjects.push_back(n);
 	n->CreateComponent(Component::Type::MESH);
 	n->CreateComponent(Component::Type::TRANSFORM);
+	n->CreateComponent(Component::Type::MATERIAL);
 	dynamic_cast<Meshs*>(n->GetComponent(Component::Type::MESH))->LoadMesh(Filename);
+	dynamic_cast<Materialss*>(n->GetComponent(Component::Type::MATERIAL))->LoadTextures(Textname);
 
 	return n;
 }
 
 void ModuleSceneIntro::LoadCube()
 {
-	CreateGameObject("default_cube", root, "Assets/default_cube.fbx");
+	CreateGameObject("default_cube", root, "Assets/default_cube.fbx", "Assets/ddd.dds");
 }
 
 void ModuleSceneIntro::LoadSphere()
 {
-	CreateGameObject("default_sphere", root, "Assets/default_sphere.fbx");
+	CreateGameObject("default_sphere", root, "Assets/default_sphere.fbx", "Assets/ddd.dds");
 }
 
 void ModuleSceneIntro::LoadCylinder()
 {
-	CreateGameObject("default_cylinder", root, "Assets/default_cylinder.fbx");
+	CreateGameObject("default_cylinder", root, "Assets/default_cylinder.fbx", "Assets/ddd.dds");
 }
