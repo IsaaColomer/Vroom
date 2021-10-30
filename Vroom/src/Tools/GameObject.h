@@ -49,6 +49,8 @@ public:
 	GameObject* GetOwner() { return parent; }
 
 
+
+
 	enum class Type
 	{
 		NONE,
@@ -85,6 +87,7 @@ public:
 	void SetRotation(float angle, const vec3& u);
 	void Scale(float x, float y, float z);
 
+	vec3 GetPosition();
 
 	mat4x4 GetTransform();
 

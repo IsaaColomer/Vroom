@@ -36,7 +36,13 @@ Component* GameObject::CreateComponent(Component::Type _type)
 
 	return ret;
 }
+vec3 Transform::GetPosition()
+{
+	vec3 positionT;
 
+	positionT = (position.x, position.y, position.z);
+	return positionT;
+}
 Transform::Transform() : Component(nullptr)
 {
 	transform = IdentityMatrix;

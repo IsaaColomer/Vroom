@@ -338,9 +338,19 @@ void Editor::InspectorDraw()
                             for (int j = 0; j < App->scene_intro->root->gameObjects.at(i)->components.size(); ++j)
                             {
                                 App->scene_intro->root->gameObjects.at(i)->components.at(j)->Draw();
+                                if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+                                {
+                                    App->camera->LookAt(t->GetPosition());
+                                }
+
                             }
                         }
                     }
+                }
+                if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN)
+                {
+                    App->camera->LookAt(t->GetPosition());
+                    OUR_LOG("ROTATING AROUND OBJECT");
                 }
             }
         }

@@ -45,6 +45,8 @@ public:
 	void LoadEditorConfiguration();
 	void SaveEditorConfiguration();
 
+	void LookAt();
+
 private:
 
 	void AddModule(Module* mod);
