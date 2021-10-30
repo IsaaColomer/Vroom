@@ -36,13 +36,7 @@ Component* GameObject::CreateComponent(Component::Type _type)
 
 	return ret;
 }
-vec3 Transform::GetPosition()
-{
-	vec3 positionT;
 
-	positionT = (position.x, position.y, position.z);
-	return positionT;
-}
 Transform::Transform() : Component(nullptr)
 {
 	transform = IdentityMatrix;
@@ -88,7 +82,6 @@ void Transform::UpdateTransform()
 
 		updateTransform = false;
 	}
-
 }
 
 void Transform::SetPos(float x, float y, float z)
@@ -112,7 +105,14 @@ mat4x4 Transform::GetTransform()
 {
 	return transform;
 }
-
+vec3 Transform::GetPosition()
+{
+	return position;
+}
+void Transform::LookAtO(vec3& p)
+{
+	p = position;
+}
 void GameObject::Update()
 {
 	for (auto& i : components)

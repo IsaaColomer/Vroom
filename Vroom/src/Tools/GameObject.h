@@ -42,6 +42,7 @@ public:
 	//virtual void Disable();
 
 	virtual void Draw() {}
+	virtual void LookAtO(vec3& p) {}
 
 	virtual void Enable() { active = true; }
 	virtual void Disable() { active = false; }
@@ -72,6 +73,7 @@ public:
 
 	void Draw() override;
 	void Update() override;
+	void LookAtO(vec3& p) override;
 	//void InspectorDraw() override;
 
 	void UpdateTransform();
@@ -82,7 +84,7 @@ public:
 	void SetRotation(float angle, const vec3& u);
 	void Scale(float x, float y, float z);
 
-	vec3 GetPosition();
+
 
 	mat4x4 GetTransform();
 
@@ -95,7 +97,11 @@ public:
 
 	mat4x4 transform;
 
-	vec3 position, scale, rotation;
+	vec3 position;
+	vec3 scale;
+	vec3 rotation;
+
+	vec3 GetPosition();
 };
 
 class GameObject
