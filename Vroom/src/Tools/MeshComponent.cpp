@@ -152,7 +152,6 @@ void Meshs::Render()
     t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
     glPushMatrix();
     glMultMatrixf(t->transform.M);
-
     glBindTexture(GL_TEXTURE_2D, textureID);
 
     glEnableVertexAttribArray(0);

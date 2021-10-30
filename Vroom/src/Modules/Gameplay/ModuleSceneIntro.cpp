@@ -74,29 +74,28 @@ update_status ModuleSceneIntro::Update(float dt)
 		return UPDATE_CONTINUE;
 }
 
+GameObject* ModuleSceneIntro::CreateGameObject(const char* name, GameObject* parent, const char* Filename)
+{
+	GameObject* n = new GameObject(name, parent);
+	parent->gameObjects.push_back(n);
+	n->CreateComponent(Component::Type::MESH);
+	n->CreateComponent(Component::Type::TRANSFORM);
+	dynamic_cast<Meshs*>(n->GetComponent(Component::Type::MESH))->LoadMesh(Filename);
+
+	return n;
+}
+
 void ModuleSceneIntro::LoadCube()
 {
-	asd = new GameObject("Cube", root);
-	root->gameObjects.push_back(asd);
-	asd->CreateComponent(Component::Type::MESH);
-	asd->CreateComponent(Component::Type::TRANSFORM);
-	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_cube.fbx");
+	CreateGameObject("default_cube", root, "Assets/default_cube.fbx");
 }
 
 void ModuleSceneIntro::LoadSphere()
 {
-	asd = new GameObject("Sphere", root);
-	root->gameObjects.push_back(asd);
-	asd->CreateComponent(Component::Type::MESH);
-	asd->CreateComponent(Component::Type::TRANSFORM);
-	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_sphere.fbx");
+	CreateGameObject("default_sphere", root, "Assets/default_sphere.fbx");
 }
 
 void ModuleSceneIntro::LoadCylinder()
 {
-	asd = new GameObject("Cylinder", root);
-	root->gameObjects.push_back(asd);
-	asd->CreateComponent(Component::Type::MESH);
-	asd->CreateComponent(Component::Type::TRANSFORM);
-	dynamic_cast<Meshs*>(asd->GetComponent(Component::Type::MESH))->LoadMesh("Assets/default_cylinder.fbx");
+	CreateGameObject("default_cylinder", root, "Assets/default_cylinder.fbx");
 }

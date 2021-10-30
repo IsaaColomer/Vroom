@@ -115,7 +115,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				);
 				if (dropped_filedir != nullptr)
 				{
-					//App->scene_intro->mesh.LoadMesh(dropped_filedir);
+					GameObject* o = App->scene_intro->CreateGameObject("fbx", App->scene_intro->root, dropped_filedir);
 					OUR_LOG("lol");
 				}
 

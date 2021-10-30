@@ -324,11 +324,9 @@ void Editor::InspectorDraw()
     ImGui::SetNextWindowSize(ImVec2(w, h));
     if (ImGui::Begin("Inspector"))
     {
-        if (App->scene_intro->asd != nullptr)
+        if (App->scene_intro->root != nullptr)
         {
-            Transform* t = dynamic_cast<Transform*>(App->scene_intro->asd->GetComponent(Component::Type::TRANSFORM));
-            if (t != nullptr)
-            {
+            Transform* t = dynamic_cast<Transform*>(App->scene_intro->root->GetComponent(Component::Type::TRANSFORM));
                 if (App->scene_intro->root != nullptr)
                 {
                     for (int i = 0; i < App->scene_intro->root->gameObjects.size(); ++i)
@@ -356,7 +354,6 @@ void Editor::InspectorDraw()
                     }
                 }
 
-            }
             else
             {
                 OUR_LOG("No object detected");

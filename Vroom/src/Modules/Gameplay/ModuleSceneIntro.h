@@ -16,7 +16,6 @@ public:
 	update_status Update(float dt);
 	char* path = nullptr;
 	GameObject* root = nullptr;
-	GameObject* asd = nullptr;
 	bool open = true;
 	void LoadCube();
 	void LoadSphere();
@@ -24,5 +23,5 @@ public:
 	//Texture tex;
 	bool CleanUp();
 
-	GameObject* CreateGameObject();
+	GameObject* CreateGameObject(const char* name, GameObject* Parent, const char* Filename);
 };
