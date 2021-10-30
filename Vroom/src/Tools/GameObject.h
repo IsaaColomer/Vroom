@@ -87,8 +87,6 @@ public:
 	void SetRotation(float angle, const vec3& u);
 	void Scale(float x, float y, float z);
 
-
-
 	mat4x4 GetTransform();
 
 public:
@@ -103,8 +101,6 @@ public:
 	vec3 position;
 	vec3 scale;
 	vec3 rotation;
-
-	vec3 GetPosition();
 };
 
 class GameObject

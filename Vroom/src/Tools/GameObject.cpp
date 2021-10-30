@@ -126,10 +126,7 @@ mat4x4 Transform::GetTransform()
 {
 	return transform;
 }
-vec3 Transform::GetPosition()
-{
-	return position;
-}
+
 void Transform::LookAtO(vec3& p)
 {
 	p = position;

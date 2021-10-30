@@ -26,7 +26,7 @@ bool ModuleSceneIntro::Start()
 	//mesh.LoadTexture("Assets/abc.png");
 	//tex.LoadTexture("Assets/abc.png");
 	root = new GameObject("root",nullptr);
-
+	//CreateGameObject("BakerHouse", root, "Assets/BakerHouse.fbx", "Assets/ddd.dds");
 	return ret;
 }
 
