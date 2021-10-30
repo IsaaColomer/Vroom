@@ -65,15 +65,31 @@ void Transform::Update()
 
 void Transform::UpdateTransform()
 {
-	SetPos(position.x, position.y, position.z);
 
-	SetRotation(rotation.x, vec3(1, 0, 0));
-	SetRotation(rotation.y, vec3(0, 1, 0));
-	SetRotation(rotation.z, vec3(0, 0, 1));
+	if (rx)
+	{
+		transform.rotate(rotation.x, vec3(1, 0, 0));
+		rx = false;
+	}
+	if (ry)
+	{
+		transform.rotate(rotation.y, vec3(0, 1, 0));
+		ry = false;
+	}
+	if (rz)
+	{
+		transform.rotate(rotation.z, vec3(0, 0, 1));
+		rz = false;
+	}
+	if (updateTransform)
+	{
+		SetPos(position.x, position.y, position.z);
 
-	Scale(scale.x, scale.y, scale.z);
+		Scale(scale.x, scale.y, scale.z);
 
-	updateTransform = false;
+		updateTransform = false;
+	}
+
 }
 
 void Transform::SetPos(float x, float y, float z)
@@ -117,7 +133,9 @@ void Transform::Draw()
 				if (ImGui::DragFloat("X Position", &position.x)) updateTransform = true;
 				if (ImGui::DragFloat("Y Position", &position.y)) updateTransform = true;
 				if (ImGui::DragFloat("Z Position", &position.z)) updateTransform = true;
-				if (ImGui::SliderFloat3("Rotation", &rotation, -180, 180)) updateTransform = true;
+				if (ImGui::DragFloat("X Rotation", &rotation.x)) rx = true;
+				if (ImGui::DragFloat("Y Rotation", &rotation.y)) ry = true;
+				if (ImGui::DragFloat("Z Rotation", &rotation.z)) rz = true;
 				if (ImGui::DragFloat("X scale", &scale.x)) updateTransform = true;
 				if (ImGui::DragFloat("Y scale", &scale.y)) updateTransform = true;
 				if (ImGui::DragFloat("Z scale", &scale.z)) updateTransform = true;

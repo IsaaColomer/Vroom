@@ -88,6 +88,10 @@ public:
 
 public:
 	bool updateTransform;
+	
+	bool rx = false;
+	bool ry = false;
+	bool rz = false;
 
 	mat4x4 transform;
 
