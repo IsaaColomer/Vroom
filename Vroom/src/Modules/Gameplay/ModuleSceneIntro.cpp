@@ -43,16 +43,16 @@ update_status ModuleSceneIntro::Update(float dt)
 {		Primitive::Plane p(0, 1, 0, 0);
 		p.axis = true;
 		p.Render();
-		Primitive::Cube c(1, 1, 1);
-		c.SetPos(10, 10, 10); //NO FUCNIONA
+		//Primitive::Cube c(1, 1, 1);
+		//c.SetPos(10, 10, 10); //NO FUCNIONA
 		//c.axis = true;
 		//c.wire = true;
 		//c.Render();
-		Primitive::Pyramid py(2, 2);
+		//Primitive::Pyramid py(2, 2);
 		//py.Render();
 		Primitive::Sphere s(1.0f, 10, 20, true);
 		//s.Render();
-		Primitive::Cylinder cc;
+		//Primitive::Cylinder cc;
 		//cc.Render();
 
 

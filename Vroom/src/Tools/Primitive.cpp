@@ -99,6 +99,22 @@ namespace Primitive
 		transform.Scale(x, y, z);
 	}
 
+	//void Primitive::RenderMesh()
+	//{
+	//	glEnableClientState(GL_VERTEX_ARRAY);
+	//	glEnableClientState(GL_NORMAL_ARRAY);
+	//	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	//	glVertexPointer(3, GL_FLOAT, interleavedStride, &interleavedVertices[0]);
+	//	glNormalPointer(GL_FLOAT, interleavedStride, &interleavedVertices[3]);
+	//	glTexCoordPointer(2, GL_FLOAT, interleavedStride, &interleavedVertices[6]);
+	
+	//	glDrawElements(GL_TRIANGLES, (unsigned int)indices.size(), GL_UNSIGNED_INT, indices.data());
+
+	//	glDisableClientState(GL_VERTEX_ARRAY);
+	//	glDisableClientState(GL_NORMAL_ARRAY);
+	//	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	//}
+
 	// ============================================
 	Cube::Cube() : Primitive(), size(1.0f, 1.0f, 1.0f)
 	{

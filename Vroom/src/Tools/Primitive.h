@@ -1,7 +1,8 @@
 #pragma once
 #include "MathGeoLib.h"
 #include "Color.h"
-
+#include "MeshComponent.h"
+#include "GameObject.h"
 namespace Primitive 
 {
 	enum PrimitiveTypes
@@ -34,6 +35,8 @@ namespace Primitive
 		bool axis, wire;
 		uint id;
 		uint index;
+		//void RenderMesh() const;
+		Meshs* go;
 
 	protected:
 		PrimitiveTypes type;

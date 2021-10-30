@@ -343,16 +343,19 @@ void Editor::InspectorDraw()
                                     App->camera->LookAt(t->GetPosition());
                                     OUR_LOG("FOCUSED");
                                 }
-
+                                if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+                                {
+                                    if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+                                    {
+                                        App->camera->LookAt(t->GetPosition());
+                                        OUR_LOG("ROTATING AROUND OBJECT");
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN && App->input->GetMouseButton(0))
-                {
-                    App->camera->LookAt(t->GetPosition());
-                    OUR_LOG("ROTATING AROUND OBJECT");
-                }
+
             }
             else
             {

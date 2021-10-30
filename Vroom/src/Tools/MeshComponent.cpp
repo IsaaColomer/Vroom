@@ -58,32 +58,32 @@ void Meshs::Clear()
     //}
 }
 
-bool Meshs::LoadTexture(const std::string& Filename)
-{
-
-    for (int i = 0; i < 64; i++) {
-        for (int j = 0; j < 64; j++) {
-            int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-            checkerImage[i][j][0] = (GLubyte)c;
-            checkerImage[i][j][1] = (GLubyte)c;
-            checkerImage[i][j][2] = (GLubyte)c;
-            checkerImage[i][j][3] = (GLubyte)255;
-        }
-    }
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 64, 64,
-        0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
-
-    // ---- Check for error ----
-    glBindTexture(GL_TEXTURE_2D, 0);
-    return true;
-}
+//bool Meshs::LoadTexture(const std::string& Filename)
+//{
+//
+//    for (int i = 0; i < 64; i++) {
+//        for (int j = 0; j < 64; j++) {
+//            int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+//            checkerImage[i][j][0] = (GLubyte)c;
+//            checkerImage[i][j][1] = (GLubyte)c;
+//            checkerImage[i][j][2] = (GLubyte)c;
+//            checkerImage[i][j][3] = (GLubyte)255;
+//        }
+//    }
+//    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+//    glGenTextures(1, &textureID);
+//    glBindTexture(GL_TEXTURE_2D, textureID);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 64, 64,
+//        0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
+//
+//    // ---- Check for error ----
+//    glBindTexture(GL_TEXTURE_2D, 0);
+//    return true;
+//}
 
 void Meshs::LoadMesh(const std::string& Filename)
 {
@@ -120,8 +120,8 @@ void Meshs::InitMesh(unsigned int Index, const aiMesh* paiMeshs)
 {
     mEntries[Index].materialIndex = paiMeshs->mMaterialIndex;
 
-    std::vector<float3> Vertices;
     std::vector<float2> texCord;
+    std::vector<float3> Vertices;
     std::vector<unsigned int> Indices;
 
     const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);

@@ -188,4 +188,3 @@ void Application::LoadEditorConfiguration()
 
 	json_value_free(root_value);
 }
-

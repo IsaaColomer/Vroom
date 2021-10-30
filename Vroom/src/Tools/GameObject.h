@@ -48,9 +48,6 @@ public:
 	virtual bool IsEnabled() { return active; }
 	GameObject* GetOwner() { return parent; }
 
-
-
-
 	enum class Type
 	{
 		NONE,
@@ -64,8 +61,6 @@ protected:
 
 	bool active;
 	GameObject* parent;
-
-
 };
 
 class Transform : public Component
@@ -97,17 +92,6 @@ public:
 	mat4x4 transform;
 
 	vec3 position, scale, rotation;
-};
-
-
-
-class Material : public Component
-{
-public:
-	Material();
-	~Material();
-
-public:
 };
 
 class GameObject
@@ -146,4 +130,22 @@ public:
 	GameObject* parent;
 	Meshs* mesh;
 #define INVALID_MATERIAL 0xFFFFFFFF
+};
+
+class Material : public Component
+{
+	Material();
+	Material(GameObject* gm);
+
+	virtual ~Material();
+
+public: 
+	bool Init();
+
+	void LoadTextures(const char* Filename);
+
+	GLuint tId;
+	GLuint bt;
+
+public:
 };
