@@ -65,20 +65,19 @@ void Transform::Update()
 
 void Transform::UpdateTransform()
 {
-
 	if (rx)
 	{
-		transform.rotate(rotation.x, vec3(1, 0, 0));
+		SetRotation(rotation.x, vec3(1, 0, 0));
 		rx = false;
 	}
 	if (ry)
 	{
-		transform.rotate(rotation.y, vec3(0, 1, 0));
+		SetRotation(rotation.y, vec3(0, 1, 0));
 		ry = false;
 	}
 	if (rz)
 	{
-		transform.rotate(rotation.z, vec3(0, 0, 1));
+		SetRotation(rotation.z, vec3(0, 0, 1));
 		rz = false;
 	}
 	if (updateTransform)
