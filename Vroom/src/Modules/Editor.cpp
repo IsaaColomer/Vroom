@@ -184,7 +184,7 @@ update_status Editor::Update(float dt)
     {
         ImGui::SetNextWindowPos(ImVec2(0, App->window->winHeight-ch));
         ImGui::SetNextWindowSize(ImVec2(ImGui::GetWindowWidth(), 200));
-        ImGui::Begin("Console", &console);
+        ImGui::Begin("Console");
         for (auto& a : logH)
         {
             ImGui::TextWrapped(a.c_str());
@@ -255,7 +255,7 @@ update_status Editor::Update(float dt)
     {
         ImGui::SetNextWindowPos(ImVec2(0, ImGui::GetWindowHeight()));
         ImGui::SetNextWindowSize(ImVec2(300,h));
-        ImGui::Begin("Hierarchy", &hier);
+        ImGui::Begin("Hierarchy");
         if (App->scene_intro->root != nullptr)
         {
                 RecursiveTree(App->scene_intro->root);
@@ -322,7 +322,7 @@ void Editor::InspectorDraw()
 
     ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth()-w, ImGui::GetWindowHeight()));
     ImGui::SetNextWindowSize(ImVec2(w, h));
-    if (ImGui::Begin("Inspector"), &inspector)
+    if (ImGui::Begin("Inspector"))
     {
         if (App->scene_intro->asd != nullptr)
         {

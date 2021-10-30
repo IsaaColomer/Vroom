@@ -108,10 +108,24 @@ void Transform::Draw()
 {
 			if (ImGui::CollapsingHeader("Local Transformation"))
 			{
-				if (ImGui::SliderFloat3("Position", &position, -50, 50)) updateTransform = true;
+				if (ImGui::DragFloat("Position", &position)) updateTransform = true;
 				if (ImGui::SliderFloat3("Rotation", &rotation, -180, 180)) updateTransform = true;
-				if (ImGui::SliderFloat3("Scale", &scale, 0, 50)) updateTransform = true;
-				ImGui::Text("Bounding Box: -not generated-");
-				ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
+				if (ImGui::DragFloat("X scale", &scale.x)) updateTransform = true;
+				if (ImGui::DragFloat("Y scale", &scale.y)) updateTransform = true;
+				if (ImGui::DragFloat("Z scale", &scale.z)) updateTransform = true;
+				if (scale.x < 0)
+				{
+					scale.x = 0;
+				}
+				if (scale.y < 0)
+				{
+					scale.y = 0;
+				}
+				if (scale.z < 0)
+				{
+					scale.z = 0;
+				}
+				//ImGui::Text("Bounding Box: -not generated-");
+				//ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
 			}
 }
