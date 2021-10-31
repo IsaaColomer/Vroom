@@ -45,14 +45,10 @@ void Meshs::Init(const std::vector<float3>& Vertices, const std::vector<float2>&
 
     glGenBuffers(1, &TB);
     glBindBuffer(GL_ARRAY_BUFFER, TB);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float2) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float2) * Vertices.size(), &textCord[0], GL_STATIC_DRAW);
 
     glGenBuffers(1, &IB);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * numIndices, &Indices[0], GL_STATIC_DRAW);
-
-    glGenBuffers(1, &UB);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, UB);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * numIndices, &Indices[0], GL_STATIC_DRAW);
 
     struct aiLogStream stream;
@@ -66,40 +62,40 @@ void Meshs::Clear()
     //    SAFE_DELETE(mTextures[i]);
     //}
 }
-bool Meshs::InitMaterials(const aiScene* pScene, const char* Filename)
-{
-    // Extract the directory part from the file name
-
-    bool Ret = true;
-
-    // Initialize the materials
-    for (unsigned int i = 0; i < pScene->mNumMaterials; i++) {
-        const aiMaterial* pMaterial = pScene->mMaterials[i];
-
-        m_Textures[i] = NULL;
-
-        if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
-            aiString Path;
-
-            if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
-                m_Textures[i] = new Materialss(GL_TEXTURE_2D, Filename);
-
-                if (m_Textures[i]->LoadTextures(Filename))
-                {
-                    printf("Error loading texture '%s'\n", Filename);
-                    delete m_Textures[i];
-                    m_Textures[i] = NULL;
-                    Ret = false;
-                }
-                else {
-                    printf("Loaded texture '%s'\n", Filename);
-                }
-            }
-        }
-    }
-
-    return Ret;
-}
+//bool Meshs::InitMaterials(const aiScene* pScene, const char* Filename)
+//{
+//    // Extract the directory part from the file name
+//
+//    bool Ret = true;
+//
+//    // Initialize the materials
+//    for (unsigned int i = 0; i < pScene->mNumMaterials; i++) {
+//        const aiMaterial* pMaterial = pScene->mMaterials[i];
+//
+//        m_Textures[i] = NULL;
+//
+//        if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
+//            aiString Path;
+//
+//            if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
+//                m_Textures[i] = new Materialss(GL_TEXTURE_2D, Filename);
+//
+//                if (m_Textures[i]->LoadTextures(Filename))
+//                {
+//                    printf("Error loading texture '%s'\n", Filename);
+//                    delete m_Textures[i];
+//                    m_Textures[i] = NULL;
+//                    Ret = false;
+//                }
+//                else {
+//                    printf("Loaded texture '%s'\n", Filename);
+//                }
+//            }
+//        }
+//    }
+//
+//    return Ret;
+//}
 
 //bool Meshs::LoadTexture(const std::string& Filename)
 //{
@@ -130,26 +126,69 @@ bool Meshs::InitMaterials(const aiScene* pScene, const char* Filename)
 
 bool Meshs::LoadMesh(const char* Filename)
 {
+    bool ret = false;
     // Release the previously loaded Meshs (if it exists)
     Clear();
-    bool Ret = false;
     Assimp::Importer Importer;
 
     const aiScene* pScene = aiImportFile(Filename, aiProcessPreset_TargetRealtime_MaxQuality);
-    if (pScene) {
+    if (pScene)
+    {
+        InitFromScene(pScene, Filename);
     //    Ret = InitFromScene(pScene, Filename);
+        ret = true;
     }
-    else {
+    else
+    {
         printf("Error parsing '%s': '%s'\n", Filename, Importer.GetErrorString());
     }
 
-    return Ret;
+    return ret;
 }
 
-bool Meshs::InitFromScene(const aiScene* pScene, const char* Filename)
+void Meshs::Render()
+{
+    Transform* t = new Transform(nullptr);
+    t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
+
+    glPushMatrix();
+    glMultMatrixf(t->transform.M);
+
+    glBindTexture(GL_TEXTURE_2D, TB);
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
+    for (unsigned int i = 0; i < mEntries.size(); i++) {
+        glBindBuffer(GL_ARRAY_BUFFER, mEntries[i].VB);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float3), 0);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)12);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)20);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].TB);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].IB);
+
+        const unsigned int MaterialIndex = mEntries[i].materialIndex;
+
+        glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_INT, 0);
+    }
+
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glPopMatrix();
+}
+void Meshs::InitFromScene(const aiScene* pScene, const char* Filename)
 {
     mEntries.resize(pScene->mNumMeshes);
-    m_Textures.resize(pScene->mNumMaterials);
 
     // Initialize the Meshses in the scene one by one
     for (unsigned int i = 0; i < mEntries.size(); i++) {
@@ -157,8 +196,6 @@ bool Meshs::InitFromScene(const aiScene* pScene, const char* Filename)
         activeMeshes.push_back(paiMeshs);
         InitMesh(i, paiMeshs);
     }
-
-    return InitMaterials(pScene, Filename);
 }
 
 void Meshs::InitMesh(unsigned int Index, const aiMesh* paiMeshs)
@@ -191,66 +228,6 @@ void Meshs::InitMesh(unsigned int Index, const aiMesh* paiMeshs)
     mEntries[Index].Init(Vertices, texCord, Indices);
 }
 
-void Meshs::Render()
-{
-    Transform* t = new Transform(nullptr);    
-    t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
-    glPushMatrix();
-    glMultMatrixf(t->transform.M);
-
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-
-    for (unsigned int i = 0; i < mEntries.size(); i++) {
-        glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-
-        glBindBuffer(GL_ARRAY_BUFFER, mEntries[i].VB);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float3), 0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)12);
-        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)20);
-
-<<<<<<< HEAD
-        glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_BYTE, NULL);
-
-=======
->>>>>>> parent of a86063b (textures half way through rendering)
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].TB);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].VB);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].IB);
-
-        const unsigned int MaterialIndex = mEntries[i].materialIndex;
-
-        if (MaterialIndex < m_Textures.size() && m_Textures[MaterialIndex]) {
-           // m_Textures[MaterialIndex]->Bind(GL_TEXTURE0);
-        }
-        glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_INT, 0);
-<<<<<<< HEAD
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glBindTexture(GL_TEXTURE_2D, 0);
-=======
->>>>>>> parent of a86063b (textures half way through rendering)
-    }
-    glPopMatrix();
-
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-    glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(2);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-<<<<<<< HEAD
-
-    glPopMatrix();
-=======
->>>>>>> parent of a86063b (textures half way through rendering)
-}
 
 void Meshs::Update()
 {

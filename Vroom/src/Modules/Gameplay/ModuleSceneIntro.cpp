@@ -50,7 +50,7 @@ update_status ModuleSceneIntro::Update(float dt)
 		//c.Render();
 		//Primitive::Pyramid py(2, 2);
 		//py.Render();
-		Primitive::Sphere s(1.0f, 10, 20, true);
+		//Primitive::Sphere s(1.0f, 10, 20, true);
 		//s.Render();
 		//Primitive::Cylinder cc;
 		//cc.Render();

@@ -149,13 +149,7 @@ public:
 	Materialss(int, const char* Filename) {}
 
 	~Materialss() {}
-
-<<<<<<< HEAD
-	bool LoadTextures(const char* Filename);
-	void DrawMaterials(GameObject pol);
-=======
 	void LoadTextures(const char* Filename);
->>>>>>> parent of a86063b (textures half way through rendering)
 
 private:
 	GLuint tId;
