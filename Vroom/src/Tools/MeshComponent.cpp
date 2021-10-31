@@ -150,9 +150,16 @@ void Meshs::Render()
 {
     Transform* t = new Transform(nullptr);    
     t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
+
+    Materialss* m = new Materialss(nullptr);
+    m = dynamic_cast<Materialss*>(parent->GetComponent(Component::Type::MATERIAL));
+
     glPushMatrix();
     glMultMatrixf(t->transform.M);
     glBindTexture(GL_TEXTURE_2D, textureID);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
@@ -164,6 +171,11 @@ void Meshs::Render()
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)12);
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)20);
 
+        glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+        glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_BYTE, NULL);
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].TB);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].VB);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].IB);
@@ -171,8 +183,14 @@ void Meshs::Render()
         const unsigned int MaterialIndex = mEntries[i].materialIndex;
 
         glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_INT, 0);
+
+
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
-    glPopMatrix();
+
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -182,7 +200,38 @@ void Meshs::Render()
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
 
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    glPopMatrix();
+
+   // glPushMatrix();
+   // glMultMatrixf(t->transform.M);
+
+   // glEnableClientState(GL_VERTEX_ARRAY);
+   // glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+   // glBindBuffer(GL_ARRAY_BUFFER, VB);
+   // glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+   // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
+
+   //// glBindBuffer(GL_ARRAY_BUFFER, figure.buff_uvs);
+   // glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+   // glBindTexture(GL_TEXTURE_2D, textureID);
+
+   // glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_BYTE, NULL);
+
+   // glBindBuffer(GL_ARRAY_BUFFER, 0);
+   // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+   // glBindTexture(GL_TEXTURE_2D, 0);
+
+   // glDisableClientState(GL_VERTEX_ARRAY);
+   // glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+   // glPopMatrix();
 }
 
 void Meshs::Update()

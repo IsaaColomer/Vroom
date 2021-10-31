@@ -44,7 +44,6 @@ public:
 	//virtual void Disable();
 
 	virtual void Draw() {}
-	virtual void LookAtO(vec3& p) {}
 
 	virtual void Enable() { active = true; }
 	virtual void Disable() { active = false; }
@@ -76,7 +75,6 @@ public:
 
 	void Draw() override;
 	void Update() override;
-	void LookAtO(vec3& p) override;
 	//void InspectorDraw() override;
 
 	void UpdateTransform();
@@ -150,6 +148,7 @@ public:
 	~Materialss() {}
 
 	void LoadTextures(const char* Filename);
+	void DrawMaterials(GameObject pol);
 
 private:
 	GLuint tId;

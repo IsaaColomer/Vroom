@@ -127,10 +127,6 @@ mat4x4 Transform::GetTransform()
 	return transform;
 }
 
-void Transform::LookAtO(vec3& p)
-{
-	p = position;
-}
 void GameObject::Update()
 {
 	for (auto& i : components)
@@ -184,25 +180,21 @@ void Transform::Draw()
 //	//scale = (1, 1, 1);
 //}
 
-
-
 void Materialss::LoadTextures(const char* Filename)
 {
-	Materialss mat;
-	ILuint id;
+	Meshs* m = new Meshs(nullptr);
+	m = dynamic_cast<Meshs*>(parent->GetComponent(Component::Type::MESH));
+
+	ILuint image;
 	bool loadTexture = ilLoadImage(Filename);
-	ilGenImages(1, &id);
-	ilBindImage(id);
+	ilGenImages(1, &image);//id
+	ilBindImage(image);//id
 
 	if (loadTexture)
 	{
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &tId);
-		glBindTexture(GL_TEXTURE_2D, tId);
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &bt);
-		glBindTexture(GL_TEXTURE_2D, bt);
+		glGenTextures(1, &m->textureID);//tId
+		glBindTexture(GL_TEXTURE_2D, m->textureID);//tiD
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -210,9 +202,7 @@ void Materialss::LoadTextures(const char* Filename)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
 
-		glGenerateMipmap(GL_TEXTURE_2D);
-		ilBindImage(id);
-
+		m->textureID = ilutGLBindTexImage();
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		OUR_LOG("IMAGE LOADED");
@@ -222,5 +212,5 @@ void Materialss::LoadTextures(const char* Filename)
 		OUR_LOG("No image found in this path");
 	}
 
-	ilDeleteImages(1, &id);
+	ilDeleteImages(1, &m->textureID);//id
 }
