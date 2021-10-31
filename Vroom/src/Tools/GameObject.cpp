@@ -169,19 +169,9 @@ void Transform::Draw()
 			}
 }
 
-//Material::Material() : Component(nullptr)
-//{
-//	//transform = IdentityMatrix;
-//}
-//
-//Material::Material(GameObject* _gm) : Component(_gm)
-//{
-//	//transform = IdentityMatrix;
-//	//scale = (1, 1, 1);
-//}
-
-void Materialss::LoadTextures(const char* Filename)
+bool Materialss::LoadTextures(const char* Filename)
 {
+	bool ret;
 	Meshs* m = new Meshs(nullptr);
 	m = dynamic_cast<Meshs*>(parent->GetComponent(Component::Type::MESH));
 
@@ -206,11 +196,14 @@ void Materialss::LoadTextures(const char* Filename)
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		OUR_LOG("IMAGE LOADED");
+		ret = true;
 	}
 	else
 	{
 		OUR_LOG("No image found in this path");
+		ret = false;
 	}
 
 	ilDeleteImages(1, &m->textureID);//id
+	return ret;
 }

@@ -144,10 +144,11 @@ class Materialss : public Component
 public:
 	Materialss();
 	Materialss(GameObject* a);
+	Materialss(int, const char* Filename) {}
 
 	~Materialss() {}
 
-	void LoadTextures(const char* Filename);
+	bool LoadTextures(const char* Filename);
 	void DrawMaterials(GameObject pol);
 
 private:

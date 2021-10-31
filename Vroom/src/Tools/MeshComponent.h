@@ -14,7 +14,7 @@ public:
 	void Update() override;
 
 public:
-	void LoadMesh(const std::string& Filename);
+	bool LoadMesh(const char*Filename);
 	void Render();
 	GLuint texture;
 	bool LoadTexture(const std::string& Filename);
@@ -23,15 +23,17 @@ public:
 		const std::vector<unsigned int>& Indices);
 	GLuint textureID;
 	GLubyte checkerImage[640][426][4];
-	void InitFromScene(const aiScene* pScene, const std::string& Filename);
+	bool InitFromScene(const aiScene* pScene, const char* Filename);
 	void InitMesh(unsigned int Index, const aiMesh* paiMesh);
 	GLuint VB;
 	GLuint TB;
 	GLuint IB;
+	GLuint UB;
 	std::vector<Meshs> mEntries;
+	std::vector<Materialss*> m_Textures;
 	std::vector<const aiMesh*> activeMeshes;
 	unsigned int numIndices;
 	unsigned int materialIndex;
-	//bool InitMaterials(const aiScene* pScene, const std::string& Filename);
+	bool InitMaterials(const aiScene* pScene, const char* Filename);
 	void Clear();
 };

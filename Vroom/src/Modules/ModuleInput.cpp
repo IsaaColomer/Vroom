@@ -115,7 +115,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				);
 				if (dropped_filedir != nullptr)
 				{
-					GameObject* o = App->scene_intro->CreateGameObject("fbx", App->scene_intro->root, dropped_filedir, "Assets/BakeHouse.png");
+					GameObject* o = App->scene_intro->CreateGameObject("fbx", App->scene_intro->root, dropped_filedir, "Assets/ddd.dds");
 					OUR_LOG("lol");
 				}
 
