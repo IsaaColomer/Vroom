@@ -338,18 +338,16 @@ void Editor::InspectorDraw()
                                 App->scene_intro->root->gameObjects.at(i)->components.at(j)->Draw();
                                 if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
                                 {
-                                    vec3 look = (0,0,0);
-                                    App->scene_intro->root->gameObjects.at(i)->components.at(j)->LookAtO(look);
-                                    App->camera->LookAt(look);
+                                    Transform* l = dynamic_cast<Transform*>(selectedNode->GetComponent(Component::Type::TRANSFORM));
+                                    App->camera->LookAt(l->position);
                                     OUR_LOG("FOCUSED");
                                 }
                                 if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
                                 {
                                     if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
                                     {
-                                        vec3 look = (0, 0, 0);
-                                        App->scene_intro->root->gameObjects.at(i)->components.at(j)->LookAtO(look);
-                                        App->camera->LookAt(look);
+                                        Transform* l = dynamic_cast<Transform*>(selectedNode->GetComponent(Component::Type::TRANSFORM));
+                                        App->camera->LookAt(l->position);
                                         OUR_LOG("ROTATING AROUND OBJECT");
                                     }
                                 }

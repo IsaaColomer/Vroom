@@ -88,7 +88,6 @@ public:
 	void Scale(float x, float y, float z);
 
 	mat4x4 GetTransform();
-
 public:
 	bool updateTransform;
 	
