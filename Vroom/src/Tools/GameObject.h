@@ -44,6 +44,7 @@ public:
 	//virtual void Disable();
 
 	virtual void Draw() {}
+	virtual void LookAtO(vec3& p) {}
 
 	virtual void Enable() { active = true; }
 	virtual void Disable() { active = false; }
@@ -75,6 +76,7 @@ public:
 
 	void Draw() override;
 	void Update() override;
+	void LookAtO(vec3& p) override;
 	//void InspectorDraw() override;
 
 	void UpdateTransform();
@@ -148,8 +150,12 @@ public:
 
 	~Materialss() {}
 
+<<<<<<< HEAD
 	bool LoadTextures(const char* Filename);
 	void DrawMaterials(GameObject pol);
+=======
+	void LoadTextures(const char* Filename);
+>>>>>>> parent of a86063b (textures half way through rendering)
 
 private:
 	GLuint tId;

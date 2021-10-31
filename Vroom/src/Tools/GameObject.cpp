@@ -127,6 +127,10 @@ mat4x4 Transform::GetTransform()
 	return transform;
 }
 
+void Transform::LookAtO(vec3& p)
+{
+	p = position;
+}
 void GameObject::Update()
 {
 	for (auto& i : components)
@@ -169,6 +173,7 @@ void Transform::Draw()
 			}
 }
 
+<<<<<<< HEAD
 bool Materialss::LoadTextures(const char* Filename)
 {
 	bool ret;
@@ -176,15 +181,38 @@ bool Materialss::LoadTextures(const char* Filename)
 	m = dynamic_cast<Meshs*>(parent->GetComponent(Component::Type::MESH));
 
 	ILuint image;
+=======
+//Material::Material() : Component(nullptr)
+//{
+//	//transform = IdentityMatrix;
+//}
+//
+//Material::Material(GameObject* _gm) : Component(_gm)
+//{
+//	//transform = IdentityMatrix;
+//	//scale = (1, 1, 1);
+//}
+
+
+
+void Materialss::LoadTextures(const char* Filename)
+{
+	Materialss mat;
+	ILuint id;
+>>>>>>> parent of a86063b (textures half way through rendering)
 	bool loadTexture = ilLoadImage(Filename);
-	ilGenImages(1, &image);//id
-	ilBindImage(image);//id
+	ilGenImages(1, &id);
+	ilBindImage(id);
 
 	if (loadTexture)
 	{
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &m->textureID);//tId
-		glBindTexture(GL_TEXTURE_2D, m->textureID);//tiD
+		glGenTextures(1, &tId);
+		glBindTexture(GL_TEXTURE_2D, tId);
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glGenTextures(1, &bt);
+		glBindTexture(GL_TEXTURE_2D, bt);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -192,7 +220,9 @@ bool Materialss::LoadTextures(const char* Filename)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
 
-		m->textureID = ilutGLBindTexImage();
+		glGenerateMipmap(GL_TEXTURE_2D);
+		ilBindImage(id);
+
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		OUR_LOG("IMAGE LOADED");
@@ -204,6 +234,10 @@ bool Materialss::LoadTextures(const char* Filename)
 		ret = false;
 	}
 
+<<<<<<< HEAD
 	ilDeleteImages(1, &m->textureID);//id
 	return ret;
+=======
+	ilDeleteImages(1, &id);
+>>>>>>> parent of a86063b (textures half way through rendering)
 }

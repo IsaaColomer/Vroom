@@ -319,6 +319,7 @@ void  Editor::CalculateMilliseconds(std::vector<float>* ms_log, float dt, int co
 
 void Editor::InspectorDraw()
 {
+
     ImGui::SetNextWindowPos(ImVec2(ImGui::GetWindowWidth()-w, ImGui::GetWindowHeight()));
     ImGui::SetNextWindowSize(ImVec2(w, h));
     if (ImGui::Begin("Inspector"))
@@ -328,7 +329,6 @@ void Editor::InspectorDraw()
             Transform* t = dynamic_cast<Transform*>(App->scene_intro->root->GetComponent(Component::Type::TRANSFORM));
                 if (App->scene_intro->root != nullptr)
                 {
-                    for (int i = 0; i < App->scene_intro->root->gameObjects.size(); ++i)
                     for (int i = 0; i < App->scene_intro->root->gameObjects.size(); ++i)
                     {
                         if (App->scene_intro->root->gameObjects.at(i) == selectedNode)

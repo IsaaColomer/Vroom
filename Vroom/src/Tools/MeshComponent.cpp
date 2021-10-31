@@ -195,15 +195,8 @@ void Meshs::Render()
 {
     Transform* t = new Transform(nullptr);    
     t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
-
-    Materialss* m = new Materialss(nullptr);
-    m = dynamic_cast<Materialss*>(parent->GetComponent(Component::Type::MATERIAL));
-
     glPushMatrix();
     glMultMatrixf(t->transform.M);
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
@@ -218,8 +211,11 @@ void Meshs::Render()
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)12);
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float3), (const GLvoid*)20);
 
+<<<<<<< HEAD
         glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_BYTE, NULL);
 
+=======
+>>>>>>> parent of a86063b (textures half way through rendering)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].TB);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].VB);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].IB);
@@ -230,12 +226,15 @@ void Meshs::Render()
            // m_Textures[MaterialIndex]->Bind(GL_TEXTURE0);
         }
         glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_INT, 0);
+<<<<<<< HEAD
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindTexture(GL_TEXTURE_2D, 0);
+=======
+>>>>>>> parent of a86063b (textures half way through rendering)
     }
-
+    glPopMatrix();
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -245,12 +244,12 @@ void Meshs::Render()
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
 
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
     glBindTexture(GL_TEXTURE_2D, 0);
+<<<<<<< HEAD
 
     glPopMatrix();
+=======
+>>>>>>> parent of a86063b (textures half way through rendering)
 }
 
 void Meshs::Update()
