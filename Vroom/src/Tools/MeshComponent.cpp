@@ -36,25 +36,7 @@ Meshs::~Meshs()
 
 void Meshs::Init()
 {
-    glGenBuffers(1, &vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCoords.size()*3, &vertexCoords[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    glGenBuffers(1, &textureBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * texCoords.size()*2, &texCoords[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    glGenBuffers(1, &indexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * meshIndexes.size(), &meshIndexes[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    glGenBuffers(1, &normalBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, normalBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vec3) * normals.size(), &normals[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
 }
 
 void Meshs::Clear()
@@ -71,17 +53,12 @@ bool Meshs::LoadMesh(const char* Filename)
 
     if (scene)
     {
-        if (Filename == "Assets/BakerHouse.fbx")
+        mEntries.resize(scene->mNumMeshes);
+        for (int i = 0; i < scene->mNumMeshes; i++)
         {
-            InitFromScene(scene->mMeshes[1]);
-        }
-        else
-        {
-            for (int i = 0; i < scene->mNumMeshes; i++)
-            {
-                InitFromScene(scene->mMeshes[i]);
-                ret = true;
-            }
+            const aiMesh* paiMesh = scene->mMeshes[i];
+            InitFromScene(i, paiMesh);
+            ret = true;
         }
     }
     else
@@ -99,91 +76,101 @@ void Meshs::Draw()
 
 void Meshs::Render()
 {
-    Transform* t = new Transform(nullptr);
-    t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
+    Transform* t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
 
-    Materialss* mg = new Materialss(nullptr);
-    mg = dynamic_cast<Materialss*>(parent->GetComponent(Component::Type::MATERIAL));
+    Materialss* mg = dynamic_cast<Materialss*>(parent->GetComponent(Component::Type::MATERIAL));
 
     glPushMatrix();
     glMultMatrixf(t->transform.M);
 
-    glBindTexture(GL_TEXTURE_2D, textureBuffer);
-    if (showNormals)
+    for (unsigned int i = 0; i < mEntries.size(); ++i)
     {
-        if (!normals.empty())
-        {
-            glLineWidth(2.0f);
-            glBegin(GL_LINES);
-            for (auto& i : normals)
-            {
-                glVertex3f(i.x, i.y, i.z);
-            }
-            glEnd();
-            glLineWidth(1.0f);
-        }
-    }
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glVertexPointer(3, GL_FLOAT, 0, NULL);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glBindBuffer(GL_ARRAY_BUFFER, mEntries[i].vertexBuffer);
+        glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    if (showTextures && mg != nullptr)
-    {
-        if (!texCoords.empty())
+        if (showTextures == true && mg != nullptr)
         {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glBindTexture(GL_TEXTURE_2D, textureID);
+
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+            glBindBuffer(GL_ARRAY_BUFFER, mEntries[i].textureBuffer);
             glTexCoordPointer(2, GL_FLOAT, 0, NULL);
         }
+
+        if (showNormals == true)
+        {
+            glEnableClientState(GL_NORMAL_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, mEntries[i].normalBuffer);
+            glNormalPointer(GL_FLOAT, 0, NULL);
+        }
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEntries[i].indexBuffer);
+
+        glDrawElements(GL_TRIANGLES, mEntries[i].numIndices, GL_UNSIGNED_INT, NULL);
+
     }
-    
-    
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-
-    if(showMesh)
-        glDrawElements(GL_TRIANGLES, meshIndexes.size(), GL_UNSIGNED_INT, NULL);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    if (texCoords.size() > 0)  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
 
     glPopMatrix();
+
+
 }
-void Meshs::InitFromScene(const aiMesh* paiMesh)
+void Meshs::InitFromScene(unsigned int index, const aiMesh* paiMesh)
 {
-    unsigned int verticesNum = 0;
-    unsigned int indicesNum = 0;
-
-    materialIndex = paiMesh->mMaterialIndex;
-    meshIndexes.reserve(paiMesh->mNumFaces * 3);
-
-    verticesNum += paiMesh->mNumVertices;
-    indicesNum += meshIndexes.size();
-
-    InitMesh(paiMesh);
-
-    Init();
+    InitMesh(index, paiMesh);
 
     OUR_LOG("Textures Initialized Correctly");
 }
 
-void Meshs::InitMesh(const aiMesh* paiMeshs)
+void Meshs::InitBuffers(const std::vector<vec3>& vertexCoords, const std::vector<vec2>& texCoords, const std::vector<unsigned int>& meshIndexes, const std::vector<vec3>& normals)
 {
-    const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);
+    numIndices = meshIndexes.size();
+
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCoords.size() * 3, &vertexCoords[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glGenBuffers(1, &textureBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * texCoords.size() * 2, &texCoords[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * meshIndexes.size(), &meshIndexes[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glGenBuffers(1, &normalBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, normalBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vec3) * normals.size(), &normals[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Meshs::InitMesh(unsigned int index, const aiMesh* paiMeshs)
+{
+    std::vector<vec3> vertexCoords;
+    std::vector<vec2> texCoords;
+    std::vector<unsigned int> meshIndexes;
+    meshIndexes.reserve(paiMeshs->mNumFaces * 3);
+    std::vector<vec3> normals;
+    const aiVector3D Zero(0.0f, 0.0f, 0.0f);
+    mEntries[index].materialIndex = paiMeshs->mMaterialIndex;
 
     for (unsigned int i = 0; i < paiMeshs->mNumVertices; i++)
     {
         const aiVector3D* pPos = &(paiMeshs->mVertices[i]);
-        const aiVector3D* pTexCoord = paiMeshs->HasTextureCoords(0) ? &(paiMeshs->mTextureCoords[0][i]) : &Zero3D;
+        const aiVector3D* pTexCoord = paiMeshs->HasTextureCoords(0) ? &(paiMeshs->mTextureCoords[0][i]) : &Zero;
 
         vertexCoords.push_back(vec3(pPos->x, pPos->y, pPos->z));
         texCoords.push_back(vec2(pTexCoord->x, pTexCoord->y));
@@ -226,6 +213,8 @@ void Meshs::InitMesh(const aiMesh* paiMeshs)
             normals.push_back(d);
         }
     }
+
+    mEntries[index].InitBuffers(vertexCoords, texCoords, meshIndexes, normals);
 }
 
 
