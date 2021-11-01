@@ -66,7 +66,6 @@ bool Meshs::LoadMesh(const char* Filename)
 
     if (scene)
     {
-
         if (Filename == "Assets/BakerHouse.fbx")
         {
             InitFromScene(scene->mMeshes[1]);
@@ -78,9 +77,7 @@ bool Meshs::LoadMesh(const char* Filename)
                 InitFromScene(scene->mMeshes[i]);
                 ret = true;
             }
-
         }
-
     }
     else
     {
@@ -92,7 +89,7 @@ bool Meshs::LoadMesh(const char* Filename)
 
 void Meshs::Draw()
 {
-    if (ImGui::CollapsingHeader("|Show and Hide| Mesh and Textures"))
+    if (ImGui::CollapsingHeader("Mesh and Textures"))
     {
         ImGui::Checkbox("Show Mesh", &active);
         ImGui::Checkbox("Show Textrues", &showTextures);
