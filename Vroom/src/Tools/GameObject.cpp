@@ -155,17 +155,17 @@ void Transform::Draw()
 	if (ImGui::CollapsingHeader("Local Transformation"))
 	{
 		ImGui::Text("Position");
-		if (ImGui::DragFloat("X", &position.x)) updateTransform = true;
-		if (ImGui::DragFloat("Y", &position.y)) updateTransform = true;
-		if (ImGui::DragFloat("Z", &position.z)) updateTransform = true;
+		if (ImGui::DragFloat("Xt", &position.x)) updateTransform = true;
+		if (ImGui::DragFloat("Yt", &position.y)) updateTransform = true;
+		if (ImGui::DragFloat("Zt", &position.z)) updateTransform = true;
 		ImGui::Text("Roation");
-		if (ImGui::DragFloat("X", &rotation.x)) rx = true;
-		if (ImGui::DragFloat("Y", &rotation.y)) ry = true;
-		if (ImGui::DragFloat("Z", &rotation.z)) rz = true;
+		if (ImGui::DragFloat("Xr", &rotation.x)) rx = true;
+		if (ImGui::DragFloat("Yr", &rotation.y)) ry = true;
+		if (ImGui::DragFloat("Zr", &rotation.z)) rz = true;
 		ImGui::Text("Scale");
-		if (ImGui::DragFloat("X", &scale.x)) updateTransform = true;
-		if (ImGui::DragFloat("Y", &scale.y)) updateTransform = true;
-		if (ImGui::DragFloat("Z", &scale.z)) updateTransform = true;
+		if (ImGui::DragFloat("Xs", &scale.x)) updateTransform = true;
+		if (ImGui::DragFloat("Ys", &scale.y)) updateTransform = true;
+		if (ImGui::DragFloat("Zs", &scale.z)) updateTransform = true;
 		if (scale.x < 0)
 		{
 			scale.x = 0;
