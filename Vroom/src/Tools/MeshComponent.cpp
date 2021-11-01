@@ -68,7 +68,7 @@ bool Meshs::LoadMesh(const char* Filename)
     {
         if (Filename == "Assets/BakerHouse.fbx")
         {
-            InitFromScene(scene->mMeshes[0]);
+            InitFromScene(scene->mMeshes[1]);
         }
         else
         {
