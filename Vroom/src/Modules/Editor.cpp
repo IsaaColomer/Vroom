@@ -336,13 +336,16 @@ void Editor::InspectorDraw()
                         {
                             Materialss* ma = App->scene_intro->root->gameObjects.at(i)->mat;
                             Meshs* m = App->scene_intro->root->gameObjects.at(i)->meshss;
-                            if (ImGui::CollapsingHeader("Mesh and Textures"))
+                            if (ImGui::CollapsingHeader("Mesh"))
                             {
                                 ImGui::Checkbox("Enable Mesh", &m->showMesh);
                                 ImGui::Text("Path to fbx: %s", m->pathToFbx);
+                            }
+                            if (ImGui::CollapsingHeader("Texture"))
+                            {
                                 ImGui::Checkbox("Enable Texture", &m->showTextures);
                                 ImGui::Text("Path to file: %s", ma->pathToImage);
-                                ImGui::Image((void*)(intptr_t)ma->inpectorImage, ImVec2(128,128));
+                                ImGui::Image((void*)(intptr_t)ma->inpectorImage, ImVec2(128, 128));
                                 ImGui::Text("Width: %d | Height: %d", ma->tW, ma->tH);
                             }
                             for (int j = 0; j < App->scene_intro->root->gameObjects.at(i)->components.size(); ++j)
