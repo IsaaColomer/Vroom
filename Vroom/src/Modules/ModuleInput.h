@@ -1,9 +1,10 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
+#include <string>
 #define MAX_MOUSE_BUTTONS 5
 
+class Materialss;
 enum KEY_STATE
 {
 	KEY_IDLE = 0,
@@ -16,13 +17,15 @@ class ModuleInput : public Module
 {
 public:
 	char* dropped_filedir = nullptr;
+	char* dropped_fbxfiledir = nullptr;
+	char* dropped_texfiledir = nullptr;
 	ModuleInput(Application* app, bool start_enabled = true);
 	~ModuleInput();
 
 	bool Init();
 	update_status PreUpdate(float dt);
 	bool CleanUp();
-
+	std::string LastThree(std::string input);
 	KEY_STATE GetKey(int id) const
 	{
 		return keyboard[id];

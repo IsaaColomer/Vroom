@@ -38,12 +38,12 @@ void Meshs::Init()
 {
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCoords.size()*20.0f, &vertexCoords[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCoords.size()*3, &vertexCoords[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &textureBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * texCoords.size()*12.0f, &texCoords[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * texCoords.size()*2, &texCoords[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &indexBuffer);

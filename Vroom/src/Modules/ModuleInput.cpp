@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleFileSystem.h"
+#include "GameObject.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -115,8 +116,41 @@ update_status ModuleInput::PreUpdate(float dt)
 				);
 				if (dropped_filedir != nullptr)
 				{
-					GameObject* o = App->scene_intro->CreateGameObject("fbx", App->scene_intro->root, dropped_filedir, "Assets/ddd.dds");
-					OUR_LOG("lol");
+					GameObject* o = nullptr;
+					if (LastThree(dropped_filedir) == "fbx")
+					{
+						o = App->scene_intro->CreateGameObject("fbx", App->scene_intro->root, dropped_filedir, dropped_texfiledir);
+						OUR_LOG("FBX RECOGNISED");
+					}
+					if (LastThree(dropped_filedir) == "png" || LastThree(dropped_filedir) == "dds")
+					{
+						if (App->scene_intro->root != nullptr)
+						{
+							for (int i = 0; i < App->scene_intro->root->gameObjects.size(); ++i)
+							{
+								if (App->scene_intro->root->gameObjects.at(i) == App->editor->selectedNode)
+								{
+									for (int j = 0; j < App->scene_intro->root->gameObjects.at(i)->components.size(); ++j)
+									{
+										Materialss* l = new Materialss(nullptr);
+										l = dynamic_cast<Materialss*>(App->editor->selectedNode->GetComponent(Component::Type::MATERIAL));
+										l->LoadTextures(dropped_filedir);
+										OUR_LOG("IMAGE RECOGNISED");
+									}
+								}
+							}
+						}
+						//if (o != nullptr)
+						//{
+							
+						//}
+						//else
+						//{
+						//	OUR_LOG("O IS NULLPTR");
+						//}
+
+					}
+
 				}
 
 				SDL_free(dropped_filedir);
@@ -135,7 +169,10 @@ update_status ModuleInput::PreUpdate(float dt)
 
 	return UPDATE_CONTINUE;
 }
-
+std::string ModuleInput::LastThree(std::string input)
+{
+	return input.substr(input.size() - 3);
+}
 // Called before quitting
 bool ModuleInput::CleanUp()
 {

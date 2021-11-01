@@ -44,7 +44,7 @@ private:
     bool console = true;
     bool showConsole = false;
 
-
+public:
     GameObject* selectedNode;
     int columns;
     std::vector<float> fps_log;
