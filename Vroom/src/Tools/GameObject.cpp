@@ -180,8 +180,12 @@ void Transform::Draw()
 
 void Materialss::Draw()
 {
-	ImGui::Checkbox("Show Texture", &active);
+	if (ImGui::CollapsingHeader("Texture"))
+	{
+		(ImGui::Checkbox("Show Texture", &active));
+	}
 }
+
 
 void Materialss::LoadTextures(const char* Filename)
 {

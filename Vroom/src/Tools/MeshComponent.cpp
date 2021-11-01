@@ -82,7 +82,10 @@ bool Meshs::LoadMesh(const char* Filename)
 
 void Meshs::Draw()
 {
-    ImGui::Checkbox("Show Mesh", &active);
+    if (ImGui::CollapsingHeader("Mesh"))
+    {
+        ImGui::Checkbox("Show Mesh", &active);
+    }
 }
 
 void Meshs::Render()
