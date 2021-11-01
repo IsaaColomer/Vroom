@@ -37,16 +37,19 @@ public:
 	GLuint vertexBuffer;
 	GLuint textureBuffer;
 	GLuint indexBuffer;
+	GLuint normalBuffer;
 	
 	bool showTextures = true;
 	const char* pathToFbx;
 	unsigned int numIndices;
 	unsigned int materialIndex;
 	bool showMesh = true;
+	bool showNormals = false;
 
 	std::vector<vec3> vertexCoords;
 	std::vector<vec2> texCoords;
 	std::vector<unsigned int> meshIndexes;
+	std::vector<vec3> normals;
 	//bool InitMaterials(const aiScene* pScene, const char* Filename);
 	void Clear();
 };

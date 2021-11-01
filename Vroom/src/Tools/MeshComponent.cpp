@@ -50,6 +50,11 @@ void Meshs::Init()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * meshIndexes.size(), &meshIndexes[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glGenBuffers(1, &normalBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, normalBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vec3) * normals.size(), &normals[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Meshs::Clear()
@@ -101,7 +106,20 @@ void Meshs::Render()
     glMultMatrixf(t->transform.M);
 
     glBindTexture(GL_TEXTURE_2D, textureBuffer);
-
+    if (showNormals)
+    {
+        if (!normals.empty())
+        {
+            glLineWidth(2.0f);
+            glBegin(GL_LINES);
+            for (auto& i : normals)
+            {
+                glVertex3f(i.x, i.y, i.z);
+            }
+            glEnd();
+            glLineWidth(1.0f);
+        }
+    }
     glEnableClientState(GL_VERTEX_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -112,15 +130,15 @@ void Meshs::Render()
 
     if (showTextures)
     {
-        if (texCoords.size() > 0)
+        if (!texCoords.empty())
         {
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
             glTexCoordPointer(2, GL_FLOAT, 0, NULL);
         }
     }
-
-
+    
+    
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 
@@ -159,7 +177,8 @@ void Meshs::InitMesh(const aiMesh* paiMeshs)
 {
     const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);
 
-    for (unsigned int i = 0; i < paiMeshs->mNumVertices; i++) {
+    for (unsigned int i = 0; i < paiMeshs->mNumVertices; i++)
+    {
         const aiVector3D* pPos = &(paiMeshs->mVertices[i]);
         const aiVector3D* pTexCoord = paiMeshs->HasTextureCoords(0) ? &(paiMeshs->mTextureCoords[0][i]) : &Zero3D;
 
@@ -167,11 +186,42 @@ void Meshs::InitMesh(const aiMesh* paiMeshs)
         texCoords.push_back(vec2(pTexCoord->x, pTexCoord->y));
     }
 
-    for (unsigned int i = 0; i < paiMeshs->mNumFaces; i++) {
+    for (unsigned int i = 0; i < paiMeshs->mNumFaces; i++)
+    {
         const aiFace& Face = paiMeshs->mFaces[i];
         meshIndexes.push_back(Face.mIndices[0]);
         meshIndexes.push_back(Face.mIndices[1]);
         meshIndexes.push_back(Face.mIndices[2]);
+    }
+
+    if (paiMeshs->HasNormals())
+    {
+        for (unsigned int i = 0; i < paiMeshs->mNumVertices; i++)
+        {
+            const aiVector3D* v = &(paiMeshs->mVertices[i]);
+            const aiVector3D& normal = paiMeshs->mNormals[i];
+            vec3 a(v->x, v->y, v->z);
+            vec3 b(normal.x, normal.y, normal.z);
+            //normals.push_back(a);
+            //normals.push_back(b+a);
+        }
+        for (int i = 0; i < meshIndexes.size(); i += 3)
+        {
+            vec3 v1 = vertexCoords[meshIndexes[i]] - vertexCoords[meshIndexes[i + 1]];
+            vec3 v2 = vertexCoords[meshIndexes[i]] - vertexCoords[meshIndexes[i + 2]];
+            vec3 normal = normalize(cross(v1, v2));
+
+            vec3 centerPos;
+            centerPos.x = (vertexCoords[meshIndexes[i]].x + vertexCoords[meshIndexes[i + 1]].x + vertexCoords[meshIndexes[i + 2]].x) / 3;
+            centerPos.y = (vertexCoords[meshIndexes[i]].y + vertexCoords[meshIndexes[i + 1]].y + vertexCoords[meshIndexes[i + 2]].y) / 3;
+            centerPos.z = (vertexCoords[meshIndexes[i]].z + vertexCoords[meshIndexes[i + 1]].z + vertexCoords[meshIndexes[i + 2]].z) / 3;
+
+            vec3 line = normal + centerPos;
+            vec3 c(centerPos.x, centerPos.y, centerPos.z);
+            vec3 d(line.x, line.y, line.z);
+            normals.push_back(c);
+            normals.push_back(d);
+        }
     }
 }
 

@@ -340,6 +340,7 @@ void Editor::InspectorDraw()
                             {
                                 ImGui::Checkbox("Enable Mesh", &m->showMesh);
                                 ImGui::Text("Path to fbx: %s", m->pathToFbx);
+                                ImGui::Checkbox("Enable Normals", &m->showNormals);
                             }
                             if (ImGui::CollapsingHeader("Texture"))
                             {
