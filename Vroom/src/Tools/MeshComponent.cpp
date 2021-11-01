@@ -66,11 +66,21 @@ bool Meshs::LoadMesh(const char* Filename)
 
     if (scene)
     {
-        for (int i = 0; i < scene->mNumMeshes; i++)
+
+        if (Filename == "Assets/BakerHouse.fbx")
         {
-            InitFromScene(scene->mMeshes[i]);
-            ret = true;
+            InitFromScene(scene->mMeshes[1]);
         }
+        else
+        {
+            for (int i = 0; i < scene->mNumMeshes; i++)
+            {
+                InitFromScene(scene->mMeshes[i]);
+                ret = true;
+            }
+
+        }
+
     }
     else
     {
