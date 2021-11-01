@@ -22,7 +22,7 @@ public:
 
 	void Draw() override;
 
-	GLubyte checkerImage[640][426][4];
+	GLubyte checkerImage[64][64][4];
 	void InitFromScene(const aiMesh* pScene);
 	void InitMesh(const aiMesh* paiMesh);
 	GLuint VB;

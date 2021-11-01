@@ -120,10 +120,17 @@ public:
 	void LoadTextures(const char* Filename);
 
 	void Draw() override;
+
+	GLuint inpectorImage;
+
+	uint tW;
+	uint tH;
 private:
 	GLuint tId;
 	GLuint bt;
 	GLubyte checkerImage[64][64][4];
+
+
 
 public:
 	const char* pathToImage;

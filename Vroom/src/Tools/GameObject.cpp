@@ -212,11 +212,12 @@ void Materialss::LoadTextures(const char* Filename)
 		ilDeleteImages(1, &id);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		pathToImage = Filename;
+		inpectorImage = m->textureID;
+		tW = ilGetInteger(IL_IMAGE_WIDTH);
+		tH = ilGetInteger(IL_IMAGE_HEIGHT);
 	}
 	else
 	{
 		OUR_LOG("Error loading the image");
 	}
-
-
 }
