@@ -102,6 +102,9 @@ void Meshs::Render()
     Transform* t = new Transform(nullptr);
     t = dynamic_cast<Transform*>(parent->GetComponent(Component::Type::TRANSFORM));
 
+    Materialss* mg = new Materialss(nullptr);
+    mg = dynamic_cast<Materialss*>(parent->GetComponent(Component::Type::MATERIAL));
+
     glPushMatrix();
     glMultMatrixf(t->transform.M);
 
@@ -128,7 +131,7 @@ void Meshs::Render()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-    if (showTextures)
+    if (showTextures && mg != nullptr)
     {
         if (!texCoords.empty())
         {

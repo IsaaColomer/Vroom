@@ -342,7 +342,7 @@ void Editor::InspectorDraw()
                                 ImGui::Text("Path to fbx: %s", m->pathToFbx);
                                 ImGui::Checkbox("Enable Normals", &m->showNormals);
                             }
-                            if (ImGui::CollapsingHeader("Texture"))
+                            if (ImGui::CollapsingHeader("Texture") && ma != nullptr)
                             {
                                 ImGui::Checkbox("Enable Texture", &m->showTextures);
                                 ImGui::Text("Path to file: %s", ma->pathToImage);

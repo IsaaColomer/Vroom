@@ -89,15 +89,15 @@ GameObject* ModuleSceneIntro::CreateGameObject(const char* name, GameObject* par
 
 void ModuleSceneIntro::LoadCube()
 {
-	CreateGameObject("default_cube", root, "Assets/default_cube.fbx", "Assets/abc.png");
+	CreateGameObject("default_cube", root, "Assets/default_cube.fbx", "Assets/lenna.png");
 }
 
 void ModuleSceneIntro::LoadSphere()
 {
-	CreateGameObject("default_sphere", root, "Assets/default_sphere.fbx", "Assets/ddd.dds");
+	CreateGameObject("default_sphere", root, "Assets/default_sphere.fbx", "Assets/lenna.png");
 }
 
 void ModuleSceneIntro::LoadCylinder()
 {
-	CreateGameObject("default_cylinder", root, "Assets/default_cylinder.fbx", "Assets/ddd.dds");
+	CreateGameObject("default_cylinder", root, "Assets/default_cylinder.fbx", "Assets/lenna.png");
 }
