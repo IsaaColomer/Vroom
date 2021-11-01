@@ -30,7 +30,7 @@ private:
 
 	Timer	ms_timer;
 	float	dt;
-	std::list<Module*> list_modules;
+	std::list<Module*> listModules;
 
 public:
 

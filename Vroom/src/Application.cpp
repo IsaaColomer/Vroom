@@ -35,7 +35,7 @@ Application::Application()
 
 Application::~Application()
 {
-	list_modules.clear();
+	listModules.clear();
 }
 
 bool Application::Init()
@@ -43,13 +43,13 @@ bool Application::Init()
 	bool ret = true;
 	LoadEditorConfiguration();
 	// Call Init() in all modules
-	for (auto& i : list_modules)
+	for (auto& i : listModules)
 	{
 		i->Init();
 	}
 	// After all Init calls we call Start() in all modules
 	OUR_LOG("Application Start --------------");
-	for (auto& i : list_modules)
+	for (auto& i : listModules)
 	{
 		i->Start();
 	}
@@ -82,7 +82,7 @@ update_status Application::Update()
 	PrepareUpdate();
 
 
-	for (auto& i : list_modules)
+	for (auto& i : listModules)
 	{
 		if (ret == UPDATE_CONTINUE)
 		{
@@ -90,7 +90,7 @@ update_status Application::Update()
 		}
 	}
 
-	for (auto& i : list_modules)
+	for (auto& i : listModules)
 	{
 		if (ret == UPDATE_CONTINUE)
 		{
@@ -98,7 +98,7 @@ update_status Application::Update()
 		}
 	}
 
-	for (auto& i : list_modules)
+	for (auto& i : listModules)
 	{
 		if (ret == UPDATE_CONTINUE)
 		{
@@ -113,7 +113,7 @@ bool Application::CleanUp()
 {
 	bool ret = true;
 
-	for (std::list<Module*>::reverse_iterator i = list_modules.rbegin(); i != list_modules.rend(); ++i)
+	for (std::list<Module*>::reverse_iterator i = listModules.rbegin(); i != listModules.rend(); ++i)
 	{
 		if (ret)
 		{
@@ -125,7 +125,7 @@ bool Application::CleanUp()
 
 void Application::AddModule(Module* mod)
 {
-	list_modules.push_back(mod);
+	listModules.push_back(mod);
 }
 
 bool Application::RequestBrowser(const char* path)

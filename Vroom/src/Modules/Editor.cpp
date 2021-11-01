@@ -338,9 +338,9 @@ void Editor::InspectorDraw()
                             Meshs* m = App->scene_intro->root->gameObjects.at(i)->meshss;
                             if (ImGui::CollapsingHeader("Mesh and Textures"))
                             {
-                                ImGui::Checkbox("Enable", &m->showMesh);
+                                ImGui::Checkbox("Enable Mesh", &m->showMesh);
                                 ImGui::Text("Path to fbx: %s", m->pathToFbx);
-                                ImGui::Checkbox("Enable", &m->showTextures);
+                                ImGui::Checkbox("Enable Texture", &m->showTextures);
                                 ImGui::Text("Path to file: %s", ma->pathToImage);
                             }
                             for (int j = 0; j < App->scene_intro->root->gameObjects.at(i)->components.size(); ++j)
