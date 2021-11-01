@@ -103,7 +103,7 @@ public:
 	std::vector<GameObject*> gameObjects;
 	int uid;
 	GameObject* parent;
-	Meshs* mesh;
+	Meshs* meshss;
 	Materialss* mat;
 
 #define INVALID_MATERIAL 0xFFFFFFFF

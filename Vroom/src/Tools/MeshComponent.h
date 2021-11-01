@@ -42,6 +42,7 @@ public:
 	const char* pathToFbx;
 	unsigned int numIndices;
 	unsigned int materialIndex;
+	bool showMesh = true;
 
 	std::vector<vec3> vertexCoords;
 	std::vector<vec2> texCoords;

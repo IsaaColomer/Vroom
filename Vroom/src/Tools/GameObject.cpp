@@ -28,7 +28,7 @@ Component* GameObject::CreateComponent(Component::Type _type)
 			ret = new Meshs(this);
 			ret->type = _type;
 			components.push_back(ret);
-			mesh = dynamic_cast<Meshs*>(ret);
+			meshss = dynamic_cast<Meshs*>(ret);
 			OUR_LOG("Mesh Created!!!");
 		}
 		break;
@@ -180,10 +180,7 @@ void Transform::Draw()
 
 void Materialss::Draw()
 {
-	if (ImGui::CollapsingHeader("Texture"))
-	{
-		ImGui::Text("Path to file: %s", pathToImage);
-	}
+
 }
 
 

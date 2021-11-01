@@ -9,7 +9,7 @@
 #include "imgui/backends/imgui_impl_sdl.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "SDL_opengl.h"
-
+#include "MeshComponent.h"
 extern std::list<std::string> logH;
 
 Editor::Editor(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -327,12 +327,22 @@ void Editor::InspectorDraw()
         if (App->scene_intro->root != nullptr)
         {
             Transform* t = dynamic_cast<Transform*>(App->scene_intro->root->GetComponent(Component::Type::TRANSFORM));
+
                 if (App->scene_intro->root != nullptr)
                 {
                     for (int i = 0; i < App->scene_intro->root->gameObjects.size(); ++i)
                     {
                         if (App->scene_intro->root->gameObjects.at(i) == selectedNode)
                         {
+                            Materialss* ma = App->scene_intro->root->gameObjects.at(i)->mat;
+                            Meshs* m = App->scene_intro->root->gameObjects.at(i)->meshss;
+                            if (ImGui::CollapsingHeader("Mesh and Textures"))
+                            {
+                                ImGui::Checkbox("Show Mesh", &m->showMesh);
+                                ImGui::Text("Path to fbx: %s", m->pathToFbx);
+                                ImGui::Checkbox("Show Textures", &m->showTextures);
+                                ImGui::Text("Path to file: %s", ma->pathToImage);
+                            }
                             for (int j = 0; j < App->scene_intro->root->gameObjects.at(i)->components.size(); ++j)
                             {
                                 App->scene_intro->root->gameObjects.at(i)->components.at(j)->Draw();

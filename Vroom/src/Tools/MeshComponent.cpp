@@ -89,12 +89,7 @@ bool Meshs::LoadMesh(const char* Filename)
 
 void Meshs::Draw()
 {
-    if (ImGui::CollapsingHeader("Mesh and Textures"))
-    {
-        ImGui::Checkbox("Show Mesh", &active);
-        ImGui::Checkbox("Show Textrues", &showTextures);
-        ImGui::Text("Path to fbx: %s", pathToFbx);
-    }
+
 }
 
 void Meshs::Render()
@@ -125,11 +120,9 @@ void Meshs::Render()
         }
     }
 
-
-
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 
-    if(active)
+    if(showMesh)
         glDrawElements(GL_TRIANGLES, meshIndexes.size(), GL_UNSIGNED_INT, NULL);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
