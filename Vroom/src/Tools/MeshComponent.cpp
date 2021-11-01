@@ -196,7 +196,7 @@ void Meshs::InitMesh(const aiMesh* paiMeshs)
 
     if (paiMeshs->HasNormals())
     {
-        for (unsigned int i = 0; i < paiMeshs->mNumVertices; i++)
+        /*for (unsigned int i = 0; i < paiMeshs->mNumVertices; i++)
         {
             const aiVector3D* v = &(paiMeshs->mVertices[i]);
             const aiVector3D& normal = paiMeshs->mNormals[i];
@@ -204,7 +204,7 @@ void Meshs::InitMesh(const aiMesh* paiMeshs)
             vec3 b(normal.x, normal.y, normal.z);
             //normals.push_back(a);
             //normals.push_back(b+a);
-        }
+        }*/
         for (int i = 0; i < meshIndexes.size(); i += 3)
         {
             vec3 v1 = vertexCoords[meshIndexes[i]] - vertexCoords[meshIndexes[i + 1]];
