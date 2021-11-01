@@ -23,8 +23,7 @@ public:
 	void Draw() override;
 
 	GLubyte checkerImage[64][64][4];
-	void InitFromScene(unsigned int index, const aiMesh* pScene);
-	void InitMesh(unsigned int index, const aiMesh* paiMesh);
+	void InitFromScene(unsigned int index, const aiMesh* paiMesh);
 	void Meshs::InitBuffers(const std::vector<vec3>& vertexCoords, const std::vector<vec2>& texCoords, const std::vector<unsigned int>& meshIndexes, const std::vector<vec3>& normals);
 	GLuint VB;
 	GLuint TB;

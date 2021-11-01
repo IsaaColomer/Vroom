@@ -201,9 +201,13 @@ update_status Editor::Update(float dt)
         {
             App->RequestBrowser("https://github.com/IsaaColomer/Vroom/wiki");
         }
-        if (ImGui::MenuItem("Download latest"))
+        if (ImGui::MenuItem("Vroom GitHub"))
         {
             App->RequestBrowser("https://github.com/IsaaColomer/Vroom");
+        }
+        if (ImGui::MenuItem("Download latest"))
+        {
+            App->RequestBrowser("https://github.com/IsaaColomer/Vroom/releases");
         }
         if (ImGui::MenuItem("Report a bug"))
         {
