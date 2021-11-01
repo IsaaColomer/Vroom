@@ -43,7 +43,7 @@ update_status ModuleCamera3D::Update(float dt)
 	vec3 newPos(0,0,0);
 	float speed = 4.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		speed = 11.0f * dt;
 
 	// Mouse motion ----------------
 
@@ -94,11 +94,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetMouseZ() < 0)
 	{
-		newPos += Z * speed;
+		newPos += Z * speed*5;
 	}
 	if (App->input->GetMouseZ() > 0)
 	{
-		newPos -= Z * speed;
+		newPos -= Z * speed*5;
 	}
 
 	Position += newPos;
