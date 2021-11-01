@@ -145,30 +145,30 @@ void GameObject::Update()
 
 void Transform::Draw()
 {
-			if (ImGui::CollapsingHeader("Local Transformation"))
-			{
-				if (ImGui::DragFloat("X Position", &position.x)) updateTransform = true;
-				if (ImGui::DragFloat("Y Position", &position.y)) updateTransform = true;
-				if (ImGui::DragFloat("Z Position", &position.z)) updateTransform = true;
-				if (ImGui::DragFloat("X Rotation", &rotation.x)) rx = true;
-				if (ImGui::DragFloat("Y Rotation", &rotation.y)) ry = true;
-				if (ImGui::DragFloat("Z Rotation", &rotation.z)) rz = true;
-				if (ImGui::DragFloat("X scale", &scale.x)) updateTransform = true;
-				if (ImGui::DragFloat("Y scale", &scale.y)) updateTransform = true;
-				if (ImGui::DragFloat("Z scale", &scale.z)) updateTransform = true;
-				if (scale.x < 0)
-				{
-					scale.x = 0;
-				}
-				if (scale.y < 0)
-				{
-					scale.y = 0;
-				}
-				if (scale.z < 0)
-				{
-					scale.z = 0;
-				}
-			}
+	if (ImGui::CollapsingHeader("Local Transformation"))
+	{
+		if (ImGui::DragFloat("X Position", &position.x)) updateTransform = true;
+		if (ImGui::DragFloat("Y Position", &position.y)) updateTransform = true;
+		if (ImGui::DragFloat("Z Position", &position.z)) updateTransform = true;
+		if (ImGui::DragFloat("X Rotation", &rotation.x)) rx = true;
+		if (ImGui::DragFloat("Y Rotation", &rotation.y)) ry = true;
+		if (ImGui::DragFloat("Z Rotation", &rotation.z)) rz = true;
+		if (ImGui::DragFloat("X scale", &scale.x)) updateTransform = true;
+		if (ImGui::DragFloat("Y scale", &scale.y)) updateTransform = true;
+		if (ImGui::DragFloat("Z scale", &scale.z)) updateTransform = true;
+		if (scale.x < 0)
+		{
+			scale.x = 0;
+		}
+		if (scale.y < 0)
+		{
+			scale.y = 0;
+		}
+		if (scale.z < 0)
+		{
+			scale.z = 0;
+		}
+	}
 }
 
 void Materialss::LoadTextures(const char* Filename)

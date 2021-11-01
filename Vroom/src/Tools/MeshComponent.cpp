@@ -5,9 +5,9 @@
 Meshs::Meshs() : Component(nullptr) {}
 Meshs::Meshs(GameObject* _m) : Component(_m)
 {
-    VB = 0;
-    IB = 0;
-    TB = 0;
+    vertexBuffer = 0;
+    indexBuffer = 0;
+    textureBuffer = 0;
     UB = 0;
     numIndices = 0;
     materialIndex = INVALID_MATERIAL;
@@ -17,16 +17,16 @@ Meshs::~Meshs()
 {
     if (VB != 0)
     {
-        glDeleteBuffers(1, &VB);
+        glDeleteBuffers(1, &vertexBuffer);
     }
 
     if (IB != 0)
     {
-        glDeleteBuffers(1, &IB);
+        glDeleteBuffers(1, &indexBuffer);
     }
     if (TB != 0)
     {
-        glDeleteBuffers(1, &TB);
+        glDeleteBuffers(1, &textureBuffer);
     }
     if (UB != 0)
     {
@@ -38,12 +38,12 @@ void Meshs::Init()
 {
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCoords.size() * 3, &vertexCoords[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCoords.size()*20.0f, &vertexCoords[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &textureBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * texCoords.size() * 2, &texCoords[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * texCoords.size()*12.0f, &texCoords[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glGenBuffers(1, &indexBuffer);
@@ -88,7 +88,7 @@ void Meshs::Render()
     glPushMatrix();
     glMultMatrixf(t->transform.M);
 
-    glBindTexture(GL_TEXTURE_2D, TB);
+    glBindTexture(GL_TEXTURE_2D, textureBuffer);
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
