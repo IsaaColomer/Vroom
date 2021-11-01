@@ -39,6 +39,7 @@ public:
 	GLuint indexBuffer;
 	
 	bool showTextures = true;
+	const char* pathToFbx;
 	unsigned int numIndices;
 	unsigned int materialIndex;
 

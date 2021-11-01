@@ -124,7 +124,9 @@ private:
 	GLuint tId;
 	GLuint bt;
 	GLubyte checkerImage[64][64][4];
+
 public:
+	const char* pathToImage;
 };
 class Transform : public Component
 {

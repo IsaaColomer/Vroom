@@ -180,10 +180,10 @@ void Transform::Draw()
 
 void Materialss::Draw()
 {
-	//if (ImGui::CollapsingHeader("Texture"))
-	//{
-	//	(ImGui::Checkbox("Show Texture", &active));
-	//}
+	if (ImGui::CollapsingHeader("Texture"))
+	{
+		ImGui::Text("Path to file: %s", pathToImage);
+	}
 }
 
 
@@ -214,9 +214,12 @@ void Materialss::LoadTextures(const char* Filename)
 
 		ilDeleteImages(1, &id);
 		glBindTexture(GL_TEXTURE_2D, 0);
+		pathToImage = Filename;
 	}
 	else
 	{
 		OUR_LOG("Error loading the image");
 	}
+
+
 }

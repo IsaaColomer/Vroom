@@ -76,16 +76,17 @@ bool Meshs::LoadMesh(const char* Filename)
     {
         OUR_LOG("Error loading image");
     }
-
+    pathToFbx = Filename;
     return ret;
 }
 
 void Meshs::Draw()
 {
-    if (ImGui::CollapsingHeader("Mesh and Textures"))
+    if (ImGui::CollapsingHeader("|Show and Hide| Mesh and Textures"))
     {
         ImGui::Checkbox("Show Mesh", &active);
         ImGui::Checkbox("Show Textrues", &showTextures);
+        ImGui::Text("Path to fbx: %s", pathToFbx);
     }
 }
 
