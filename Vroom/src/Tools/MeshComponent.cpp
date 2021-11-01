@@ -82,9 +82,10 @@ bool Meshs::LoadMesh(const char* Filename)
 
 void Meshs::Draw()
 {
-    if (ImGui::CollapsingHeader("Mesh"))
+    if (ImGui::CollapsingHeader("Mesh and Textures"))
     {
         ImGui::Checkbox("Show Mesh", &active);
+        ImGui::Checkbox("Show Textrues", &showTextures);
     }
 }
 
@@ -106,14 +107,17 @@ void Meshs::Render()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
-
-
+    if (showTextures)
+    {
         if (texCoords.size() > 0)
         {
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
             glTexCoordPointer(2, GL_FLOAT, 0, NULL);
         }
+    }
+
+
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 

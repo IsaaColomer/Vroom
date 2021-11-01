@@ -37,7 +37,8 @@ public:
 	GLuint vertexBuffer;
 	GLuint textureBuffer;
 	GLuint indexBuffer;
-
+	
+	bool showTextures = true;
 	unsigned int numIndices;
 	unsigned int materialIndex;
 

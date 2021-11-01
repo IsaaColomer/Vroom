@@ -180,10 +180,10 @@ void Transform::Draw()
 
 void Materialss::Draw()
 {
-	if (ImGui::CollapsingHeader("Texture"))
-	{
-		(ImGui::Checkbox("Show Texture", &active));
-	}
+	//if (ImGui::CollapsingHeader("Texture"))
+	//{
+	//	(ImGui::Checkbox("Show Texture", &active));
+	//}
 }
 
 
