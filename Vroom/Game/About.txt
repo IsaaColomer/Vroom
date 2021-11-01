@@ -27,7 +27,8 @@ Next generation engine coded in cpp for videogames.
 
  - Isaac Digón[https://github.com/isaac553876299]
  - Isaac Colomer[https://github.com/IsaaColomer]
-**Students of 3rd year at CITM degree on Videogames Design and Development**
+
+Students of 3rd year at CITM degree on Videogames Design and Development
 
 ## License
 MIT License

@@ -305,8 +305,8 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/MathGeoLib/src</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);WIN32</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)src/Containers;$(ProjectDir)src/Helpers;$(ProjectDir)src/Tools;$(ProjectDir)src/Modules;$(ProjectDir)src/Modules/Gameplay;$(ProjectDir)External;$(ProjectDir)External/SDL/include;$(ProjectDir)External/parson;$(ProjectDir)External/imgui;$(ProjectDir)External/MathGeoLib/src;$(ProjectDir)External/Glew;$(ProjectDir)External/DevIL/include/IL;$(ProjectDir)External/Assimp/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);WIN32;WINDOWS_IGNORE_PACKING_MISMATCH</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -314,8 +314,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(ProjectDir)External/SDL/libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)External/SDL/libx86;$(ProjectDir)External/Glew/libx86;$(ProjectDir)External/DevIL/lib/x86/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

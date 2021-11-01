@@ -1,8 +1,1 @@
-{
-  "max_fps": 144,
-  "window": {
-    "width": 1280,
-    "height": 720,
-    "brightness": 1
-  }
-}
+{"max_fps":144,"window":{"width":1280,"height":720,"brightness":1}}
