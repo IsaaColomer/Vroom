@@ -120,6 +120,8 @@ void Meshs::Render()
         }
     }
 
+
+
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 
     if(showMesh)
