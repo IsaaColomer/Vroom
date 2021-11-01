@@ -36,8 +36,8 @@ class Materialss;
 class Component
 {
 public:
-	Component() : active(true), parent(nullptr), type(Type::NONE) {}
-	Component(GameObject* letsgo) : active(true), parent(letsgo), type(Type::NONE) {}
+	Component() :  parent(nullptr), type(Type::NONE){}
+	Component(GameObject* letsgo) :active(true), parent(letsgo), type(Type::NONE){}
 	virtual ~Component() {}
 	virtual void Update() {}
 	//virtual void Enable();
@@ -48,8 +48,10 @@ public:
 
 	virtual void Enable() { active = true; }
 	virtual void Disable() { active = false; }
-	virtual bool IsEnabled() { return active; }
+	virtual bool IsEnabled() { return true; }
 	GameObject* GetOwner() { return parent; }
+
+
 
 	enum class Type
 	{
@@ -62,51 +64,16 @@ public:
 	Type type;
 
 protected:
-
-	bool active;
 	GameObject* parent;
+	bool active;
 };
 
-class Transform : public Component
-{
-public:
-	Transform();
-	Transform(GameObject* gm);
-	virtual ~Transform();
-
-	void Draw() override;
-	void Update() override;
-	void LookAtO(vec3& p) override;
-	//void InspectorDraw() override;
-
-	void UpdateTransform();
-
-	static inline Type GetType() { return Type::TRANSFORM; };
-
-	void SetPos(float x, float y, float z);
-	void SetRotation(float angle, const vec3& u);
-	void Scale(float x, float y, float z);
-
-	mat4x4 GetTransform();
-public:
-	bool updateTransform;
-	
-	bool rx = false;
-	bool ry = false;
-	bool rz = false;
-
-	mat4x4 transform;
-
-	vec3 position;
-	vec3 scale;
-	vec3 rotation;
-};
 
 class GameObject
 {
 public:
 	GameObject() {}
-	GameObject(const char* Name, GameObject* Parent, int uid = -1) :name(Name), parent(Parent), uid(uid) {}
+	GameObject(const char* Name, GameObject* Parent, int uid = -1, bool active = true) :name(Name), parent(Parent), uid(uid), active(true) {}
 
 	~GameObject();
 
@@ -138,6 +105,7 @@ public:
 	GameObject* parent;
 	Meshs* mesh;
 	Materialss* mat;
+
 #define INVALID_MATERIAL 0xFFFFFFFF
 };
 
@@ -151,9 +119,45 @@ public:
 	~Materialss() {}
 	void LoadTextures(const char* Filename);
 
+	void Draw() override;
 private:
 	GLuint tId;
 	GLuint bt;
 	GLubyte checkerImage[64][64][4];
 public:
+};
+class Transform : public Component
+{
+public:
+	Transform();
+	Transform(GameObject* gm);
+	virtual ~Transform();
+
+	void Draw() override;
+	void Update() override;
+	void LookAtO(vec3& p) override;
+	//void InspectorDraw() override;
+
+	void UpdateTransform();
+
+	static inline Type GetType() { return Type::TRANSFORM; };
+
+	void SetPos(float x, float y, float z);
+	void SetRotation(float angle, const vec3& u);
+	void Scale(float x, float y, float z);
+
+
+	mat4x4 GetTransform();
+public:
+	bool updateTransform;
+
+	bool rx = false;
+	bool ry = false;
+	bool rz = false;
+
+	mat4x4 transform;
+
+	vec3 position;
+	vec3 scale;
+	vec3 rotation;
 };

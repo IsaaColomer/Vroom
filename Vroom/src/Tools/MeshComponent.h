@@ -19,6 +19,9 @@ public:
 	void Render();
 
 	void Init();
+
+	void Draw() override;
+
 	GLubyte checkerImage[640][426][4];
 	void InitFromScene(const aiMesh* pScene);
 	void InitMesh(const aiMesh* paiMesh);

@@ -80,6 +80,11 @@ bool Meshs::LoadMesh(const char* Filename)
     return ret;
 }
 
+void Meshs::Draw()
+{
+    ImGui::Checkbox("Show Mesh", &active);
+}
+
 void Meshs::Render()
 {
     Transform* t = new Transform(nullptr);
@@ -99,16 +104,18 @@ void Meshs::Render()
     glBindTexture(GL_TEXTURE_2D, textureID);
 
 
-    if (texCoords.size() > 0)
-    {
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-        glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-    }
+
+        if (texCoords.size() > 0)
+        {
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+            glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+        }
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 
-    glDrawElements(GL_TRIANGLES, meshIndexes.size(), GL_UNSIGNED_INT, NULL);
+    if(active)
+        glDrawElements(GL_TRIANGLES, meshIndexes.size(), GL_UNSIGNED_INT, NULL);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

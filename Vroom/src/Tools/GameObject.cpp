@@ -37,6 +37,7 @@ Component* GameObject::CreateComponent(Component::Type _type)
 		{
 			ret = new Materialss(this);
 			ret->type = _type;
+			active = true;
 			components.push_back(ret);
 			mat = dynamic_cast<Materialss*>(ret);
 			OUR_LOG("Material Created!!!");
@@ -111,9 +112,9 @@ void Transform::SetPos(float x, float y, float z)
 }
 
 // ------------------------------------------------------------
-void Transform::SetRotation(float angle, const vec3& u)
+void Transform::SetRotation(float angle, const vec3& rotation)
 {
-	transform.rotate(angle, u);
+	transform.rotate(angle, rotation);
 }
 
 // ------------------------------------------------------------
@@ -135,11 +136,17 @@ void GameObject::Update()
 {
 	for (auto& i : components)
 	{
-		i->Update();
+		if (i->IsEnabled())
+		{
+			i->Update();
+		}
 	}
 	for (auto& i : gameObjects)
 	{
-		i->Update();
+		if (i->IsEnabled())
+		{
+			i->Update();
+		}
 	}
 }
 
@@ -167,8 +174,13 @@ void Transform::Draw()
 		if (scale.z < 0)
 		{
 			scale.z = 0;
-		}
+		}		
 	}
+}
+
+void Materialss::Draw()
+{
+	ImGui::Checkbox("Show Texture", &active);
 }
 
 void Materialss::LoadTextures(const char* Filename)
@@ -203,5 +215,4 @@ void Materialss::LoadTextures(const char* Filename)
 	{
 		OUR_LOG("Error loading the image");
 	}
-
 }
