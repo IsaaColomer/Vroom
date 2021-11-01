@@ -175,42 +175,44 @@ void Transform::Draw()
 
 void Materialss::LoadTextures(const char* Filename)
 {
-		Meshs* m = new Meshs(nullptr);
+	Meshs* m = new Meshs(nullptr);
 	m = dynamic_cast<Meshs*>(parent->GetComponent(Component::Type::MESH));
-	Materialss mat;
-	ILuint id;
-	bool loadTexture = ilLoadImage(Filename);
-	ilGenImages(1, &id);
-	ilBindImage(id);
 
-	if (loadTexture)
+	ILuint imgID = 0;
+	ilGenImages(1, &imgID);
+	ilBindImage(imgID);
+
+	if (ilLoadImage(Filename))
 	{
+		//Generate texture ID
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &tId);
-		glBindTexture(GL_TEXTURE_2D, tId);
+		m->textureID = ilutGLBindTexImage();
 
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glGenTextures(1, &bt);
-		glBindTexture(GL_TEXTURE_2D, bt);
+		//Bind texture ID
+		glBindTexture(GL_TEXTURE_2D, m->textureID);
 
+		//Generate texture
+		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+		//Set texture parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
-
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glGenerateMipmap(GL_TEXTURE_2D);
-		ilBindImage(id);
 
+		//Unbind texture
+		glBindTexture(GL_TEXTURE_2D, NULL);
+
+		//Check for error
+		GLenum error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
+			OUR_LOG("Error loading texture from pixels! %s\n", glewGetErrorString(error));
+		}
+
+		ilDeleteImages(1, &imgID);
 		glBindTexture(GL_TEXTURE_2D, 0);
-
-		OUR_LOG("IMAGE LOADED");
-	}
-	else
-	{
-		OUR_LOG("No image found in this path");
 	}
 
-	ilDeleteImages(1, &m->textureID);//id
-	ilDeleteImages(1, &id);
 }

@@ -26,7 +26,7 @@ bool ModuleSceneIntro::Start()
 	//mesh.LoadTexture("Assets/abc.png");
 	//tex.LoadTexture("Assets/abc.png");
 	root = new GameObject("root",nullptr);
-	//CreateGameObject("BakerHouse", root, "Assets/BakerHouse.fbx", "Assets/ddd.dds");
+	CreateGameObject("BakerHouse", root, "Assets/BakerHouse.fbx", "Assets/bakeHouse.png");
 	return ret;
 }
 
@@ -89,7 +89,7 @@ GameObject* ModuleSceneIntro::CreateGameObject(const char* name, GameObject* par
 
 void ModuleSceneIntro::LoadCube()
 {
-	CreateGameObject("default_cube", root, "Assets/default_cube.fbx", "Assets/ddd.dds");
+	CreateGameObject("default_cube", root, "Assets/default_cube.fbx", "Assets/abc.png");
 }
 
 void ModuleSceneIntro::LoadSphere()
