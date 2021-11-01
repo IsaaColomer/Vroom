@@ -168,8 +168,6 @@ void Transform::Draw()
 				{
 					scale.z = 0;
 				}
-				//ImGui::Text("Bounding Box: -not generated-");
-				//ImGui::Text("Velocity: 0.00 0.00 0.00 (0.00 m/s)");
 			}
 }
 
@@ -178,41 +176,32 @@ void Materialss::LoadTextures(const char* Filename)
 	Meshs* m = new Meshs(nullptr);
 	m = dynamic_cast<Meshs*>(parent->GetComponent(Component::Type::MESH));
 
-	ILuint imgID = 0;
-	ilGenImages(1, &imgID);
-	ilBindImage(imgID);
+	ILuint id = 0;
+	ilGenImages(1, &id);
+	ilBindImage(id);
 
-	if (ilLoadImage(Filename))
+	bool loaded = ilLoadImage(Filename);
+
+	if (loaded)
 	{
-		//Generate texture ID
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		m->textureID = ilutGLBindTexImage();
 
-		//Bind texture ID
 		glBindTexture(GL_TEXTURE_2D, m->textureID);
 
-		//Generate texture
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-
-		//Set texture parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glGenerateMipmap(GL_TEXTURE_2D);
-
-		//Unbind texture
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
-		//Check for error
-		GLenum error = glGetError();
-		if (error != GL_NO_ERROR)
-		{
-			OUR_LOG("Error loading texture from pixels! %s\n", glewGetErrorString(error));
-		}
-
-		ilDeleteImages(1, &imgID);
+		ilDeleteImages(1, &id);
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+	else
+	{
+		OUR_LOG("Error loading the image");
 	}
 
 }
