@@ -217,13 +217,6 @@ update_status Editor::Update(float dt)
         {
             showAboutWindow = !showAboutWindow;
         }
-        if (ImGui::MenuItem("Click Me!"))
-        {
-            while (1)
-            {
-                App->RequestBrowser("https://www.google.com/");
-            }
-        }
 
         ImGui::EndMenu();
     }
